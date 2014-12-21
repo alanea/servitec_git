@@ -27,7 +27,7 @@ import org.hibernate.annotations.Proxy;
 public class Persona implements Serializable{
     @Id
     @Column(name = "ddni_psn")
-    private String id_personal;
+    private String id_persona;
     @Column(name = "druc_psn")
     private String druc;
     @Column(name = "dnm_psn")
@@ -64,14 +64,14 @@ public class Persona implements Serializable{
     @JoinColumn(name = "id_emp", referencedColumnName = "id_emp")
     private Empresa empresa;
 
-    public String getId_personal() {
-        return id_personal;
+    public String getId_persona() {
+        return id_persona;
     }
 
-    public void setId_personal(String id_personal) {
-        this.id_personal = id_personal;
+    public void setId_persona(String id_persona) {
+        this.id_persona = id_persona;
     }
-
+    
     public String getDnombres() {
         return dnombres;
     }

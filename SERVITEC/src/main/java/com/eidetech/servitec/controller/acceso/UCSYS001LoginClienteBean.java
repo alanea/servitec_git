@@ -7,7 +7,6 @@
 package com.eidetech.servitec.controller.acceso;
 
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
-import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import com.eidetech.servitec.service.IUsuarioService;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
@@ -43,7 +42,11 @@ public class UCSYS001LoginClienteBean implements Serializable{
     public void login() {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg;
-        usuario = usuarioService.loginUsuarioCliente(new UsuarioCliente(username, password));
+        
+        UsuarioCliente u=new UsuarioCliente();
+        u.setDname(username);
+        u.setDpassword(password);
+        usuario = usuarioService.loginUsuarioCliente(u);
         if (usuario != null) {
             logeado = true;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", usuario.getDname());
@@ -81,5 +84,29 @@ public class UCSYS001LoginClienteBean implements Serializable{
 
     public void setLogeado(boolean logeado) {
         this.logeado = logeado;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public IUsuarioService getUsuarioService() {
+        return usuarioService;
+    }
+
+    public void setUsuarioService(IUsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 }

@@ -8,6 +8,7 @@ package com.eidetech.servitec.service;
 
 import com.eidetech.servitec.model.domain.entity.TablaTipo;
 import com.eidetech.servitec.model.domain.entity.UbigeoDepartamento;
+import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
 import java.util.List;
 
 /**
@@ -19,4 +20,6 @@ public interface IPortalService {
     public List<TablaTipo> obtenerTablaTipos();
     
     public List<UbigeoDepartamento> obtenerUbigeos();
+    
+    public boolean registrarCliente(UsuarioCliente usuario);
 }

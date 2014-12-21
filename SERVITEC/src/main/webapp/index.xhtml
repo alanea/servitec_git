@@ -1,12 +1,46 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        
-    </h:body>
-</html>
+<ui:composition template="./WEB-INF/template/public.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
+    <ui:define name="content">
+        <p:galleria value="#{indexBean.noticias}" var="noticia" 
+                    panelHeight="350"  style="width: 100%"  showCaption="true">
+            <p:graphicImage value="#{root_img}#{noticia.urlImagen}" height="350"
+                            alt="#{noticia.descripcion}" title="#{noticia.titulo}"/>
+        </p:galleria>
+
+        <p:separator />
+
+        <p:carousel headerText="Eventos" value="#{indexBean.publicaciones}" var="pub" 
+                    numVisible="3" itemStyle="width: 317px;height: 500px">
+            <p:graphicImage value="#{root_img}escudo-unmsm.gif" title="#{pub.dtitulo}" />
+            <br/>
+            <p:outputLabel value="#{pub.fcreacion}" />
+            <br/>
+            <p:outputLabel value="#{pub.dtitulo}" />
+            <br/>
+            <p:outputLabel value="#{pub.ddescripcion}" />
+            <br/>
+            <p:button href="#{pub.durl}" value="Ver más" />
+        </p:carousel>
+
+        <p:separator />
+
+        <p:carousel headerText="Eventos" value="#{indexBean.publicaciones}" var="pub" 
+                    numVisible="3" itemStyle="width: 317px;height: 500px">
+            <p:graphicImage value="#{root_img}escudo-unmsm.gif" title="#{pub.dtitulo}" />
+            <br/>
+            <p:outputLabel value="#{pub.fcreacion}" />
+            <br/>
+            <p:outputLabel value="#{pub.dtitulo}" />
+            <br/>
+            <p:outputLabel value="#{pub.ddescripcion}" />
+            <br/>
+            <p:button href="#{pub.durl}" value="Ver más" />
+        </p:carousel>
+    </ui:define>
+
+</ui:composition>

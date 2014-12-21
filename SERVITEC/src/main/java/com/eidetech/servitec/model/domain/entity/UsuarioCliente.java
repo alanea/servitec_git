@@ -46,12 +46,7 @@ public class UsuarioCliente implements Serializable {
     private String destado;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ddni_psn")
-    private Personal personal;
-
-    public UsuarioCliente(String dname, String dpassword) {
-        this.dname = dname;
-        this.dpassword = dpassword;
-    }
+    private Persona persona;
 
     public String getId_usuario() {
         return id_usuario;
@@ -125,12 +120,12 @@ public class UsuarioCliente implements Serializable {
         this.destado = destado;
     }
 
-    public Personal getPersonal() {
-        return personal;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setPersonal(Personal personal) {
-        this.personal = personal;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
-
+    
 }
