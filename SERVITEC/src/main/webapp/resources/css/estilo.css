@@ -1,0 +1,68 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11/05/2014, 09:13:15 PM
+    Author     : laptop-w8
+*/
+/*
+body{
+    background-color: #036fab;
+}
+*/
+.ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd{
+    border: none;
+}
+
+.ui-layout-north {
+    z-index:20 !important;
+    overflow:visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
+}
+
+.ui-galleria{
+    width: 100% !important;
+}
+
+.ui-selectonemenu{
+    width: 100% !important;
+}
+.ui-selectonemenu-label{
+    width: 100% !important;
+} 
+
+.centrar{
+    margin-left:auto;
+    margin-right:auto;    
+}
+
+.panelGridCenter {
+    margin: 0 auto;
+}
+
+.panelCentrar{
+    width: 800px; 
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.inicio{
+    background-image: url('../../resources/img/NLogoFisi_sse.png') !important;
+    height:30px;
+    width:30px;
+}
+
+.panelRojo{
+   color: red;
+}
+
+.icon_ocaa{
+    background-image: url('../../resources/img/ocaa_logo_02.jpg') !important;
+    height:120px;
+    width:1000px;
+}
