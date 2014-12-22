@@ -5,34 +5,36 @@
  */
 package com.eidetech.servitec.model.util;
 
+import com.eidetech.servitec.model.domain.entity.Menu;
+import com.eidetech.servitec.model.domain.entity.Permiso;
+import com.eidetech.servitec.model.domain.entity.Submenu;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
+import org.primefaces.model.menu.MenuModel;
+
 /**
  *
  * @author laptop-w8
  */
 public class UtilUsuario {
 
-    public static final String USUARIO_JEFE_OCAA = "OCAA";
-    public static final String USUARIO_JEFE_UB = "BIENESTAR";
-    public static final String USUARIO_ADMIN = "ADMIN";
-    public static final String CARPETA_USUARIO_JEFE_OCAA = "ocaa";
-    public static final String CARPETA_USUARIO_JEFE_UB = "bienestar";
-    public static final String CARPETA_USUARIO_ADMIN = "admin";
-    public static final String CARPETA_USUARIO_EGRESADO = "egresado";
-    public static final String CARPETA_USUARIO_EMPRESA = "empresa";
-    public static final String INDEX_USUARIO_JEFE_OCAA = "ocaa/user.xhtml";
-    public static final String INDEX_USUARIO_JEFE_UB = "bienestar/user.xhtml";
-    public static final String INDEX_USUARIO_ADMIN = "admin/user.xhtml";
-
-    public static String indexUsuario(String usuario) {
-        switch (usuario) {
-            case USUARIO_JEFE_OCAA:
-                return INDEX_USUARIO_JEFE_OCAA;
-            case USUARIO_JEFE_UB:
-                return INDEX_USUARIO_JEFE_UB;
-            case USUARIO_ADMIN:
-                return INDEX_USUARIO_ADMIN;
-            default:
-                return "login.xhtml";
+    public static MenuModel getMenuUsuario(Menu menu) {
+        MenuModel modelo = new DefaultMenuModel();
+        if (menu != null && menu.getSubmenus() != null && !menu.getSubmenus().isEmpty()) {
+            for (Submenu s : menu.getSubmenus()) {
+                DefaultSubMenu submenu = new DefaultSubMenu(s.getDnombre());
+                if (s.getPermisos() != null && !s.getPermisos().isEmpty()) {
+                    for (Permiso p : s.getPermisos()) {
+                        DefaultMenuItem item = new DefaultMenuItem(p.getDnombre());
+                        item.setUrl(p.getDurl());
+                        item.setIcon("ui-icon-home");
+                        submenu.addElement(item);
+                    }
+                }
+                modelo.addElement(submenu);
+            }
         }
+        return modelo;
     }
 }

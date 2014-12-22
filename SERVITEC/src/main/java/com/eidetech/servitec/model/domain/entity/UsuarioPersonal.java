@@ -52,7 +52,10 @@ public class UsuarioPersonal implements Serializable {
     private Personal personal;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_sede")
-    private Sede sede;
+    private Sede sede;    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_men")
+    private Menu menu;
 
     public UsuarioPersonal() {
     }
@@ -156,5 +159,13 @@ public class UsuarioPersonal implements Serializable {
 
     public void setSede(Sede sede) {
         this.sede = sede;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }

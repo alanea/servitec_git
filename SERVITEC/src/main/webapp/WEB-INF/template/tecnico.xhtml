@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <c:set var="root" value="/" />
+            <c:set var="root2" value="#{request.contextPath}/" />
+            <c:set var="root_img" value="#{root}resources/img/" />
+
+            <c:set var="root_resources" value="#{root2}resources/" />
+            <c:set var="root_css" value="#{root_resources}css/" />
+            <c:set var="root_js" value="#{root_resources}js/" />
+
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <link rel="stylesheet" type="text/css" href="#{root_css}estilo.css"/>
+            <script type="text/javascript" src="#{root_js}funciones.js"></script>
+
+            <title><ui:insert name="title"></ui:insert> - #{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}</title>
+        </h:head>
+        <h:body>
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="170" resizable="false" closable="true" collapsible="true">
+                    <h:form>
+                        <p:menubar style="height: 140px">
+                            <p:menuitem url="#{root_ocaa}user.xhtml" icon="icon_ocaa" />
+                            <f:facet name="options">
+                                <p:menuButton value="Sistema" iconPos="right">
+                                    <p:menuitem value="Salir" action="#{loginPersonal.logout}"
+                                                icon="ui-icon-extlink" oncomplete="logout(xhr, status, args)" />
+                                </p:menuButton>
+                            </f:facet>
+                        </p:menubar>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="210" collapsible="false">
+                    <p:panel>
+                        <p:graphicImage width="180" value="#{root_img}usuario.png" />
+                        <p:outputLabel styleClass="texto_formateado1">#{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}</p:outputLabel>
+                    </p:panel>
+                    <p:menu model="#{loginPersonal.menuUsuarioPersonal}" style="width:200px" >
+                    </p:menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center" resizable="true" >
+                    <p:panel>
+                        <ui:insert name="content">
+                        </ui:insert>
+                    </p:panel>
+                </p:layoutUnit>
+
+            </p:layout>
+        </h:body>   
+    </f:view>
