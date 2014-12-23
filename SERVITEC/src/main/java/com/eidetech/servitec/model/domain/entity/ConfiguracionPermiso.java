@@ -7,7 +7,6 @@
 package com.eidetech.servitec.model.domain.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,27 +23,22 @@ import org.hibernate.annotations.Proxy;
  * @author laptop-w8
  */
 @Entity
-@Table(name = "tp_perm", schema = "public")
+@Table(name = "tp_permiso_conf", schema = "public")
 @Proxy(lazy = false)
-public class Permiso implements Serializable{
-    
+public class ConfiguracionPermiso implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_perm")
+    @Column(name = "id_perm_conf")
     private int id_permiso;
-    @Column(name = "dnm_perm")
+    @Column(name = "dnm_perm_conf")
     private String dnombre;
-    @Column(name = "durl_perm")
+    @Column(name = "nord_perm_conf")
+    private int norden;  
+    @Column(name = "durl_perm_conf")
     private String durl;
-    @Column(name = "nord_perm")
-    private int norden;
-    @Column(name = "fcrea_perm")
-    private Date fcreacion;
-    @Column(name = "best_perm")
-    private boolean bestado;    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_submen", referencedColumnName = "id_submen")
-    private Submenu submenu;
+    @JoinColumn(name = "id_submen_conf", referencedColumnName = "id_submen_conf")
+    private ConfiguracionSubmenu submenu;
 
     public int getId_permiso() {
         return id_permiso;
@@ -62,14 +56,6 @@ public class Permiso implements Serializable{
         this.dnombre = dnombre;
     }
 
-    public String getDurl() {
-        return durl;
-    }
-
-    public void setDurl(String durl) {
-        this.durl = durl;
-    }
-
     public int getNorden() {
         return norden;
     }
@@ -78,27 +64,19 @@ public class Permiso implements Serializable{
         this.norden = norden;
     }
 
-    public Date getFcreacion() {
-        return fcreacion;
+    public String getDurl() {
+        return durl;
     }
 
-    public void setFcreacion(Date fcreacion) {
-        this.fcreacion = fcreacion;
+    public void setDurl(String durl) {
+        this.durl = durl;
     }
 
-    public boolean isBestado() {
-        return bestado;
-    }
-
-    public void setBestado(boolean bestado) {
-        this.bestado = bestado;
-    }
-
-    public Submenu getSubmenu() {
+    public ConfiguracionSubmenu getSubmenu() {
         return submenu;
     }
 
-    public void setSubmenu(Submenu submenu) {
+    public void setSubmenu(ConfiguracionSubmenu submenu) {
         this.submenu = submenu;
     }
     

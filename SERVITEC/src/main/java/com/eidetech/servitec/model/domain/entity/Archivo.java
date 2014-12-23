@@ -17,9 +17,9 @@ import org.hibernate.annotations.Proxy;
  *
  * @author laptop-w8
  */
-//@Entity
-//@Table(name = "tp_archivo", schema = "public")
-//@Proxy(lazy = false)
+@Entity
+@Table(name = "tp_archivo", schema = "public")
+@Proxy(lazy = false)
 public class Archivo implements Serializable{
     
     @Id

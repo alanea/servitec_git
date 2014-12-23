@@ -7,7 +7,6 @@
 package com.eidetech.servitec.model.domain.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,34 +23,29 @@ import org.hibernate.annotations.Proxy;
  * @author laptop-w8
  */
 @Entity
-@Table(name = "tp_perm", schema = "public")
+@Table(name = "tp_permiso_cliente", schema = "public")
 @Proxy(lazy = false)
-public class Permiso implements Serializable{
-    
+public class PermisoCliente implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_perm")
-    private int id_permiso;
-    @Column(name = "dnm_perm")
+    @Column(name = "id_perm_cli")
+    private int id_permiso_cli;
+    @Column(name = "dnm_perm_cli")
     private String dnombre;
-    @Column(name = "durl_perm")
+    @Column(name = "durl_perm_cli")
     private String durl;
-    @Column(name = "nord_perm")
+    @Column(name = "nord_perm_cli")
     private int norden;
-    @Column(name = "fcrea_perm")
-    private Date fcreacion;
-    @Column(name = "best_perm")
-    private boolean bestado;    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_submen", referencedColumnName = "id_submen")
-    private Submenu submenu;
+    @JoinColumn(name = "id_usercli", referencedColumnName = "id_usercli")
+    private UsuarioCliente cliente;
 
-    public int getId_permiso() {
-        return id_permiso;
+    public int getId_permiso_cli() {
+        return id_permiso_cli;
     }
 
-    public void setId_permiso(int id_permiso) {
-        this.id_permiso = id_permiso;
+    public void setId_permiso_cli(int id_permiso_cli) {
+        this.id_permiso_cli = id_permiso_cli;
     }
 
     public String getDnombre() {
@@ -78,28 +72,13 @@ public class Permiso implements Serializable{
         this.norden = norden;
     }
 
-    public Date getFcreacion() {
-        return fcreacion;
+    public UsuarioCliente getCliente() {
+        return cliente;
     }
 
-    public void setFcreacion(Date fcreacion) {
-        this.fcreacion = fcreacion;
+    public void setCliente(UsuarioCliente cliente) {
+        this.cliente = cliente;
     }
-
-    public boolean isBestado() {
-        return bestado;
-    }
-
-    public void setBestado(boolean bestado) {
-        this.bestado = bestado;
-    }
-
-    public Submenu getSubmenu() {
-        return submenu;
-    }
-
-    public void setSubmenu(Submenu submenu) {
-        this.submenu = submenu;
-    }
+    
     
 }

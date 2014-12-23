@@ -7,11 +7,14 @@ package com.eidetech.servitec.model.domain.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Proxy;
@@ -46,7 +49,9 @@ public class UsuarioCliente implements Serializable {
     private String destado;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ddni_psn")
-    private Persona persona;
+    private Persona persona;     
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "cliente")
+    private Set<PermisoCliente> permisos;
 
     public String getId_usuario() {
         return id_usuario;
@@ -127,5 +132,13 @@ public class UsuarioCliente implements Serializable {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
-    
+
+    public Set<PermisoCliente> getPermisos() {
+        return permisos;
+    }
+
+    public void setPermisos(Set<PermisoCliente> permisos) {
+        this.permisos = permisos;
+    }
+
 }

@@ -6,6 +6,8 @@
 package com.eidetech.servitec.model.dao.impl;
 
 import com.eidetech.servitec.model.dao.IUsuarioDao;
+import com.eidetech.servitec.model.domain.entity.Permiso;
+import com.eidetech.servitec.model.domain.entity.Submenu;
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
 import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import com.eidetech.servitec.model.util.UtilHibernate;
@@ -33,8 +35,52 @@ public class UsuarioDao implements IUsuarioDao, Serializable {
     @Override
     public boolean agregarUsuarioPersonal(UsuarioPersonal usuario) {
         usuario.setId_usuario(idUsuarioPersonal());
-        return !existeUsuarioPersonal(usuario) && UtilHibernate.agregarEntidad(sessionFactory, usuario);
+        if (existeUsuarioPersonal(usuario)) {
+            return false;
+        }
+
+        boolean success = false;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.beginTransaction();
+            session.persist(usuario);
+//            if (usuario.getMenu() != null) {
+//                session.persist(usuario.getMenu());
+//                if(usuario.getMenu().getSubmenus()!=null){
+//                    for(Submenu s:usuario.getMenu().getSubmenus()){
+//                        session.persist(s);
+//                        if(s.getPermisos()!=null){
+//                            for(Permiso p:s.getPermisos()){
+//                                session.persist(p);
+//                            }
+//                        }else{
+//                            System.out.println("vacio 2");
+//                        }
+//                    }
+//                }else{
+//                    System.out.println("vacio 1");
+//                }
+//            }
+            session.flush();
+            success = true;
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return success;
     }
+
     @Override
     public boolean agregarUsuarioCliente(UsuarioCliente usuario) {
         usuario.setId_usuario(idUsuarioCliente());
@@ -45,6 +91,7 @@ public class UsuarioDao implements IUsuarioDao, Serializable {
     public boolean existeUsuarioPersonal(UsuarioPersonal usuario) {
         return obtenerUsuarioPersonal(usuario) != null;
     }
+
     @Override
     public boolean existeUsuarioCliente(UsuarioCliente usuario) {
         return obtenerUsuarioCliente(usuario) != null;
@@ -147,9 +194,10 @@ public class UsuarioDao implements IUsuarioDao, Serializable {
 
         return id;
     }
+
     @Override
     public UsuarioCliente obtenerUsuarioCliente(UsuarioCliente usuarioCliente) {
-    UsuarioCliente e = null;
+        UsuarioCliente e = null;
         Session session = sessionFactory.openSession();
 
         try {
