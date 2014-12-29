@@ -49,7 +49,7 @@ public class Categoria implements Serializable {
     private String duserModificacion;
     @Column(name = "fusermod_ctg")
     private Date fuserModificacion;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_ctg")
     private Set<Producto> productos;
     @Transient
@@ -59,6 +59,19 @@ public class Categoria implements Serializable {
         return "Categoria [id=" + this.id_categoria + ",nombre=" + this.dnombre + "]";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null) {
+            if (obj instanceof Categoria) {
+                Categoria c1=(Categoria)obj;
+                if(this.getDnombre().toUpperCase().equals(c1.getDnombre().toUpperCase())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String getId_categoria() {
         return id_categoria;
     }
@@ -66,7 +79,6 @@ public class Categoria implements Serializable {
     public void setId_categoria(String id_categoria) {
         this.id_categoria = id_categoria;
     }
-
 
     public String getDnombre() {
         return dnombre;
@@ -83,7 +95,7 @@ public class Categoria implements Serializable {
     public void setDgrupo(String dgrupo) {
         this.dgrupo = dgrupo;
     }
-    
+
     public String getDestado() {
         return destado;
     }
@@ -91,7 +103,6 @@ public class Categoria implements Serializable {
     public void setDestado(String destado) {
         this.destado = destado;
     }
-
 
     public String getDdescripcion() {
         return ddescripcion;

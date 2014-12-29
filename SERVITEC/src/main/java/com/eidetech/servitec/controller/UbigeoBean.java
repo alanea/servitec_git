@@ -23,7 +23,7 @@ import javax.faces.model.SelectItem;
  *
  * @author usuario-xp
  */
-@ManagedBean(name = "ubigeoBean")
+@ManagedBean(name = "ubigeo")
 @ApplicationScoped
 public class UbigeoBean implements Serializable {
 

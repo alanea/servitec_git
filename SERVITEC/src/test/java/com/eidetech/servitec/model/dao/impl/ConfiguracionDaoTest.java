@@ -10,7 +10,6 @@ import com.eidetech.servitec.model.domain.entity.ConfiguracionMenu;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionPermiso;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionPermisoCliente;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionSubmenu;
-import com.eidetech.servitec.model.domain.entity.Submenu;
 import com.eidetech.servitec.model.util.UtilUsuario;
 import java.util.HashSet;
 import org.junit.Test;
@@ -166,7 +165,7 @@ public class ConfiguracionDaoTest {
         assertEquals(expResult, result);
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void testObtenerConfiguracionMenuPersonal() {
         System.out.println("obtenerConfiguracionMenuPersonal");

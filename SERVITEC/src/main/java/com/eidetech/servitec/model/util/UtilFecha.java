@@ -20,6 +20,14 @@ public class UtilFecha {
     public static boolean fechaValido(Date f) {
         return f != null;
     }
+    
+    public static boolean fechaMayorActual(Date f){
+        Date d=new Date();
+        if(fechaValido(f)){
+            return d.before(f);
+        }
+        return false;
+    }
 
     public static boolean fechasIguales(Date f1, Date f2) {
         int d1, d2, m1, m2, a1, a2;

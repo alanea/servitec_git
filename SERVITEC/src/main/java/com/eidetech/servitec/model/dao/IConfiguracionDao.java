@@ -9,6 +9,7 @@ import com.eidetech.servitec.model.domain.entity.ConfiguracionMenu;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionPermiso;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionPermisoCliente;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionSubmenu;
+import java.util.List;
 
 /**
  *
@@ -25,4 +26,6 @@ public interface IConfiguracionDao {
     public boolean agregarConfiguracionPermisoCliente(ConfiguracionPermisoCliente permiso);
     
     public ConfiguracionMenu obtenerConfiguracionMenuPersonal(ConfiguracionMenu menu);
+    
+    public List<ConfiguracionPermisoCliente> obtenerListaPermisoCliente();
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class UtilTablaTipo {
 
     public static String TABLA = "0";
-    
+
     public static String TIPO_GRADO_INSTRUCCION = "18";
     public static String TIPO_CARGO = "29";
     public static String TIPO_AREA_TRABAJO = "23";
@@ -24,20 +24,32 @@ public class UtilTablaTipo {
     public static String TIPO_PROFESION = "24";
     public static String TIPO_COLEGIO = "1";
     public static String TIPO_ESTADO_CIVIL = "15";
-    public static String TIPO_ESTADO_REGISTRO = "3";    
+    public static String TIPO_ESTADO_REGISTRO = "3";
     public static String TIPO_SEXO = "13";
     public static String TIPO_IGV = "43";
-    public static String TIPO_DOC_VENTA= "10";
-    public static String TIPO_MONEDA= "11";
-    public static String TIPO_CONTRATO= "2";
-    public static String TIPO_GRUPO_ESPECIALIDAD= "44";
-    public static String TIPO_PRODUCTO= "5";
-    public static String TIPO_SUBPRODUCTO= "6";
-    public static String TIPO_INSTITUCION= "4";
-    public static String TIPO_FORMA_PAGO= "12";
+    public static String TIPO_DOC_VENTA = "10";
+    public static String TIPO_MONEDA = "11";
+    public static String TIPO_CONTRATO = "2";
+    public static String TIPO_GRUPO_ESPECIALIDAD = "44";
+    public static String TIPO_PRODUCTO = "5";
+    public static String TIPO_SUBPRODUCTO = "6";
+    public static String TIPO_INSTITUCION = "4";
+    public static String TIPO_FORMA_PAGO = "12";
+    public static String TIPO_CATEGORIA = "45";
+    public static String TIPO_CATEGORIA_IMAGEN_SONIDO = "52";
+    public static String TIPO_CATEGORIA_MOVILE = "50";
+    public static String TIPO_CATEGORIA_LAPTOP = "51";
+    public static String TIPO_CATEGORIA_WIFI = "53";
+    public static String TIPO_SINTOMA_TELEVISORES = "47";
+    public static String TIPO_SINTOMA_VIDEO = "48";
+    public static String TIPO_SINTOMA_EQUIPO_SONIDO = "46";
+    public static String TIPO_SINTOMA_AUTORADIO = "49";
+    public static String TIPO_SINTOMA_CELULARES = "54";
+    public static String TIPO_SINTOMA_MONITORES = "55";
+    public static String TIPO_SINTOMA_ALMACENAMIENTO_OPTICO = "56";
 
     public static String descripcionTipo(List<TablaTipo> lista, String tabla, String tipo) {
-        if (tipo != null) {
+        if (lista != null && tipo != null) {
             for (TablaTipo t : lista) {
                 if (t.getDtabla().equals(tabla) && t.getDtipo().equals(tipo)) {
                     return t.getDdescripcion();

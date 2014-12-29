@@ -8,6 +8,7 @@ package com.eidetech.servitec.model.dao.impl;
 
 import com.eidetech.servitec.model.dao.ITablaTipoDao;
 import com.eidetech.servitec.model.domain.entity.TablaTipo;
+import com.eidetech.servitec.model.util.UtilTablaTipo;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,14 +30,38 @@ public class TablaTipoDaoTest {
     
     @Ignore
     @Test
-    public void testAgregarTablaTipo() {
-        System.out.println("agregarTablaTipo");
-        TablaTipo tablaTipo = null;
-        TablaTipoDao instance = new TablaTipoDao();
-        boolean expResult = false;
-        boolean result = instance.agregarTablaTipo(tablaTipo);
+    public void testObtenerTodoTablaTipo() {
+        System.out.println("obtenerTodoTablaTipo");
+        List<TablaTipo> result = tablaTipoDao.obtenerTodoTablaTipo();
+//        result = UtilTablaTipo.listaTipos(result, UtilTablaTipo.TABLA);
+        assertNotNull(result);
+        
+        for(TablaTipo r:result){
+            System.out.println(r);
+        }
+    }
+
+    @Ignore
+    @Test
+    public void testAgregarTabla() {
+        System.out.println("agregarTabla");
+        TablaTipo tabla = new TablaTipo();
+        tabla.setDdescripcion("SONIDO Y MUSICA");
+        boolean expResult = true;
+        boolean result = tablaTipoDao.agregarTabla(tabla);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    }
+
+    @Ignore
+    @Test
+    public void testAgregarTipo() {
+        System.out.println("agregarTipo");
+        TablaTipo tipo = new TablaTipo();
+        tipo.setDtabla("45");
+        tipo.setDdescripcion("");
+        boolean expResult = true;
+        boolean result = tablaTipoDao.agregarTipo(tipo);
+        assertEquals(expResult, result);
     }
 
     @Ignore
@@ -61,17 +86,6 @@ public class TablaTipoDaoTest {
         boolean result = instance.actualizarTablaTipo(tablaTipo);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
-    }
-
-//    @Ignore
-    @Test
-    public void testObtenerTodoTablaTipo() {
-        System.out.println("obtenerTodoTablaTipo");
-        List<TablaTipo> result = tablaTipoDao.obtenerTodoTablaTipo();
-        assertNotNull(result);
-        for(TablaTipo r:result){
-            System.out.println(r.getDdescripcion());
-        }
     }
     
 }

@@ -7,15 +7,9 @@
 package com.eidetech.servitec.model.domain.entity;
 
 import java.io.Serializable;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Proxy;
 
@@ -29,9 +23,8 @@ import org.hibernate.annotations.Proxy;
 public class Empresa implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_emp")
-    private int id_empresa;
+    private String id_empresa;
     @Column(name = "druc_emp")
     private String druc;
     @Column(name = "drazsoc_emp")
@@ -54,22 +47,18 @@ public class Empresa implements Serializable{
     private String ddescripcion;
     @Column(name = "dest_emp")
     private String destado;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "empresa")
-    private Set<Persona> representantes;
     
     public String toString(){
         return "Empresa [ruc="+this.id_empresa+", razon social="+this.drazonSocial+", nombre comercial="+this.dnombreComercial+"]";
     }
 
-    public int getId_empresa() {
+    public String getId_empresa() {
         return id_empresa;
     }
 
-    public void setId_empresa(int id_empresa) {
+    public void setId_empresa(String id_empresa) {
         this.id_empresa = id_empresa;
     }
-
-    
 
     public String getDruc() {
         return druc;
@@ -158,13 +147,4 @@ public class Empresa implements Serializable{
     public void setDestado(String destado) {
         this.destado = destado;
     }
-
-    public Set<Persona> getRepresentantes() {
-        return representantes;
-    }
-
-    public void setRepresentantes(Set<Persona> representantes) {
-        this.representantes = representantes;
-    }
-    
 }

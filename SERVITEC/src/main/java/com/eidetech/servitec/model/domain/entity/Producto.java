@@ -32,6 +32,8 @@ public class Producto implements Serializable {
     private String id_producto;
     @Column(name = "ddesc_prod")
     private String ddescripcion;
+    @Column(name = "dmc_prod")
+    private String dmarca;
     @Column(name = "dmnd_prod")
     private String dmoneda;
     @Column(name = "mprec_prod")
@@ -66,6 +68,14 @@ public class Producto implements Serializable {
 
     public void setDdescripcion(String ddescripcion) {
         this.ddescripcion = ddescripcion;
+    }
+
+    public String getDmarca() {
+        return dmarca;
+    }
+
+    public void setDmarca(String dmarca) {
+        this.dmarca = dmarca;
     }
 
     public String getDtipo() {

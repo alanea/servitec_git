@@ -14,6 +14,12 @@ import java.io.Serializable;
  */
 public class Imagen implements Serializable{
     private String dnombre;
+    private String dtitulo;
+    private String ddescripcion;
+    private String durl;
+
+    public Imagen() {
+    }
 
     public Imagen(String dnombre) {
         this.dnombre = dnombre;
@@ -25,6 +31,30 @@ public class Imagen implements Serializable{
 
     public void setDnombre(String dnombre) {
         this.dnombre = dnombre;
+    }
+
+    public String getDtitulo() {
+        return dtitulo;
+    }
+
+    public void setDtitulo(String dtitulo) {
+        this.dtitulo = dtitulo;
+    }
+
+    public String getDdescripcion() {
+        return ddescripcion;
+    }
+
+    public void setDdescripcion(String ddescripcion) {
+        this.ddescripcion = ddescripcion;
+    }
+
+    public String getDurl() {
+        return durl;
+    }
+
+    public void setDurl(String durl) {
+        this.durl = durl;
     }
     
 }

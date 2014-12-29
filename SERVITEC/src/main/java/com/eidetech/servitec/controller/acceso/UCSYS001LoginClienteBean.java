@@ -7,6 +7,7 @@
 package com.eidetech.servitec.controller.acceso;
 
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
+import com.eidetech.servitec.service.IServicioTecnicoService;
 import com.eidetech.servitec.service.IUsuarioService;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
@@ -30,7 +31,9 @@ public class UCSYS001LoginClienteBean implements Serializable{
     private UsuarioCliente usuario;
     private boolean logeado = false;
     @ManagedProperty(value = "#{usuarioService}")
-    IUsuarioService usuarioService;
+    IUsuarioService usuarioService;    
+    @ManagedProperty(value = "#{servicioTecnicoService}")
+    IServicioTecnicoService servicioTecnicoService;
     /**
      * Creates a new instance of UCSYS001LoginClienteBean
      */
@@ -55,7 +58,7 @@ public class UCSYS001LoginClienteBean implements Serializable{
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
         }
 
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext.getCurrentInstance().addMessage("msg", msg);
         context.addCallbackParam("estaLogeado", logeado);
         if (logeado) {
             context.addCallbackParam("view", "index.xhtml");
@@ -108,5 +111,13 @@ public class UCSYS001LoginClienteBean implements Serializable{
 
     public void setUsuarioService(IUsuarioService usuarioService) {
         this.usuarioService = usuarioService;
+    }
+
+    public IServicioTecnicoService getServicioTecnicoService() {
+        return servicioTecnicoService;
+    }
+
+    public void setServicioTecnicoService(IServicioTecnicoService servicioTecnicoService) {
+        this.servicioTecnicoService = servicioTecnicoService;
     }
 }

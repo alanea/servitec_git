@@ -6,10 +6,9 @@
 
 package com.eidetech.servitec.controller.cliente;
 
-import com.eidetech.servitec.model.domain.entity.Cliente;
 import com.eidetech.servitec.model.domain.entity.Persona;
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
-import com.eidetech.servitec.service.IPortalService;
+import com.eidetech.servitec.service.ISeguridadService;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,8 +28,8 @@ public class UCCLI001RegistrarClienteBean implements Serializable{
     private Persona cliente;
     private UsuarioCliente usuario;
     private boolean recibir_email;    
-    @ManagedProperty(value = "#{portalService}")
-    private IPortalService portalService;
+    @ManagedProperty(value = "#{seguridadService}")
+    private ISeguridadService seguridadService;
 
     /**
      * Creates a new instance of UCCLI001RegistrarClienteBean
@@ -47,7 +46,7 @@ public class UCCLI001RegistrarClienteBean implements Serializable{
         
        usuario.setPersona(cliente);
                 
-        if (portalService.registrarCliente(usuario)) {
+        if (seguridadService.registrarCliente(usuario)) {
             mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "REGISTRO EXITOSO", "Se ha registrado "+cliente.getDnombres()+" "+cliente.getDapellidoPaterno());
             exito = true;
         } else {
@@ -64,12 +63,12 @@ public class UCCLI001RegistrarClienteBean implements Serializable{
         }
     }
 
-    public IPortalService getPortalService() {
-        return portalService;
+    public ISeguridadService getSeguridadService() {
+        return seguridadService;
     }
 
-    public void setPortalService(IPortalService portalService) {
-        this.portalService = portalService;
+    public void setSeguridadService(ISeguridadService seguridadService) {
+        this.seguridadService = seguridadService;
     }
 
     public Persona getCliente() {

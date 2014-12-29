@@ -44,6 +44,32 @@ public class UtilHibernate {
 
         return success;
     }
+    
+    public static boolean agregarActualizarEntidad(SessionFactory sessionFactory, Object object) {
+        boolean success = false;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(object);
+            session.flush();
+            success = true;
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return success;
+    }
 
     public static <T> boolean agregarListaEntidad(SessionFactory sessionFactory, List<T> listObject) {
         boolean success = false;

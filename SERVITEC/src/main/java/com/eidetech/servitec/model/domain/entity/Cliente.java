@@ -6,12 +6,11 @@
 package com.eidetech.servitec.model.domain.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,26 +26,61 @@ import org.hibernate.annotations.Proxy;
 public class Cliente implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cli")
-    private int id_cliente;
+    private String id_cliente;
+    @Column(name = "druc_cli")
+    private String druc;
+    @Column(name = "ddni_cli")
+    private String ddni;
     @Column(name = "dtip_cli")
     private String dtipo;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
-    private Set<Comprobante> comprobantes;    
+    private Set<Comprobante> comprobantes;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
     private Set<Reservacion> reservaciones;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
+    private Set<ProductoCliente> productos;
+
+    public void agregarReservacion(Reservacion reservacion) {
+        if (reservaciones == null) {
+            reservaciones = new HashSet();
+        }
+        reservaciones.add(reservacion);
+    }
+
+    public void agregarProductoCliente(ProductoCliente productoCliente) {
+        if (productos == null) {
+            productos = new HashSet();
+        }
+        productos.add(productoCliente);
+    }
 
     public String toString() {
         return "cliente[id=" + this.id_cliente + ",dtipo=" + this.dtipo + "]";
     }
 
-    public int getId_cliente() {
+    public String getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(int id_cliente) {
+    public void setId_cliente(String id_cliente) {
         this.id_cliente = id_cliente;
+    }
+
+    public String getDruc() {
+        return druc;
+    }
+
+    public void setDruc(String druc) {
+        this.druc = druc;
+    }
+
+    public String getDdni() {
+        return ddni;
+    }
+
+    public void setDdni(String ddni) {
+        this.ddni = ddni;
     }
 
     public String getDtipo() {
@@ -71,5 +105,13 @@ public class Cliente implements Serializable {
 
     public void setReservaciones(Set<Reservacion> reservaciones) {
         this.reservaciones = reservaciones;
+    }
+
+    public Set<ProductoCliente> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<ProductoCliente> productos) {
+        this.productos = productos;
     }
 }

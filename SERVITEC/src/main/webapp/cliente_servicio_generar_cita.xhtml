@@ -1,18 +1,151 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/template/cliente.xhtml">
+                template="./WEB-INF/template/cliente.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        title
-    </ui:define>
-
-    <ui:define name="menu">
-        menu
+        Generar orden de pedido
     </ui:define>
 
     <ui:define name="content">
-        content
+        <h:form>
+            <p:growl id="growl_registro" for="growl_registrar_reservacion" showDetail="true" life="1000"/>
+            <p:fieldset id="panel_registro_orden" legend="Generar orden de servicio tecnico" style="width: 700px" styleClass="centrar">
+                <h:panelGrid columns="2" columnClasses="alinear_top,alinear_top" >
+                    <p:wizard nextLabel="Siguiente" backLabel="Anterior" style="height: 500px;width: 590px">
+                        <p:tab title="PASO 1> Producto">
+                            <p:panel header="Informacion del producto">
+                                <h:panelGrid columns="1" style="width: 550px">
+                                    <p:message for="categoria" display="both" />
+                                    <p:outputLabel for="categoria" value="Categoria:" />
+                                    <p:selectOneMenu id="categoria" value="#{registrarOrdenCliente.reservacion.dcategoria_producto}" required="true">
+                                        <f:selectItem itemLabel="Seleccionar uno" itemValue=""/>
+                                        <f:selectItems value="#{productoBean.siCategoria}" />
+                                        <p:ajax event="change" update="producto" />
+                                    </p:selectOneMenu>
+
+                                    <p:message for="producto" display="both" />
+                                    <p:outputLabel for="producto" value="Producto:" />
+                                    <p:selectOneMenu id="producto" value="#{registrarOrdenCliente.reservacion.dproducto}" required="true">
+                                        <f:selectItem itemLabel="Seleccionar uno" itemValue=""/>
+                                        <f:selectItems value="#{productoBean.siProducto(registrarOrdenCliente.reservacion.dcategoria_producto)}" />
+                                    </p:selectOneMenu>
+
+                                    <p:message for="marca" display="both" />
+                                    <p:outputLabel for="marca" value="Marca:" />
+                                    <p:inputText id="marca" value="#{registrarOrdenCliente.reservacion.dmarca}" required="true" />
+
+                                    <p:message for="modelo" display="both" />
+                                    <p:outputLabel for="modelo" value="Modelo:" />
+                                    <p:inputText id="modelo" value="#{registrarOrdenCliente.reservacion.dmodelo}" />
+
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <p:panel header="Descripcion del problema">
+                                <h:panelGrid columns="1" style="width: 550px">
+                                    <p:outputLabel for="problema" value="Problema:" />    
+                                    <p:inputTextarea id="problema" value="#{registrarOrdenCliente.reservacion.dproblema}"
+                                                     required="true" cols="50" rows="5"/>
+                                    <p:message for="problema" display="both" />                    
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="PASO 2> Reservacion">
+                            <p:panel header="Datos de la reservacion">
+                                <h:panelGrid columns="3">
+                                    <p:outputLabel for="departamento" value="Departamento:" />
+                                    <p:selectOneMenu id="departamento" value="#{registrarOrdenCliente.ubigeo_departamento}" required="true" >                                        
+                                        <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                                        <f:selectItems value="#{ubigeo.siDepartamentos}" />
+                                        <p:ajax event="change" update="provincia,distrito" listener="#{registrarOrdenCliente.actualizarProvincias}"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="departamento" display="both" />
+
+                                    <p:outputLabel for="provincia" value="Provincia:" />
+                                    <p:selectOneMenu id="provincia" value="#{registrarOrdenCliente.ubigeo_provincia}" required="true" >                                        
+                                        <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                                        <f:selectItems value="#{ubigeo.siProvincias(registrarOrdenCliente.ubigeo_departamento)}" />
+                                        <p:ajax event="change" update="distrito" listener="#{registrarOrdenCliente.actualizarDistritos}"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="provincia" display="both" />
+
+                                    <p:outputLabel for="distrito" value="Distrito:" />
+                                    <p:selectOneMenu id="distrito" value="#{registrarOrdenCliente.reservacion.dubigeo}" required="true" >                                        
+                                        <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                                        <f:selectItems value="#{ubigeo.siDistritos(registrarOrdenCliente.ubigeo_departamento,registrarOrdenCliente.ubigeo_provincia)}" />
+                                    </p:selectOneMenu>
+                                    <p:message for="distrito" display="both" />
+
+                                    <p:outputLabel for="direccion" value="Direccion:"/>
+                                    <p:inputText id="direccion" value="#{registrarOrdenCliente.reservacion.ddireccion}" 
+                                                 size="30" required="false" requiredMessage="Por favor ingrese su direccion"
+                                                 validatorMessage="direccion invalida"/>
+                                    <p:message for="direccion" display="text" />  
+
+                                    <p:outputLabel for="fecha_orden" value="Fecha reservacion:"/>
+                                    <p:calendar id="fecha_orden" value="#{registrarOrdenCliente.reservacion.ffecha}" readonlyInput="true"
+                                                pattern="dd/MMM/yyyy" mode="popup" navigator="true" showOn="button" locale="es" yearRange="c-100:c">
+                                    </p:calendar>
+                                    <p:message for="fecha_orden" display="both"/>
+
+                                    <p:outputLabel for="celular" value="Celular:"/>
+                                    <p:inputMask id="celular"  value="#{registrarOrdenCliente.reservacion.dcelular}"
+                                                 mask="999999999"
+                                                 required="false" requiredMessage="Por favor ingreso un numero celular"/>
+                                    <p:message for="celular" display="text" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="PASO 3> Confirmacion">
+                            <p:panel header="Confirmar reservacion">
+                                <h4>Informacion del producto</h4>
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Tipo de producto:" />
+                                    <p:outputLabel value="#{productoBean.descripcionCategoria(registrarOrdenCliente.reservacion.dcategoria_producto)} / #{productoBean.descripcionProducto(registrarOrdenCliente.reservacion.dproducto)}" />
+
+                                    <p:outputLabel value="Marca:" />
+                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dmarca}" />
+
+                                    <p:outputLabel value="Modelo:" />
+                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dmodelo}" />
+                                </h:panelGrid>
+
+                                <h4>Problema</h4>
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Diagnostico:" />
+                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dsintoma}" />
+
+                                    <p:outputLabel value="Problema:" />
+                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dproducto}" />                                    
+                                </h:panelGrid>
+
+                                <h4>Reservacion</h4>
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Fecha:" />
+                                    <p:outputLabel value="#{tablaTipoBean.formatoFecha(registrarOrdenCliente.reservacion.ffecha)}" />
+                                    
+                                    <p:outputLabel value="Lugar:" />
+                                    <p:outputLabel value="#{ubigeo.descripcionDistrito(registrarOrdenCliente.reservacion.dubigeo)} - #{registrarOrdenCliente.reservacion.ddireccion}" />
+                                    
+                                    <p:outputLabel value="Contacto por celular:" />
+                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dcelular}" />
+                                </h:panelGrid>
+
+                                <p:commandButton value="Aceptar" action="#{registrarOrdenCliente.registrarNuevaOrdenServicio}"
+                                                 update="growl_registro,panel_registro_orden" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+                    <p:graphicImage value="#{root_img}soporte_tecnico.jpg" width="200" />
+                </h:panelGrid>
+
+            </p:fieldset>
+        </h:form>
     </ui:define>
 
 </ui:composition>

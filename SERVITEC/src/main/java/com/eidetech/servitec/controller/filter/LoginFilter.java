@@ -7,8 +7,13 @@ package com.eidetech.servitec.controller.filter;
 
 import com.eidetech.servitec.controller.acceso.UCSYS001LoginClienteBean;
 import com.eidetech.servitec.controller.acceso.UCSYS001LoginPersonalBean;
+import com.eidetech.servitec.model.domain.entity.Permiso;
+import com.eidetech.servitec.model.domain.entity.PermisoCliente;
+import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
+import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import com.eidetech.servitec.model.util.UtilUsuario;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -81,7 +86,7 @@ public class LoginFilter implements Filter {
 
         //El recurso requiere protección, pero el usuario ya está logueado.
         if (bLoginPersonal) {
-            if (protegerPersonal(url, urlStr)) {
+            if (protegerPersonal(loginPersonal.getUsuario(), url, urlStr)) {
                 chain.doFilter(request, response);
                 return;
             } else {
@@ -90,7 +95,7 @@ public class LoginFilter implements Filter {
             }
         }
         if (bLoginCliente) {
-            if (protegerCliente(url, urlStr)) {
+            if (protegerCliente(loginCliente.getUsuario(), url, urlStr)) {
                 chain.doFilter(request, response);
                 return;
             } else {
@@ -100,12 +105,30 @@ public class LoginFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    private boolean protegerPersonal(String url, String urlStr) {
-        return urlStr.startsWith(url + "/egresado/") || noProtegerRecursos(url, urlStr);
+    private boolean protegerPersonal(UsuarioPersonal personal, String url, String urlStr) {
+        List<Permiso> permisos = UtilUsuario.listaPermisosPersonal(personal);
+        for (Permiso p : permisos) {
+            if (urlStr.startsWith(url + "/" + p.getDurl())) {
+                return true;
+            }
+        }
+        if (urlStr.startsWith(url + "/usuario.xhtml")) {
+            return true;
+        }
+        return noProtegerRecursos(url, urlStr);
     }
 
-    private boolean protegerCliente(String url, String urlStr) {
-        return urlStr.startsWith(url + "/empresa/") || noProtegerRecursos(url, urlStr);
+    private boolean protegerCliente(UsuarioCliente cliente, String url, String urlStr) {
+        List<PermisoCliente> permisos = UtilUsuario.listaPermisosCliente(cliente);
+        for (PermisoCliente p : permisos) {
+            if (urlStr.startsWith(url + "/" + p.getDurl())) {
+                return true;
+            }
+        }        
+        if (urlStr.startsWith(url + "/cliente.xhtml")) {
+            return true;
+        }
+        return noProtegerRecursos(url, urlStr);
     }
 
     private boolean noProteger(String url, String urlStr) {
@@ -126,7 +149,22 @@ public class LoginFilter implements Filter {
         if (urlStr.startsWith(url + "/login.xhtml")) {
             return true;
         }
+        if (urlStr.startsWith(url + "/login_2.xhtml")) {
+            return true;
+        }
         if (urlStr.startsWith(url + "/index.xhtml")) {
+            return true;
+        }
+        if (urlStr.startsWith(url + "/registro.xhtml")) {
+            return true;
+        }
+        if (urlStr.startsWith(url + "/acerca.xhtml")) {
+            return true;
+        }
+        if (urlStr.startsWith(url + "/productos.xhtml")) {
+            return true;
+        }
+        if (urlStr.startsWith(url + "/servicios.xhtml")) {
             return true;
         }
         if (urlStr.indexOf("/javax.faces.resource/") != -1) {

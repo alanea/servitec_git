@@ -10,11 +10,9 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -26,8 +24,10 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 public class Persona implements Serializable{
     @Id
-    @Column(name = "ddni_psn")
+    @Column(name = "id_psn")
     private String id_persona;
+    @Column(name = "ddni_psn")
+    private String ddni;
     @Column(name = "druc_psn")
     private String druc;
     @Column(name = "dnm_psn")
@@ -59,9 +59,8 @@ public class Persona implements Serializable{
     @Column(name = "dusermod_psn")
     private String duserModificacion;
     @Column(name = "fusermod_psn")
-    private Date fuserModificacion;   
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_emp", referencedColumnName = "id_emp")
+    private Date fuserModificacion;
+    @Transient
     private Empresa empresa;
 
     public String getId_persona() {
@@ -94,6 +93,14 @@ public class Persona implements Serializable{
 
     public void setDapellidoMaterno(String dapellidoMaterno) {
         this.dapellidoMaterno = dapellidoMaterno;
+    }
+
+    public String getDdni() {
+        return ddni;
+    }
+
+    public void setDdni(String ddni) {
+        this.ddni = ddni;
     }
 
     public String getDruc() {

@@ -24,7 +24,7 @@ import org.hibernate.annotations.Proxy;
  * @author laptop-w8
  */
 @Entity
-@Table(name = "tp_perm", schema = "public")
+@Table(name = "tp_permiso", schema = "public")
 @Proxy(lazy = false)
 public class Permiso implements Serializable{
     

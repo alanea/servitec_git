@@ -14,8 +14,10 @@ import java.util.List;
  */
 public interface ITablaTipoDao {
 
-    public boolean agregarTablaTipo(TablaTipo tablaTipo) ;
-
+    public boolean agregarTabla(TablaTipo tabla);
+    
+    public boolean agregarTipo(TablaTipo tipo);
+    
     public boolean agregarTodoTablaTipo(List<TablaTipo> lista) ;
 
     public boolean actualizarTablaTipo(TablaTipo tablaTipo);

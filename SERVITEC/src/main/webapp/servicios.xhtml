@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/public.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        Nuestros servicios
+    </ui:define>
+
+    <ui:define name="menu">
+        <h:form>
+            <p:tabMenu activeIndex="1">
+                <p:menuitem value="Inicio" url="#{root}index.xhtml" icon="ui-icon-home">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Servicio Tecnico" url="#{root}servicios.xhtml">
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Productos" url="#{root}productos.xhtml">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+            </p:tabMenu>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="content">
+        <p:outputLabel value="El soporte técnico es un rango de servicios que proporcionan asistencia con el hardware o software de una computadora, o algún otro dispositivo electrónico o mecánico. En general los servicios de soporte técnico tratan de ayudar al usuario a resolver determinados problemas con algún producto en vez de entrenar o personalizar. En general, el servicio de soporte técnico sirve para ayudar a resolver los problemas que puedan presentárseles a los usuarios, mientras hacen uso de servicios, programas o dispositivos." />
+        
+        <br/>
+        <br/>
+        
+        <p:outputLabel value="El soporte técnico se puede dar por distintos tipos de medio, incluyendo el correo electrónico, chat, software de aplicación, faxes, y técnicos, aunque el más común es el teléfono." />
+        
+        <br/>
+        <br/>
+        
+        <p:outputLabel value="El soporte técnico puede variar dependiendo del rango de posibilidades. Algunas cosas que no son soportadas en los niveles bajos de soporte pueden ser soportadas en los altos niveles; por ejemplo, las preguntas directas pueden ser llevadas a cabo a través de mensajes SMS o fax; los problemas de software básico pueden ser resueltos por teléfono, mientras que los problemas de hardware son por lo general tratados en persona." />
+        
+        
+    </ui:define>
+
+</ui:composition>

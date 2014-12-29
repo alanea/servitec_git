@@ -7,12 +7,19 @@ package com.eidetech.servitec.model.util;
 
 import com.eidetech.servitec.model.domain.entity.ConfiguracionMenu;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionPermiso;
+import com.eidetech.servitec.model.domain.entity.ConfiguracionPermisoCliente;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionSubmenu;
 import com.eidetech.servitec.model.domain.entity.Menu;
 import com.eidetech.servitec.model.domain.entity.Permiso;
+import com.eidetech.servitec.model.domain.entity.PermisoCliente;
 import com.eidetech.servitec.model.domain.entity.Submenu;
+import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
+import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
@@ -28,6 +35,8 @@ public class UtilUsuario {
     public static String TIPO_MENU_TECNICO = "MENU_TECNICO";
     public static String TIPO_USUARIO_ADMIN = "ADMIN";
     public static String TIPO_USUARIO_TECNICO = "TECNICO";
+    public static String TIPO_CLIENTE_PERSONA="PERSONA";
+    public static String TIPO_CLIENTE_EMPRESA="EMPRESA";
 
     public static MenuModel getMenuUsuario(Menu menu) {
         MenuModel modelo = new DefaultMenuModel();
@@ -80,5 +89,47 @@ public class UtilUsuario {
             }
         }
         return menu;
+    }
+
+    public static Set<PermisoCliente> getPermisoCliente(UsuarioCliente usuarioCliente, List<ConfiguracionPermisoCliente> lista) {
+        Set<PermisoCliente> l = new HashSet();
+        if (lista != null) {
+            for (ConfiguracionPermisoCliente cpc : lista) {
+                PermisoCliente p = new PermisoCliente();
+                p.setCliente(usuarioCliente);
+                p.setDnombre(cpc.getDnombre());
+                p.setDurl(cpc.getDurl());
+                p.setNorden(cpc.getNorden());
+                l.add(p);
+            }
+        }
+        return l;
+    }
+
+    public static List<Permiso> listaPermisosPersonal(UsuarioPersonal personal) {
+        List<Permiso> l = new ArrayList();
+        if (personal != null) {
+            Menu menu = personal.getMenu();
+            if (menu != null && menu.getSubmenus() != null) {
+                for (Submenu sub : menu.getSubmenus()) {
+                    if (sub != null && sub.getPermisos() != null) {
+                        for (Permiso p : sub.getPermisos()) {
+                            l.add(p);
+                        }
+                    }
+                }
+            }
+        }
+        return l;
+    }
+
+    public static List<PermisoCliente> listaPermisosCliente(UsuarioCliente cliente) {
+        List<PermisoCliente> l = new ArrayList();
+        if (cliente != null && cliente.getPermisos() != null) {
+            for (PermisoCliente p : cliente.getPermisos()) {
+                l.add(p);
+            }
+        }
+        return l;
     }
 }

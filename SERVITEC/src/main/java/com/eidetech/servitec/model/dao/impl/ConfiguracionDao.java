@@ -10,9 +10,9 @@ import com.eidetech.servitec.model.domain.entity.ConfiguracionMenu;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionPermiso;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionPermisoCliente;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionSubmenu;
-import com.eidetech.servitec.model.domain.entity.Producto;
 import com.eidetech.servitec.model.util.UtilHibernate;
 import java.io.Serializable;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -54,7 +54,7 @@ public class ConfiguracionDao implements IConfiguracionDao, Serializable {
 
     @Override
     public ConfiguracionMenu obtenerConfiguracionMenuPersonal(ConfiguracionMenu menu) {
-    ConfiguracionMenu e = null;
+        ConfiguracionMenu e = null;
         Session session = sessionFactory.openSession();
 
         try {
@@ -76,6 +76,11 @@ public class ConfiguracionDao implements IConfiguracionDao, Serializable {
             session.close();
         }
         return e;
+    }
+
+    @Override
+    public List<ConfiguracionPermisoCliente> obtenerListaPermisoCliente() {
+        return UtilHibernate.obtenerListaEntidades(sessionFactory, ConfiguracionPermisoCliente.class);
     }
 
 }

@@ -7,9 +7,9 @@ package com.eidetech.servitec.controller.acceso;
 
 import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import com.eidetech.servitec.model.util.UtilUsuario;
+import com.eidetech.servitec.service.ISeguridadService;
 import com.eidetech.servitec.service.IUsuarioService;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -35,6 +35,8 @@ public class UCSYS001LoginPersonalBean implements Serializable {
     private MenuModel menuUsuarioPersonal;
     @ManagedProperty(value = "#{usuarioService}")
     IUsuarioService usuarioService;
+    @ManagedProperty(value = "#{seguridadService}")
+    ISeguridadService seguridadService;
 
     /**
      * Creates a new instance of UCSYS001LoginUsuarioBean
@@ -58,10 +60,10 @@ public class UCSYS001LoginPersonalBean implements Serializable {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
         }
 
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext.getCurrentInstance().addMessage("msg", msg);
         context.addCallbackParam("estaLogeado", logeado);
         if (logeado) {
-            context.addCallbackParam("view", "index.xhtml");
+            context.addCallbackParam("view", "usuario.xhtml");
         }
     }
 
@@ -114,5 +116,13 @@ public class UCSYS001LoginPersonalBean implements Serializable {
 
     public MenuModel getMenuUsuarioPersonal() {
         return menuUsuarioPersonal;
+    }
+    
+    public ISeguridadService getSeguridadService() {
+        return seguridadService;
+    }
+
+    public void setSeguridadService(ISeguridadService seguridadService) {
+        this.seguridadService = seguridadService;
     }
 }

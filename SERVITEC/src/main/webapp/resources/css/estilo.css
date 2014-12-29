@@ -30,15 +30,24 @@ body{
 }
 
 .ui-selectonemenu{
-    width: 100% !important;
+    width: 95% !important;
 }
 .ui-selectonemenu-label{
-    width: 100% !important;
-} 
+    width: 95% !important;
+}
+
+.ui-panel-titlebar {
+    background-color: #0077B5 !important;
+}
+
 
 .centrar{
     margin-left:auto;
     margin-right:auto;    
+}
+
+.alinear_top {   
+    vertical-align: top;
 }
 
 .panelGridCenter {
@@ -52,17 +61,57 @@ body{
 }
 
 .inicio{
-    background-image: url('../../resources/img/NLogoFisi_sse.png') !important;
+    background-image: url('../../resources/img/logo.jpg') !important;
     height:30px;
     width:30px;
 }
 
 .panelRojo{
-   color: red;
+    color: red;
 }
 
-.icon_ocaa{
-    background-image: url('../../resources/img/ocaa_logo_02.jpg') !important;
-    height:120px;
-    width:1000px;
+.imagenfondo{
+    background: url('../../resources/img/fondo.jpg') no-repeat fixed center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.texto_formateado_01{
+    font-weight:bold;
+}
+
+.texto_formateado_02{
+    font-style: italic;
+}
+
+.columna_formato_tres{
+    width:33%;    
+}
+
+.columna_formato_dos{
+    width:50%;    
+}
+
+.body_usuario{
+    background-color: #0077B5;
+}
+
+.body_cliente{
+    background-color: #0077B5;
+}
+
+.icon_logo{
+    background-image: url('../../resources/img/logo_mini.jpg') !important;
+    height:25px;
+    width:250px;
+}
+
+.panel_formato_1{
+    background-color: transparent;
+}
+
+.panel_formato_2{
+    opacity: 0.4;
 }

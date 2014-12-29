@@ -6,7 +6,7 @@
 
 package com.eidetech.servitec.model.dao.impl;
 
-import com.eidetech.servitec.model.dao.IMenuCliente;
+import com.eidetech.servitec.model.dao.IMenuClienteDao;
 import com.eidetech.servitec.model.domain.entity.PermisoCliente;
 import com.eidetech.servitec.model.util.UtilHibernate;
 import java.io.Serializable;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  * @author laptop-w8
  */
 @Repository("MenuClienteDao")
-public class MenuClienteDao implements IMenuCliente,Serializable{
+public class MenuClienteDao implements IMenuClienteDao,Serializable{
     
     @Autowired
     private SessionFactory sessionFactory;

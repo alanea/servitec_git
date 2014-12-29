@@ -39,7 +39,7 @@ public class UtilLista {
         try {
 
 //            input = new FileInputStream(rutaArchivo);
-            bufferEntrada = new BufferedReader(new InputStreamReader(is, "utf-8"));//, "utf-8"
+            bufferEntrada = new BufferedReader(new InputStreamReader(is));//, "utf-8"
             linea = bufferEntrada.readLine();//cabecera del archivo
             linea = bufferEntrada.readLine();
 
@@ -69,12 +69,12 @@ public class UtilLista {
         try {
 
             input = new FileInputStream(rutaArchivo);
-            bufferEntrada = new BufferedReader(new InputStreamReader(input));//, "utf-8"
+            bufferEntrada = new BufferedReader(new InputStreamReader(input,"utf-8"));//, "utf-8"
             linea = bufferEntrada.readLine();//cabecera del archivo
             linea = bufferEntrada.readLine();
 
             while (linea != null && linea.length() > 0) {
-                System.out.println("linea:" + linea);
+//                System.out.println("linea:" + linea);
                 l.add(linea);
                 linea = bufferEntrada.readLine();
             }

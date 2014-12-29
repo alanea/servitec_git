@@ -5,11 +5,12 @@
  */
 package com.eidetech.servitec.service.impl;
 
+import com.eidetech.servitec.model.dao.ICategoriaDao;
 import com.eidetech.servitec.model.dao.ITablaTipoDao;
 import com.eidetech.servitec.model.dao.IUbigeoDao;
+import com.eidetech.servitec.model.domain.entity.Categoria;
 import com.eidetech.servitec.model.domain.entity.TablaTipo;
 import com.eidetech.servitec.model.domain.entity.UbigeoDepartamento;
-import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
 import com.eidetech.servitec.service.IPortalService;
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +30,8 @@ public class PortalService implements IPortalService, Serializable {
     ITablaTipoDao tablaTipoDao;
     @Autowired
     IUbigeoDao ubigeoDao;
+    @Autowired
+    ICategoriaDao categoriaDao;
 
     @Override
     public List<TablaTipo> obtenerTablaTipos() {
@@ -41,7 +44,7 @@ public class PortalService implements IPortalService, Serializable {
     }
 
     @Override
-    public boolean registrarCliente(UsuarioCliente usuario) {
-        return false;
+    public List<Categoria> obtenerCategorias() {
+        return categoriaDao.obtenerTodoCategoria();
     }
 }

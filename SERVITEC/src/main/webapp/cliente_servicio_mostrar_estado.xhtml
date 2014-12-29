@@ -1,18 +1,28 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/template/cliente.xhtml">
+                template="./WEB-INF/template/cliente.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
-        title
-    </ui:define>
-
-    <ui:define name="menu">
-        menu
+        Estado
     </ui:define>
 
     <ui:define name="content">
-        content
+        <h:panelGrid columns="2">
+            <p:graphicImage value="#{root_img}servicio.png" height="128" width="128"/>
+            <h:panelGrid columns="1">
+                <p:outputLabel><h2>Reparados</h2></p:outputLabel>
+                <p:dataList value="#{mostrarEstado.listaPendienteRevisar}" var="r" type="unordered" emptyMessage="">
+                    <p:outputLabel styleClass="texto_formateado_01" value="#{productoBean.descripcionProducto(r.dproducto)}" /><br/>
+                    <p:outputLabel value="#{r.dsintoma}" /><br/>
+                    <p:outputLabel value="#{r.dproblema}" /><br/>
+                    <p:outputLabel value="Orden generada en #{tablaTipoBean.formatoFecha(r.fcreacion)}" />
+                </p:dataList>
+            </h:panelGrid>
+        </h:panelGrid>
+        
     </ui:define>
 
 </ui:composition>

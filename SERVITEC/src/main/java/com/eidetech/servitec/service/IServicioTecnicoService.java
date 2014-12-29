@@ -6,10 +6,13 @@
 
 package com.eidetech.servitec.service;
 
+import com.eidetech.servitec.model.domain.entity.Reservacion;
+import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
+
 /**
  *
  * @author laptop-w8
  */
 public interface IServicioTecnicoService {
-    
+    public boolean registrarNuevoReservacion(UsuarioCliente usuarioCliente,Reservacion reservacion);
 }

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Mantenimiento de valores
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <p:growl id="growl" for="growl_registrar_tabla" showDetail="true" life="1000"  />
+            <p:panel header="Registrar Tipo" styleClass="centrar" >
+                <p:focus />
+                <h:panelGrid id="grid_registro" columns="3" cellpadding="5">
+                    <p:outputLabel for="tabla" value="Tabla:" />
+                    <p:selectOneMenu id="tabla" value="#{mantenerTablaTipo.tabla.dtabla}" required="true">
+                        <f:selectItem itemLabel="-- Seleccionar Uno --" itemValue=""  />
+                        <f:selectItems value="#{mantenerTablaTipo.siTablas}"/>
+                    </p:selectOneMenu>
+                    <p:message for="tabla" display="both"  />
+
+                    <p:outputLabel for="descripcion" value="Descripcion:" />
+                    <p:inputText id="descripcion" value="#{mantenerTablaTipo.tabla.ddescripcion}" size="40" required="true"/>
+                    <p:message for="descripcion" display="both" />  
+
+                    <p:outputLabel for="tipo" value="Tipo:(abreviatura o sigla, es opcional)" />
+                    <p:inputText id="tipo" value="#{mantenerTablaTipo.tabla.dtipo}" size="40" 
+                                 onblur="this.value = this.value.toUpperCase();" required="false"/>
+                    <p:message for="tipo" display="both" />  
+
+                </h:panelGrid>
+                <p:commandButton value="Registrar" action="#{mantenerTablaTipo.registrarNuevoTipo}" 
+                                 update="growl grid_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+            </p:panel>
+        </h:form>
+        <h:form id="form_modificar_tabla">
+            <p:growl id="growl_tabla" for="growl_modificar_tabla" showDetail="true" life="1000"  />
+            <p:dataTable var="t" value="#{mantenerTablaTipo.tablasTipo}"  filteredValue="#{mantenerTablaTipo.tablasTipoFiltradas}"
+                         emptyMessage="No se hallo tabla con ese criterio" editable="true"  widgetVar="tablasTipoTable"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Buscar en todas los tablas: " />
+                        <p:inputText id="globalFilter" onkeyup="PF('tablasTipoTable').filter()" style="width:250px" placeholder="Ingrese palabra clave"/>
+                    </p:outputPanel>
+                </f:facet>
+
+                <p:ajax event="rowEdit" listener="#{mantenerTablaTipo.onRowEdit}" update=":form_modificar_tabla:growl_tabla" />
+                <p:ajax event="rowEditCancel" listener="#{mantenerTablaTipo.onRowCancel}" update=":form_modificar_tabla:growl_tabla" />
+
+                <p:column headerText="ID" filterBy="#{t.id_tabla}" filterMatchMode="contains" >
+                    <p:outputLabel value="#{t.id_tabla}" />
+                </p:column>
+
+                <p:column headerText="Tabla" filterBy="#{t.dtabla}" filterMatchMode="exact" >
+                    <f:facet name="filter">
+                        <p:selectOneMenu style="width: 100px" onchange="PF('tablasTipoTable').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mantenerTablaTipo.siTablas}" />
+                        </p:selectOneMenu>
+                    </f:facet>                                                        
+                    <p:outputLabel value="#{mantenerTablaTipo.descripcionTabla(t.dtabla)}" />
+                </p:column>
+
+                <p:column headerText="Tipo" >
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.dtipo}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.dtipo}" onblur="this.value = this.value.toUpperCase();"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Descripcion" filterBy="#{t.ddescripcion}" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.ddescripcion}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.ddescripcion}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -10,7 +10,7 @@ import com.eidetech.servitec.model.domain.entity.Serie;
 import com.eidetech.servitec.model.domain.entity.Talon;
 import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import com.eidetech.servitec.model.util.UtilHibernate;
-import com.eidetech.servitec.model.validator.ValidatorTalon;
+import com.eidetech.servitec.model.util.validator.ValidatorTalon;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

@@ -23,12 +23,13 @@
 
             <title><ui:insert name="title"></ui:insert> - #{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}</title>
         </h:head>
-        <h:body>
+        <h:body styleClass="body_usuario">
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="170" resizable="false" closable="true" collapsible="true">
+                <p:layoutUnit position="north" size="65" resizable="false" closable="true" collapsible="true">
                     <h:form>
-                        <p:menubar style="height: 140px">
+                        <p:menubar>
+                            <p:menuitem url="#{root}usuario.xhtml" icon="icon_logo" />
                             <f:facet name="options">
                                 <p:menuButton value="Sistema" iconPos="right">
                                     <p:menuitem value="Salir" action="#{loginPersonal.logout}"
@@ -39,13 +40,14 @@
                     </h:form>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="210" collapsible="false">
+                <p:layoutUnit position="west" size="250" collapsible="false">
                     <p:panel>
-                        <p:graphicImage width="180" value="#{root_img}usuario.png" />
-                        <p:outputLabel styleClass="texto_formateado1">#{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}</p:outputLabel>
+                        <p:panel>
+                            <p:graphicImage width="150" value="#{root_img}usuario.png" />
+                            <p:outputLabel styleClass="texto_formateado1">#{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}</p:outputLabel>
+                        </p:panel>
+                        <p:menu model="#{loginPersonal.menuUsuarioPersonal}" style="width:200px" />
                     </p:panel>
-                    <p:menu model="#{loginPersonal.menuUsuarioPersonal}" style="width:200px" >
-                    </p:menu>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center" resizable="true" >
@@ -58,3 +60,4 @@
             </p:layout>
         </h:body>   
     </f:view>
+</html>

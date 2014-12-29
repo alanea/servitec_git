@@ -9,7 +9,9 @@ import com.eidetech.servitec.model.domain.entity.TablaTipo;
 import com.eidetech.servitec.model.util.UtilTablaTipo;
 import com.eidetech.servitec.service.IPortalService;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
@@ -44,6 +46,18 @@ public class TablaTipoBean implements Serializable {
     private List<TablaTipo> tipoSubproducto;
     private List<TablaTipo> tipoInstitucion;
     private List<TablaTipo> tipoFormaPago;
+    private List<TablaTipo> tipoCategoria;
+    private List<TablaTipo> tipoCategoriaImagenSonido;
+    private List<TablaTipo> tipoCategoriaMovile;
+    private List<TablaTipo> tipoCategoriaLaptop;
+    private List<TablaTipo> tipoCategoriaWifi;
+    private List<TablaTipo> tipoSintomaTelevisores;
+    private List<TablaTipo> tipoSintomaVideo;
+    private List<TablaTipo> tipoSintomaEquipoSonido;
+    private List<TablaTipo> tipoSintomaAutoradio;
+    private List<TablaTipo> tipoSintomaCelulares;
+    private List<TablaTipo> tipoSintomaMonitores;
+    private List<TablaTipo> tipoSintomaAlmacenamientoOptico;
 
     private List<SelectItem> siSexo;
     private List<SelectItem> siTipoColegio;
@@ -62,6 +76,18 @@ public class TablaTipoBean implements Serializable {
     private List<SelectItem> siSubproducto;
     private List<SelectItem> siInstitucion;
     private List<SelectItem> siFormaPago;
+    private List<SelectItem> siCategoria;
+    private List<SelectItem> siCategoriaImagenSonido;
+    private List<SelectItem> siCategoriaMovile;
+    private List<SelectItem> siCategoriaLaptop;
+    private List<SelectItem> siCategoriaWifi;
+    private List<SelectItem> siSintomaTelevisores;
+    private List<SelectItem> siSintomaVideo;
+    private List<SelectItem> siSintomaEquipoSonido;
+    private List<SelectItem> siSintomaAutoradio;
+    private List<SelectItem> siSintomaCelulares;
+    private List<SelectItem> siSintomaMonitores;
+    private List<SelectItem> siSintomaAlmacenamientoOptico;
 
     private String igv;
 
@@ -73,6 +99,14 @@ public class TablaTipoBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        inicializarValores();
+    }
+
+    public void actualizarValores() {
+        inicializarValores();
+    }
+
+    private void inicializarValores() {
         tablatipos = portalService.obtenerTablaTipos();
         tipoColegio = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_COLEGIO);
         tipoProfesion = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_PROFESION);
@@ -90,7 +124,17 @@ public class TablaTipoBean implements Serializable {
         tipoProducto = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_PRODUCTO);
         tipoSubproducto = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_SUBPRODUCTO);
         tipoInstitucion = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_INSTITUCION);
-        tipoFormaPago = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_FORMA_PAGO);
+        tipoCategoria = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_CATEGORIA);
+        tipoCategoriaImagenSonido = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_CATEGORIA_IMAGEN_SONIDO);
+        tipoCategoriaMovile = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_CATEGORIA_MOVILE);
+        tipoCategoriaLaptop = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_CATEGORIA_LAPTOP);
+        tipoSintomaEquipoSonido = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_SINTOMA_EQUIPO_SONIDO);
+        tipoSintomaTelevisores = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_SINTOMA_TELEVISORES);
+        tipoSintomaVideo = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_SINTOMA_VIDEO);
+        tipoSintomaCelulares = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_SINTOMA_CELULARES);
+        tipoSintomaMonitores = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_SINTOMA_MONITORES);
+        tipoSintomaAutoradio = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_SINTOMA_AUTORADIO);
+        tipoSintomaAlmacenamientoOptico = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_SINTOMA_ALMACENAMIENTO_OPTICO);
 
         List<TablaTipo> tipoIgv = UtilTablaTipo.listaTipos(tablatipos, UtilTablaTipo.TIPO_IGV);
         igv = tipoIgv.get(0).getDdescripcion();
@@ -112,6 +156,26 @@ public class TablaTipoBean implements Serializable {
         siSubproducto = listaItem(tipoSubproducto);
         siInstitucion = listaItem(tipoInstitucion);
         siFormaPago = listaItem(tipoFormaPago);
+        siCategoria = listaItem(tipoCategoria);
+        siCategoriaImagenSonido = listaItem(tipoCategoriaImagenSonido);
+        siCategoriaMovile = listaItem(tipoCategoriaMovile);
+        siCategoriaLaptop = listaItem(tipoCategoriaLaptop);
+        siCategoriaWifi = listaItem(tipoCategoriaWifi);
+        siSintomaTelevisores = listaItem(tipoSintomaTelevisores);
+        siSintomaAutoradio = listaItem(tipoSintomaAutoradio);
+        siSintomaCelulares = listaItem(tipoSintomaCelulares);
+        siSintomaMonitores = listaItem(tipoSintomaMonitores);
+        siSintomaEquipoSonido = listaItem(tipoSintomaEquipoSonido);
+        siSintomaVideo = listaItem(tipoSintomaVideo);
+        siSintomaAlmacenamientoOptico = listaItem(tipoSintomaAlmacenamientoOptico);
+    }
+
+    public String formatoFecha(Date fecha) {
+        if (fecha != null) {
+            DateFormat df1 = DateFormat.getDateInstance(DateFormat.LONG);
+            return df1.format(fecha);
+        }
+        return "";
     }
 
     private List<SelectItem> listaItem(List<TablaTipo> tabla) {
@@ -120,6 +184,50 @@ public class TablaTipoBean implements Serializable {
             for (TablaTipo t : tabla) {
                 si.add(new SelectItem(t.getDtipo(), t.getDdescripcion()));
             }
+        }
+        return si;
+    }
+
+    public List<SelectItem> siProducto(String descripcion) {
+        System.out.println("descripcion del producto:" + descripcion);
+        List<SelectItem> si = new ArrayList();
+        if (descripcion.equals("2")) {
+            return siCategoriaLaptop;
+        }
+        if (descripcion.equals("4")) {
+            return siCategoriaWifi;
+        }
+        if (descripcion.equals("3")) {
+            return siCategoriaImagenSonido;
+        }
+        if (descripcion.equals("1")) {
+            return siCategoriaMovile;
+        }
+        return si;
+    }
+
+    public List<SelectItem> siSintoma(String descripcion) {
+        List<SelectItem> si = new ArrayList();
+        if (descripcion.equals("L1")) {
+            return siSintomaMonitores;
+        }
+        if (descripcion.equals("L2")) {
+            return siSintomaAlmacenamientoOptico;
+        }
+        if (descripcion.equals("A1")) {
+            return siSintomaTelevisores;
+        }
+        if (descripcion.equals("A2")) {
+            return siSintomaVideo;
+        }
+        if (descripcion.equals("A4")) {
+            return siSintomaAutoradio;
+        }
+        if (descripcion.equals("A3")) {
+            return siSintomaEquipoSonido;
+        }
+        if (descripcion.equals("M1")) {
+            return siSintomaCelulares;
         }
         return si;
     }
@@ -163,11 +271,11 @@ public class TablaTipoBean implements Serializable {
     public String descripcionAreaTrabajo(String tipo) {
         return UtilTablaTipo.descripcionTipo(tipoAreaTrabajo, UtilTablaTipo.TIPO_AREA_TRABAJO, tipo);
     }
-    
+
     public String descripcionFormaPago(String tipo) {
         return UtilTablaTipo.descripcionTipo(tipoFormaPago, UtilTablaTipo.TIPO_FORMA_PAGO, tipo);
     }
-    
+
     public List<TablaTipo> getTablatipos() {
         return tablatipos;
     }
@@ -256,5 +364,52 @@ public class TablaTipoBean implements Serializable {
         return tipoEstadoRegistro;
     }
 
+    public List<SelectItem> getSiCategoria() {
+        return siCategoria;
+    }
+
+    public List<SelectItem> getSiCategoriaImagenSonido() {
+        return siCategoriaImagenSonido;
+    }
+
+    public List<SelectItem> getSiCategoriaMovile() {
+        return siCategoriaMovile;
+    }
+
+    public List<SelectItem> getSiCategoriaLaptop() {
+        return siCategoriaLaptop;
+    }
+
+    public List<SelectItem> getSiCategoriaWifi() {
+        return siCategoriaWifi;
+    }
+
+    public List<SelectItem> getSiSintomaTelevisores() {
+        return siSintomaTelevisores;
+    }
+
+    public List<SelectItem> getSiSintomaVideo() {
+        return siSintomaVideo;
+    }
+
+    public List<SelectItem> getSiSintomaEquipoSonido() {
+        return siSintomaEquipoSonido;
+    }
+
+    public List<SelectItem> getSiSintomaAutoradio() {
+        return siSintomaAutoradio;
+    }
+
+    public List<SelectItem> getSiSintomaCelulares() {
+        return siSintomaCelulares;
+    }
+
+    public List<SelectItem> getSiSintomaMonitores() {
+        return siSintomaMonitores;
+    }
+
+    public List<SelectItem> getSiSintomaAlmacenamientoOptico() {
+        return siSintomaAlmacenamientoOptico;
+    }
 
 }

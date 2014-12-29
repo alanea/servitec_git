@@ -37,12 +37,26 @@ public class Reservacion implements Serializable{
     private String dsintoma_detallado;
     @Column(name = "dprobl_resrv")
     private String dproblema;
-    @Column(name = "dtipprod_resrv")
+    @Column(name = "dctg_resrv")
     private String dcategoria_producto;
     @Column(name = "dprod_resrv")
     private String dproducto;
+    @Column(name = "dmc_resrv")
+    private String dmarca;
     @Column(name = "dmdl_resrv")
-    private String dmodelo;
+    private String dmodelo;    
+    @Column(name = "dcel_resrv")
+    private String dcelular;    
+    @Column(name = "dubigeo_resrv")
+    private String dubigeo;
+    @Column(name = "ddir_resrv")
+    private String ddireccion;
+    @Column(name = "fcrea_resrv")
+    private Date fcreacion;    
+    @Column(name = "fmod_resrv")
+    private Date fmodificacion;
+    @Column(name = "dest_resrv")
+    private String destado;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cli", referencedColumnName = "id_cli")
     private Cliente cliente;
@@ -103,12 +117,68 @@ public class Reservacion implements Serializable{
         this.dproducto = dproducto;
     }
 
+    public String getDmarca() {
+        return dmarca;
+    }
+
+    public void setDmarca(String dmarca) {
+        this.dmarca = dmarca;
+    }
+
     public String getDmodelo() {
         return dmodelo;
     }
 
     public void setDmodelo(String dmodelo) {
         this.dmodelo = dmodelo;
+    }
+
+    public String getDcelular() {
+        return dcelular;
+    }
+
+    public void setDcelular(String dcelular) {
+        this.dcelular = dcelular;
+    }
+
+    public String getDubigeo() {
+        return dubigeo;
+    }
+
+    public void setDubigeo(String dubigeo) {
+        this.dubigeo = dubigeo;
+    }
+
+    public String getDdireccion() {
+        return ddireccion;
+    }
+
+    public void setDdireccion(String ddireccion) {
+        this.ddireccion = ddireccion;
+    }
+
+    public Date getFcreacion() {
+        return fcreacion;
+    }
+
+    public void setFcreacion(Date fcreacion) {
+        this.fcreacion = fcreacion;
+    }
+
+    public Date getFmodificacion() {
+        return fmodificacion;
+    }
+
+    public void setFmodificacion(Date fmodificacion) {
+        this.fmodificacion = fmodificacion;
+    }
+
+    public String getDestado() {
+        return destado;
+    }
+
+    public void setDestado(String destado) {
+        this.destado = destado;
     }
 
     public Cliente getCliente() {

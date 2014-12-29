@@ -43,6 +43,7 @@
                 <value>com.eidetech.servitec.model.domain.entity.ConfiguracionPermisoCliente</value>
                 <value>com.eidetech.servitec.model.domain.entity.ConfiguracionSubmenu</value>
                 <value>com.eidetech.servitec.model.domain.entity.Empresa</value>
+                <value>com.eidetech.servitec.model.domain.entity.HistorialProductoCliente</value>
                 <value>com.eidetech.servitec.model.domain.entity.Menu</value>
                 <value>com.eidetech.servitec.model.domain.entity.NotaCredito</value>
                 <value>com.eidetech.servitec.model.domain.entity.Permiso</value>
@@ -50,6 +51,7 @@
                 <value>com.eidetech.servitec.model.domain.entity.Persona</value>
                 <value>com.eidetech.servitec.model.domain.entity.Personal</value>
                 <value>com.eidetech.servitec.model.domain.entity.Producto</value>
+                <value>com.eidetech.servitec.model.domain.entity.ProductoCliente</value>
                 <value>com.eidetech.servitec.model.domain.entity.Reservacion</value>
                 <value>com.eidetech.servitec.model.domain.entity.Sede</value>
                 <value>com.eidetech.servitec.model.domain.entity.Serie</value>

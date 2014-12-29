@@ -24,12 +24,11 @@ public class ClienteDao implements IClienteDao, Serializable {
 
     @Override
     public boolean agregarCliente(Cliente cliente) {
-        return UtilHibernate.agregarEntidad(sessionFactory, cliente);
+        return UtilHibernate.agregarActualizarEntidad(sessionFactory, cliente);
     }
 
     @Override
     public Cliente obtenerCliente(Cliente cliente) {
         return UtilHibernate.obtenerEntidad(sessionFactory, Cliente.class, cliente.getId_cliente());
     }
-
 }

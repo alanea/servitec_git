@@ -9,35 +9,47 @@
 
     <h:head>
         <c:set var="root" value="/" />
-        <c:set var="root_img" value="#{root}resources/img/" />
-        
+        <c:set var="root_img" value="#{root}resources/img/" />       
+        <c:set var="root2" value="#{request.contextPath}/" />
+
+        <c:set var="root_resources" value="#{root2}resources/" />
+        <c:set var="root_css" value="#{root_resources}css/" />
+        <c:set var="root_js" value="#{root_resources}js/" />
+
         <link rel="stylesheet" type="text/css" href="#{root_css}estilo.css"/>
         <script type="text/javascript" src="#{root_js}funciones.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title><ui:insert name="title">Eidetech SAC</ui:insert></title>
+        <title><ui:insert name="title"> - #{loginCliente.usuario.persona.dnombres} #{loginCliente.usuario.persona.dapellidoPaterno}</ui:insert></title>
     </h:head>
 
-    <h:body>
-        <p:panel style="height: 250px;width: 1000px;text-align: right">
+    <h:body styleClass="body_cliente">
+        <p:panel style="height: 150px;width: 1000px;" styleClass="centrar">
             <h:panelGrid columns="2">
-                <p:button value="Login" outcome="login" />
-                <p:button value="Registrarse" outcome="login" />
+                <h:form>
+                    <p:menubar style="width: 100%">
+                        <p:menuitem url="#{root}cliente.xhtml" icon="icon_logo" />
+                        <f:facet name="options">
+                            <p:commandButton value="Salir" action="#{loginCliente.logout}"
+                                             icon="ui-icon-extlink" oncomplete="logout(xhr, status, args)" />
+                        </f:facet>
+                    </p:menubar>
+                </h:form>
             </h:panelGrid>
             <h:panelGrid columns="2">
-                <p:link href="index.xhtml"><p:graphicImage value="#{root_img}logo.jpg" width="312" /></p:link>
+                <p:link href="cliente.xhtml"><p:graphicImage value="#{root_img}logo.jpg" width="312" /></p:link>
                 <ui:insert name="menu">
                     <h:form>
-                        <p:tabMenu activeIndex="0">
-                            <p:menuitem value="Inicio" url="#{root}index.xhtml" icon="ui-icon-home">
+                        <p:tabMenu activeIndex="1">
+                            <p:menuitem value="Inicio" url="#{root}cliente.xhtml" icon="ui-icon-home">
                                 <f:param name="i" value="0" />
                             </p:menuitem>
-                            <p:menuitem value="Servicio Tecnico" url="#{root}egresado.xhtml">
+                            <p:menuitem value="Servicios" url="#{root}cliente_servicios.xhtml">
                                 <f:param name="i" value="1" />
                             </p:menuitem>
-                            <p:menuitem value="Productos" url="#{root}empresa.xhtml">
+                            <p:menuitem value="Productos" url="#{root}productos.xhtml">
                                 <f:param name="i" value="2" />
                             </p:menuitem>
-                            <p:menuitem value="Acerca de" url="#{root}servicios.xhtml">
+                            <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
                                 <f:param name="i" value="3" />
                             </p:menuitem>
                         </p:tabMenu>
@@ -46,7 +58,11 @@
             </h:panelGrid>
         </p:panel>
 
-        <ui:insert name="content"></ui:insert>
+
+        <p:panel style="width: 1000px" styleClass="centrar">
+            <ui:insert name="content"></ui:insert>
+        </p:panel>
+
     </h:body>
 
 </html>

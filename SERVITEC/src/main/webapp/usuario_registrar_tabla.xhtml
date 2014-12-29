@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Mantenimiento de tabla
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+            <p:growl id="growl" for="growl_registrar_tabla" showDetail="true" life="1000"  />
+            <p:panel header="Registrar Tabla" styleClass="centrar" >
+                <p:focus />
+                <h:panelGrid id="grid_registro" columns="3" styleClass="centrar" cellpadding="5">
+                    <p:outputLabel for="descripcion" value="Descripcion:" />
+                    <p:inputText id="descripcion" value="#{mantenerTablaTipo.tabla.ddescripcion}" required="true"/>
+                    <p:message for="descripcion" display="both" />                            
+                </h:panelGrid>
+                <p:commandButton value="Registrar" action="#{mantenerTablaTipo.registrarNuevoTabla}" 
+                                 update="growl grid_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+            </p:panel>
+        </h:form>
+        <h:form id="form_modificar_tabla">
+            <p:growl id="growl_tabla" for="growl_modificar_tabla" showDetail="true" life="1000"  />
+            <p:dataTable var="t" value="#{mantenerTablaTipo.tipoTabla}"  filteredValue="#{mantenerTablaTipo.tipoTablaFiltradas}"
+                         emptyMessage="No se hallo tabla con ese criterio" editable="true"  widgetVar="tablasTipoTable"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+
+                <p:ajax event="rowEdit" listener="#{mantenerTablaTipo.onRowEdit}" update=":form_modificar_tabla:growl_tabla" />
+                <p:ajax event="rowEditCancel" listener="#{mantenerTablaTipo.onRowCancel}" update=":form_modificar_tabla:growl_tabla" />
+
+                <p:column headerText="ID" filterBy="#{t.id_tabla}" filterMatchMode="contains" >
+                    <p:outputLabel value="#{t.id_tabla}" />
+                </p:column>
+
+                <p:column headerText="Tipo" filterBy="#{t.dtipo}" filterMatchMode="contains" >
+                    <p:outputLabel value="#{t.dtipo}" />
+                </p:column>
+
+                <p:column headerText="Descripcion" filterBy="#{t.ddescripcion}" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.ddescripcion}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.ddescripcion}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

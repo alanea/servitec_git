@@ -5,7 +5,7 @@
  */
 package com.eidetech.servitec.model.dao.impl;
 
-import com.eidetech.servitec.model.dao.IMenuPersonal;
+import com.eidetech.servitec.model.dao.IMenuPersonalDao;
 import com.eidetech.servitec.model.domain.entity.Menu;
 import com.eidetech.servitec.model.domain.entity.Permiso;
 import com.eidetech.servitec.model.domain.entity.Submenu;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
  * @author laptop-w8
  */
 @Repository("MenuPersonalDao")
-public class MenuPersonalDao implements IMenuPersonal, Serializable {
+public class MenuPersonalDao implements IMenuPersonalDao, Serializable {
 
     @Autowired
     private SessionFactory sessionFactory;

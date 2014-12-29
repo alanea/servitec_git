@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -35,8 +36,6 @@ public class UsuarioCliente implements Serializable {
     private String dname;
     @Column(name = "dpass_usercli")
     private String dpassword;
-    @Column(name = "dtip_usercli")
-    private String dtipo;
     @Column(name = "dusercrea_usercli")
     private String duserCreacion;
     @Column(name = "fusercrea_usercli")
@@ -48,10 +47,12 @@ public class UsuarioCliente implements Serializable {
     @Column(name = "dest_usercli")
     private String destado;
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ddni_psn")
+    @JoinColumn(name = "id_psn")
     private Persona persona;     
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "cliente")
     private Set<PermisoCliente> permisos;
+    @Transient
+    private Cliente cliente;
 
     public String getId_usuario() {
         return id_usuario;
@@ -75,14 +76,6 @@ public class UsuarioCliente implements Serializable {
 
     public void setDpassword(String dpassword) {
         this.dpassword = dpassword;
-    }
-
-    public String getDtipo() {
-        return dtipo;
-    }
-
-    public void setDtipo(String dtipo) {
-        this.dtipo = dtipo;
     }
 
     public String getDuserCreacion() {
@@ -139,6 +132,14 @@ public class UsuarioCliente implements Serializable {
 
     public void setPermisos(Set<PermisoCliente> permisos) {
         this.permisos = permisos;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
 }

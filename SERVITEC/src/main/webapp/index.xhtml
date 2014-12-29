@@ -6,40 +6,33 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <p:galleria value="#{indexBean.noticias}" var="noticia" 
+        <p:galleria value="#{indexBean.noticias}" var="n" 
                     panelHeight="350"  style="width: 100%"  showCaption="true">
-            <p:graphicImage value="#{root_img}#{noticia.urlImagen}" height="350"
-                            alt="#{noticia.descripcion}" title="#{noticia.titulo}"/>
+            <p:graphicImage value="#{root_img}#{n.dnombre}" height="350"
+                            alt="#{n.ddescripcion}" title="#{n.dtitulo}"/>
         </p:galleria>
 
         <p:separator />
 
-        <p:carousel headerText="Eventos" value="#{indexBean.publicaciones}" var="pub" 
-                    numVisible="3" itemStyle="width: 317px;height: 500px">
-            <p:graphicImage value="#{root_img}escudo-unmsm.gif" title="#{pub.dtitulo}" />
+        <p:carousel headerText="Productos" value="#{indexBean.productos}" var="p" 
+                    numVisible="4" itemStyle="width: 236px;height: 350px">
+            <p:outputLabel value="#{p.dtitulo}" />
+            <p:graphicImage value="#{root_img}#{p.dnombre}" width="230" height="230" title="#{p.dtitulo}" />
             <br/>
-            <p:outputLabel value="#{pub.fcreacion}" />
+            <p:outputLabel value="#{p.ddescripcion}" />
             <br/>
-            <p:outputLabel value="#{pub.dtitulo}" />
-            <br/>
-            <p:outputLabel value="#{pub.ddescripcion}" />
-            <br/>
-            <p:button href="#{pub.durl}" value="Ver más" />
+            <p:button href="#{p.durl}" value="Ver más..." styleClass="texto_formateado_02" />
         </p:carousel>
 
         <p:separator />
 
-        <p:carousel headerText="Eventos" value="#{indexBean.publicaciones}" var="pub" 
-                    numVisible="3" itemStyle="width: 317px;height: 500px">
-            <p:graphicImage value="#{root_img}escudo-unmsm.gif" title="#{pub.dtitulo}" />
+        <p:carousel headerText="Servicios" value="#{indexBean.servicios}" var="s" 
+                    numVisible="3" itemStyle="width: 316px;height: 350px">
+            <p:graphicImage value="#{root_img}#{s.dnombre}" title="#{s.dtitulo}" />
             <br/>
-            <p:outputLabel value="#{pub.fcreacion}" />
+            <p:outputLabel value="#{s.ddescripcion}" />
             <br/>
-            <p:outputLabel value="#{pub.dtitulo}" />
-            <br/>
-            <p:outputLabel value="#{pub.ddescripcion}" />
-            <br/>
-            <p:button href="#{pub.durl}" value="Ver más" />
+            <p:button href="#{s.durl}" value="Ver más..." styleClass="texto_formateado_02" />
         </p:carousel>
     </ui:define>
 
