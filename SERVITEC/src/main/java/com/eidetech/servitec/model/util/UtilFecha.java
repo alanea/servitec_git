@@ -5,6 +5,7 @@
  */
 package com.eidetech.servitec.model.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -127,6 +128,23 @@ public class UtilFecha {
             if (f instanceof Date) {
                 return f.getDate() + "/" + (f.getMonth() + 1) + "/" + (f.getYear() + 1900);
             }
+        }
+        return "";
+    }
+    
+    public static String formatoFecha(Date fecha) {
+        if (UtilFecha.fechaValido(fecha)) {
+            DateFormat df1 = DateFormat.getDateInstance(DateFormat.LONG);
+            return df1.format(fecha);
+        }
+        return "";
+    }
+
+    public static String formatoFechaHora(Date fecha) {
+        if (UtilFecha.fechaValido(fecha)) {
+            DateFormat df1 = DateFormat.getDateInstance(DateFormat.LONG);
+            SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+            return df1.format(fecha) + " "+sdf1.format(fecha);
         }
         return "";
     }

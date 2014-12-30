@@ -6,12 +6,14 @@
 package com.eidetech.servitec.controller;
 
 import com.eidetech.servitec.model.domain.Imagen;
+import com.eidetech.servitec.service.ISeguridadService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedProperty;
 
 /**
  *
@@ -24,6 +26,9 @@ public class IndexBean implements Serializable {
     private List<Imagen> noticias;
     private List<Imagen> productos;
     private List<Imagen> servicios;
+    
+    @ManagedProperty(value = "#{seguridadService}")
+    ISeguridadService seguridadService;
 
     /**
      * Creates a new instance of ImagenesBean
@@ -90,6 +95,8 @@ public class IndexBean implements Serializable {
         servicios.add(s1);
         servicios.add(s2);
         servicios.add(s3);
+        
+        seguridadService.inicializarConfiguracion();
     }
 
     public List<Imagen> getNoticias() {
@@ -102,6 +109,14 @@ public class IndexBean implements Serializable {
 
     public List<Imagen> getServicios() {
         return servicios;
+    }
+
+    public ISeguridadService getSeguridadService() {
+        return seguridadService;
+    }
+
+    public void setSeguridadService(ISeguridadService seguridadService) {
+        this.seguridadService = seguridadService;
     }
 
 }

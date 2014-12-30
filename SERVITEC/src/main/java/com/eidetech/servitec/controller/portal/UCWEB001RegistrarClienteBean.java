@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.eidetech.servitec.controller.cliente;
+package com.eidetech.servitec.controller.portal;
 
 import com.eidetech.servitec.model.domain.entity.Persona;
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
@@ -23,7 +23,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "registrarCliente")
 @ViewScoped
-public class UCCLI001RegistrarClienteBean implements Serializable{
+public class UCWEB001RegistrarClienteBean implements Serializable{
     
     private Persona cliente;
     private UsuarioCliente usuario;
@@ -34,7 +34,7 @@ public class UCCLI001RegistrarClienteBean implements Serializable{
     /**
      * Creates a new instance of UCCLI001RegistrarClienteBean
      */
-    public UCCLI001RegistrarClienteBean() {
+    public UCWEB001RegistrarClienteBean() {
         cliente=new Persona();
         usuario=new UsuarioCliente();
     }

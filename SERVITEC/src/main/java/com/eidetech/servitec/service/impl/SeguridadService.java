@@ -16,6 +16,7 @@ import com.eidetech.servitec.model.domain.entity.Cliente;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionMenu;
 import com.eidetech.servitec.model.domain.entity.ConfiguracionPermisoCliente;
 import com.eidetech.servitec.model.domain.entity.Personal;
+import com.eidetech.servitec.model.domain.entity.Sede;
 import com.eidetech.servitec.model.domain.entity.TablaTipo;
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
 import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
@@ -52,6 +53,39 @@ public class SeguridadService implements ISeguridadService, Serializable {
     ITablaTipoDao tablaTipoDao;
     @Autowired
     IClienteDao clienteDao;
+
+    @Override
+    public void inicializarConfiguracion() {
+        UsuarioPersonal usuario = new UsuarioPersonal();
+        usuario.setDname("admin");
+        
+        if (!usuarioPersonalDao.existeUsuarioPersonal(usuario)) {
+
+            Sede sede = new Sede();
+            sede.setId_sede("SEDE01");
+
+            ConfiguracionMenu menu = new ConfiguracionMenu();
+            menu.setDnombre(UtilUsuario.TIPO_MENU_ADMIN);
+            ConfiguracionMenu c = configuracionDao.obtenerConfiguracionMenuPersonal(menu);
+
+            Personal personal = new Personal();
+            personal.setDnombres("Persona 01");
+            personal.setDapellidoPaterno("Apellido 01");
+            personal.setDapellidoMaterno("Apellido 02");
+
+            personalDao.agregarPersonal(personal);
+
+            usuario.setDpassword("admin");
+            usuario.setDtipo(UtilUsuario.TIPO_USUARIO_ADMIN);
+            usuario.setDuserCreacion("admin");
+            usuario.setFuserCreacion(new Date());
+            usuario.setPersonal(personal);
+            usuario.setSede(sede);
+            usuario.setMenu(UtilUsuario.getMenu(c));
+
+            usuarioPersonalDao.agregarUsuarioPersonal(usuario);
+        }
+    }
 
     @Override
     public boolean registrarNuevoPersonal(Personal personal) {
@@ -101,6 +135,7 @@ public class SeguridadService implements ISeguridadService, Serializable {
         cliente.setId_cliente(usuario.getPersona().getId_persona());
         cliente.setDdni(usuario.getPersona().getId_persona());
         cliente.setDtipo(UtilUsuario.TIPO_CLIENTE_PERSONA);
+        cliente.setDnombre(usuario.getPersona().getDnombres() + ", " + usuario.getPersona().getDapellidoPaterno() + " " + usuario.getPersona().getDapellidoMaterno());
 
         clienteDao.agregarCliente(cliente);
 

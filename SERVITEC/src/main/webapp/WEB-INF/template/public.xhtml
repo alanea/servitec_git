@@ -22,80 +22,92 @@
         <title><ui:insert name="title">Bienvenido</ui:insert> - Eidetech S.A.C.</title>
     </h:head>
 
-    <h:body styleClass="imagenfondo">       
-        <p:panel style="height: 100px;width: 1000px" styleClass="centrar">
-            <h:panelGrid columns="1" style="width: 100%;" dir="RTL">
-                <h:panelGrid columns="3" style="width: 100px;">
-                    <p:link value="Registrarse" outcome="registro"/>
-                    <p:outputLabel value="|" />
-                    <p:link value="Login" outcome="login" />
+    <h:body styleClass="colorfondo">
+
+        <h:panelGrid style="background-color: #32CD32;width: 100%" styleClass="centrar">
+            <h:panelGrid columns="2" style="background-color: transparent;width: 1000px" styleClass="centrar">
+                <h:panelGrid style="width: 300px">
+                    <p:link href="index.xhtml"><p:graphicImage value="#{root_img}logo.jpg" width="312" height="50" /></p:link>                
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <h:panelGrid columns="1" style="width: 100%;" dir="RTL">
+                        <h:panelGrid columns="3" style="width: 100px;">
+                            <p:link value="Registrarse" outcome="registro"/>
+                            <p:outputLabel value="|" />
+                            <p:link value="Login" outcome="login" />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1">
+                        <ui:insert name="menu">
+                            <h:form>
+                                <p:tabMenu activeIndex="0">
+                                    <p:menuitem value="Inicio" url="#{root}index.xhtml" icon="ui-icon-home">
+                                        <f:param name="i" value="0" />
+                                    </p:menuitem>
+                                    <p:menuitem value="Servicio Tecnico" url="#{root}servicios.xhtml">
+                                        <f:param name="i" value="1" />
+                                    </p:menuitem>
+                                    <p:menuitem value="Productos" url="#{root}productos.xhtml">
+                                        <f:param name="i" value="2" />
+                                    </p:menuitem>
+                                    <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
+                                        <f:param name="i" value="3" />
+                                    </p:menuitem>
+                                </p:tabMenu>
+                            </h:form>
+                        </ui:insert>
+                    </h:panelGrid>
                 </h:panelGrid>
             </h:panelGrid>
-            <h:panelGrid columns="2">
-                <p:link href="index.xhtml"><p:graphicImage value="#{root_img}logo.jpg" width="312" height="50" /></p:link>
-                <ui:insert name="menu">
-                    <h:form>
-                        <p:tabMenu activeIndex="0">
-                            <p:menuitem value="Inicio" url="#{root}index.xhtml" icon="ui-icon-home">
-                                <f:param name="i" value="0" />
-                            </p:menuitem>
-                            <p:menuitem value="Servicio Tecnico" url="#{root}servicios.xhtml">
-                                <f:param name="i" value="1" />
-                            </p:menuitem>
-                            <p:menuitem value="Productos" url="#{root}productos.xhtml">
-                                <f:param name="i" value="2" />
-                            </p:menuitem>
-                            <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
-                                <f:param name="i" value="3" />
-                            </p:menuitem>
-                        </p:tabMenu>
-                    </h:form>
-                </ui:insert>
-            </h:panelGrid>
-        </p:panel>
+        </h:panelGrid>
 
-        <p:panel style="width: 1000px" styleClass="centrar">
-            <ui:insert name="content"></ui:insert>
-        </p:panel>            
+        <h:panelGrid style="background-color: #1E90FF;width: 100%" styleClass="centrar">
+            <br/>
+            <p:panel style="width: 1000px" styleClass="centrar">
+                <ui:insert name="content"></ui:insert>
+            </p:panel>
+            <br/>
+        </h:panelGrid>          
 
-        <p:panel style="background-color: transparent;width: 1000px" styleClass="centrar">
-            <h:panelGrid columns="3" style="width: 980px" styleClass="centrar" columnClasses="alinear_top,alinear_top" >
-                <p:panel header="Nosotros" style="height: 200px;width: 310px">
-                    <p:link outcome="index" value="Inicio" style="display:inline-block"/>
-                    <br/>
-                    <p:link outcome="acerca" value="Nosotros" style="display:inline-block"/>
-                    <br/>
-                </p:panel>
+        <h:panelGrid style="background-color: #9370DB;width: 100%" styleClass="centrar">
+            <h:panelGrid columns="3" style="width: 1000px" styleClass="centrar" columnClasses="alinear_top,alinear_top" >
+                <p:outputLabel>Nosotros</p:outputLabel>
+                <p:outputLabel>Productos</p:outputLabel>
+                <p:outputLabel>Servicios</p:outputLabel>
                 
-                <p:panel header="Productos" style="height: 200px;width: 310px">
+                <h:panelGrid columns="1" style="background-color: transparent;width: 325px">                    
+                    <p:link outcome="index" value="Inicio" style="display:inline-block"/>
+                    <p:link outcome="acerca" value="Nosotros" style="display:inline-block"/>
+                </h:panelGrid>
 
+                <h:panelGrid columns="2" style="background-color: transparent;width: 325px">                    
                     <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="Sonido y música" style="display:inline-block"/>
-                    <br/>
                     <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="PC y laptop" style="display:inline-block"/>
-                    <br/>
                     <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="Smatphones" style="display:inline-block"/>
-                    <br/>
                     <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="Wifi y bluetooth" style="display:inline-block"/>
 
-                </p:panel>
+                </h:panelGrid>
 
-                <p:panel header="Servicios" style="height: 200px;width: 310px">
+                <h:panelGrid columns="2" style="background-color: transparent;width: 325px">                    
                     <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="servicios" value="Reparacion domiciliaria" style="display:inline-block"/>
-                    <br/>
                     <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="servicios" value="Diagnostico preventivo" style="display:inline-block"/>
-                    <br/>
                     <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="servicios" value="Reparacion" style="display:inline-block"/>
-
-                </p:panel>
+                </h:panelGrid>
             </h:panelGrid>
-        </p:panel>
+
+            <h:panelGrid style="width: 1000px;text-align: right" styleClass="centrar" >
+                <p:outputLabel styleClass="texto_formateado_04" value="Lima,Miraflores - Av. Pethit Thours 4990" />
+                <p:outputLabel styleClass="texto_formateado_04" value="Email: eidetech@hotmail.com" />      
+                <p:outputLabel styleClass="texto_formateado_04" value="Telefono: 7777777" />
+            </h:panelGrid>
+        </h:panelGrid>
     </h:body>
 
 </html>

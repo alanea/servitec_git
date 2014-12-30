@@ -6,10 +6,12 @@
 package com.eidetech.servitec.controller;
 
 import com.eidetech.servitec.model.domain.entity.TablaTipo;
+import com.eidetech.servitec.model.util.UtilFecha;
 import com.eidetech.servitec.model.util.UtilTablaTipo;
 import com.eidetech.servitec.service.IPortalService;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -171,11 +173,11 @@ public class TablaTipoBean implements Serializable {
     }
 
     public String formatoFecha(Date fecha) {
-        if (fecha != null) {
-            DateFormat df1 = DateFormat.getDateInstance(DateFormat.LONG);
-            return df1.format(fecha);
-        }
-        return "";
+        return UtilFecha.formatoFecha(fecha);
+    }
+
+    public String formatoFechaHora(Date fecha) {
+        return UtilFecha.formatoFechaHora(fecha);
     }
 
     private List<SelectItem> listaItem(List<TablaTipo> tabla) {

@@ -45,13 +45,13 @@ public class UsuarioClienteDao implements IUsuarioClienteDao, Serializable {
                 return false;
             }
             
-            n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_usuario,4,9),int))  FROM UsuarioCliente e ").uniqueResult();
+            n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_usuario,4,6),int))  FROM UsuarioCliente e ").uniqueResult();
             if (n == null) {
                 n = 0;
             }
             n = n + 1;
             Formatter fmt = new Formatter();
-            fmt.format("%05d", n);
+            fmt.format("%06d", n);
             id = id + fmt.toString();
             usuario.setId_usuario(id);
 

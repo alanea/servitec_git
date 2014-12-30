@@ -33,7 +33,9 @@ public class Cliente implements Serializable {
     @Column(name = "ddni_cli")
     private String ddni;
     @Column(name = "dtip_cli")
-    private String dtipo;
+    private String dtipo;    
+    @Column(name = "dnm_cli")
+    private String dnombre;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
     private Set<Comprobante> comprobantes;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
@@ -89,6 +91,14 @@ public class Cliente implements Serializable {
 
     public void setDtipo(String dtipo) {
         this.dtipo = dtipo;
+    }
+
+    public String getDnombre() {
+        return dnombre;
+    }
+
+    public void setDnombre(String dnombre) {
+        this.dnombre = dnombre;
     }
 
     public Set<Comprobante> getComprobantes() {

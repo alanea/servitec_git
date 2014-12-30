@@ -8,6 +8,7 @@ package com.eidetech.servitec.controller.acceso;
 import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import com.eidetech.servitec.model.util.UtilUsuario;
 import com.eidetech.servitec.service.ISeguridadService;
+import com.eidetech.servitec.service.IServicioTecnicoService;
 import com.eidetech.servitec.service.IUsuarioService;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
@@ -37,6 +38,8 @@ public class UCSYS001LoginPersonalBean implements Serializable {
     IUsuarioService usuarioService;
     @ManagedProperty(value = "#{seguridadService}")
     ISeguridadService seguridadService;
+    @ManagedProperty(value = "#{servicioTecnicoService}")
+    IServicioTecnicoService tecnicoService;
 
     /**
      * Creates a new instance of UCSYS001LoginUsuarioBean
@@ -124,5 +127,13 @@ public class UCSYS001LoginPersonalBean implements Serializable {
 
     public void setSeguridadService(ISeguridadService seguridadService) {
         this.seguridadService = seguridadService;
+    }
+
+    public IServicioTecnicoService getTecnicoService() {
+        return tecnicoService;
+    }
+
+    public void setTecnicoService(IServicioTecnicoService tecnicoService) {
+        this.tecnicoService = tecnicoService;
     }
 }

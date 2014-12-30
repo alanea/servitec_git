@@ -42,13 +42,14 @@ public class ProductoClienteDao implements IProductoClienteDao, Serializable {
         Session session = sessionFactory.openSession();
         try {
             session.getTransaction().begin();
-            n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_producto_cliente,4,9),int))  FROM ProductoCliente e ").uniqueResult();
+            n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_producto_cliente,4,6),int)) FROM ProductoCliente e ").uniqueResult();
+            
             if (n == null) {
                 n = 0;
             }
             n = n + 1;
             Formatter fmt = new Formatter();
-            fmt.format("%05d", n);
+            fmt.format("%06d", n);
             id = id + fmt.toString();
             id = id + productoCliente.getDproducto();
 
@@ -116,13 +117,13 @@ public class ProductoClienteDao implements IProductoClienteDao, Serializable {
         Session session = sessionFactory.openSession();
         try {
             session.getTransaction().begin();
-            n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_historial_producto_cliente,4,9),int))  FROM HistorialProductoCliente e ").uniqueResult();
+            n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_historial_producto_cliente,4,5),int))  FROM HistorialProductoCliente e ").uniqueResult();
             if (n == null) {
                 n = 0;
             }
             n = n + 1;
             Formatter fmt = new Formatter();
-            fmt.format("%05d", n);
+            fmt.format("%06d", n);
             id = id + fmt.toString();
             id = id + historialProductoCliente.getProducto().getId_producto_cliente();
 

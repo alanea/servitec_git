@@ -16,6 +16,8 @@ import java.util.List;
  * @author laptop-w8
  */
 public interface ISeguridadService {
+    
+    public void inicializarConfiguracion();
 
     public boolean registrarNuevoPersonal(Personal personal);
 

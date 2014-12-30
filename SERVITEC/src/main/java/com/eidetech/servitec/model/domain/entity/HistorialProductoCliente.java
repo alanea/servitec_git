@@ -31,7 +31,7 @@ public class HistorialProductoCliente implements Serializable{
     private String id_historial_producto_cliente;
     @Column(name = "dstm_histprod")
     private String dsintoma;
-    @Column(name = "stmdet_histprod")
+    @Column(name = "dstmdet_histprod")
     private String dsintomaDetallado;
     @Column(name = "dtbj_histprod")
     private String dtrabajo;

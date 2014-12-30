@@ -6,7 +6,6 @@
 package com.eidetech.servitec.controller.servicio;
 
 import com.eidetech.servitec.controller.acceso.UCSYS001LoginClienteBean;
-import com.eidetech.servitec.model.domain.entity.Personal;
 import com.eidetech.servitec.model.domain.entity.Reservacion;
 import com.eidetech.servitec.model.util.UtilServicio;
 import java.io.Serializable;
@@ -48,7 +47,7 @@ public class UCSVC001RegistrarOrdenClienteBean implements Serializable {
         boolean exito = false;
         
         reservacion.setCliente(beanCliente.getUsuario().getCliente());
-        reservacion.setDestado(UtilServicio.TIPO_RESERVACION_ESTADO_1);
+        reservacion.setDestado(UtilServicio.TIPO_RESERVACION_PENDIENTE_REVISAR_DOMICILIO);
 
         if (beanCliente.getServicioTecnicoService().registrarNuevoReservacion(beanCliente.getUsuario(),reservacion)) {
             mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", "");

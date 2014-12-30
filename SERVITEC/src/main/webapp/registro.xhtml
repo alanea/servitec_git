@@ -20,6 +20,43 @@
                     <p:growl id="growl" for="registro_web_cliente" showDetail="true" life="1000"/>         
                     <h:panelGrid id="panel_registro_cliente" columns="1">
                         <h:panelGrid columns="2" style="width: 700px" columnClasses="columna_formato_dos">
+                            <p:outputLabel for="dni" value="DNI:"/>
+                            <p:outputLabel for="nombres" value="Nombres:" />
+
+                            <p:inputMask id="dni" value="#{registrarCliente.cliente.id_persona}" 
+                                         mask="99999999"
+                                         required="true" requiredMessage="Por favor ingrese su dni"
+                                         validatorMessage="No es un dni valido"/>
+                            <p:inputText id="nombres" value="#{registrarCliente.cliente.dnombres}"
+                                         required="true"/>
+
+                            <p:message for="dni" display="text" />
+                            <p:message for="nombres" display="text" />
+
+                            <p:outputLabel for="apellido_paterno" value="Apellido paterno:" />
+                            <p:outputLabel for="apellido_materno" value="Apellido materno:" />
+
+                            <p:inputText id="apellido_paterno" value="#{registrarCliente.cliente.dapellidoPaterno}" 
+                                         required="true"/>
+                            <p:inputText id="apellido_materno" value="#{registrarCliente.cliente.dapellidoMaterno}" 
+                                         required="true"/>
+
+                            <p:message for="apellido_paterno" />
+                            <p:message for="apellido_materno" display="both" />
+
+                            <p:outputLabel for="fecha_nac" value="Fecha de Nacimiento:" />
+                            <p:outputLabel for="genero" value="Genero:" />
+
+                            <p:calendar id="fecha_nac" value="#{registrarCliente.cliente.fnacimiento}" 
+                                        required="true" readonlyInput="true" yearRange="c-100:c" 
+                                        pattern="dd/MMM/yyyy" mode="popup" navigator="true" showOn="button" locale="es"/>
+                            <p:selectOneRadio id="genero" value="#{registrarCliente.cliente.dsexo}" required="true">
+                                <f:selectItems value="#{tablaTipoBean.siSexo}" />
+                            </p:selectOneRadio>
+
+                            <p:message for="fecha_nac" display="both" />
+                            <p:message for="genero" />
+                            
                             <p:outputLabel for="email" value="Correo Electronico:"/>
                             <p:outputLabel for="celular" value="Celular:"/>
 
@@ -46,55 +83,26 @@
 
                             <p:message for="password1" display="both" />
                             <p:message for="password2" display="both" />
-
-                            <p:outputLabel for="dni" value="DNI:"/>
-                            <p:outputLabel for="nombres" value="Nombres:" />
-
-                            <p:inputMask id="dni" value="#{registrarCliente.cliente.id_persona}" 
-                                         mask="99999999"
-                                         required="true" requiredMessage="Por favor ingrese su dni"
-                                         validatorMessage="No es un dni valido"/>
-                            <p:inputText id="nombres" value="#{registrarCliente.cliente.dnombres}" />
-
-                            <p:message for="dni" display="text" />
-                            <p:message for="nombres" display="text" />
-
-                            <p:outputLabel for="apellido_paterno" value="Apellido paterno:" />
-                            <p:outputLabel for="apellido_materno" value="Apellido materno:" />
-
-                            <p:inputText id="apellido_paterno" value="#{registrarCliente.cliente.dapellidoPaterno}" />
-                            <p:inputText id="apellido_materno" value="#{registrarCliente.cliente.dapellidoMaterno}" />
-
-                            <p:message for="apellido_paterno" />
-                            <p:message for="apellido_materno" display="both" />
-
-                            <p:outputLabel for="genero" value="Genero:" />
-                            <p:outputLabel for="fecha_nac" value="Fecha de Nacimiento:" />
-
-                            <p:selectOneRadio id="genero" value="#{registrarCliente.cliente.dsexo}" required="true">
-                                <f:selectItems value="#{tablaTipoBean.siSexo}" />
-                            </p:selectOneRadio>
-                            <p:calendar id="fecha_nac" value="#{registrarCliente.cliente.fnacimiento}" 
-                                        required="true" readonlyInput="true" yearRange="c-100:c"
-                                        pattern="dd/MMM/yyyy" mode="popup" navigator="true" showOn="button" locale="es"/>
-
-                            <p:message for="genero" />
-                            <p:message for="fecha_nac" display="both" />
                         </h:panelGrid>
 
+                        <br/>
+                        
                         <h:panelGrid columns="2" style="width: 300px">
                             <p:selectBooleanCheckbox value="#{registrarCliente.recibir_email}" />
                             <p:outputLabel value="Quiero recibir ofertas por email" />
                         </h:panelGrid>
                         <p:outputLabel value="" />
 
+                        <br/>
+                        
                         <h:panelGrid style="width: 300px" styleClass="centrar">
-                        <p:commandButton value="Enviar" action="#{registrarCliente.registrarCliente}" 
-                                         update="panel_registro_cliente,growl" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+                            <p:commandButton value="Enviar" action="#{registrarCliente.registrarCliente}" 
+                                             update="panel_registro_cliente,growl" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
                         </h:panelGrid>
                     </h:panelGrid> 
                 </h:form>   
             </p:panel>
+            
         </p:panel>
     </ui:define>
 

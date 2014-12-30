@@ -44,13 +44,13 @@ public class UsuarioPersonalDao implements IUsuarioPersonalDao, Serializable {
                 return false;
             }
             
-            n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_usuario,4,9),int))  FROM UsuarioPersonal e ").uniqueResult();
+            n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_usuario,4,6),int))  FROM UsuarioPersonal e ").uniqueResult();
             if (n == null) {
                 n = 0;
             }
             n = n + 1;
             Formatter fmt = new Formatter();
-            fmt.format("%05d", n);
+            fmt.format("%06d", n);
             id = id + fmt.toString();
 
             usuario.setId_usuario(id);
@@ -76,7 +76,29 @@ public class UsuarioPersonalDao implements IUsuarioPersonalDao, Serializable {
 
     @Override
     public boolean existeUsuarioPersonal(UsuarioPersonal usuario) {
-        return obtenerUsuarioPersonal(usuario) != null;
+        UsuarioPersonal e = null;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.getTransaction().begin();
+            Query q = session.createQuery("FROM UsuarioPersonal u WHERE u.dname= :nombre");
+            q.setParameter("nombre", usuario.getDname());
+            e = (UsuarioPersonal) q.uniqueResult();
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return e!=null;
     }
 
     @Override

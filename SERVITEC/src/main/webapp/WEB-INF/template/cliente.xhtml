@@ -26,7 +26,7 @@
         <p:panel style="height: 150px;width: 1000px;" styleClass="centrar">
             <h:panelGrid columns="2">
                 <h:form>
-                    <p:menubar style="width: 100%">
+                    <p:menubar style="width: 900px">
                         <p:menuitem url="#{root}cliente.xhtml" icon="icon_logo" />
                         <f:facet name="options">
                             <p:commandButton value="Salir" action="#{loginCliente.logout}"
@@ -63,6 +63,45 @@
             <ui:insert name="content"></ui:insert>
         </p:panel>
 
+        <h:panelGrid style="background-color: #20B2AA;width: 1000px" styleClass="centrar">
+            <h:panelGrid columns="3" style="width: 1000px" styleClass="centrar" columnClasses="alinear_top,alinear_top" >
+                <p:outputLabel>Nosotros</p:outputLabel>
+                <p:outputLabel>Productos</p:outputLabel>
+                <p:outputLabel>Servicios</p:outputLabel>
+                
+                <h:panelGrid columns="1" style="background-color: transparent;width: 325px">                    
+                    <p:link outcome="index" value="Inicio" style="display:inline-block"/>
+                    <p:link outcome="acerca" value="Nosotros" style="display:inline-block"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" style="background-color: transparent;width: 325px">                    
+                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                    <p:link outcome="productos" value="Sonido y música" style="display:inline-block"/>
+                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                    <p:link outcome="productos" value="PC y laptop" style="display:inline-block"/>
+                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                    <p:link outcome="productos" value="Smatphones" style="display:inline-block"/>
+                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                    <p:link outcome="productos" value="Wifi y bluetooth" style="display:inline-block"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" style="background-color: transparent;width: 325px">                    
+                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                    <p:link outcome="servicios" value="Reparacion domiciliaria" style="display:inline-block"/>
+                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                    <p:link outcome="servicios" value="Diagnostico preventivo" style="display:inline-block"/>
+                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                    <p:link outcome="servicios" value="Reparacion" style="display:inline-block"/>
+                </h:panelGrid>
+            </h:panelGrid>
+
+            <h:panelGrid style="width: 1000px;text-align: right" styleClass="centrar" >
+                <p:outputLabel styleClass="texto_formateado_04" value="Lima,Miraflores - Av. Pethit Thours 4990" />
+                <p:outputLabel styleClass="texto_formateado_04" value="Email: eidetech@hotmail.com" />      
+                <p:outputLabel styleClass="texto_formateado_04" value="Telefono: 7777777" />
+            </h:panelGrid>
+        </h:panelGrid>
     </h:body>
 
 </html>

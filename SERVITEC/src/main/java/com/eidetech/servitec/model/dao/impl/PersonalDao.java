@@ -56,7 +56,7 @@ public class PersonalDao implements IPersonalDao, Serializable {
         Session session = sessionFactory.openSession();
         try {
             session.getTransaction().begin();
-            n = (Integer) session.createQuery("SELECT MAX(cast(substring(p.id_personal,4,9),int))  FROM Personal p ").uniqueResult();
+            n = (Integer) session.createQuery("SELECT MAX(cast(substring(p.id_personal,4,6),int))  FROM Personal p ").uniqueResult();
         } catch (ConstraintViolationException he) {
             System.out.println("excepcion01: " + he);
             session.getTransaction().rollback();
@@ -77,7 +77,7 @@ public class PersonalDao implements IPersonalDao, Serializable {
 
         n = n + 1;
         Formatter fmt = new Formatter();
-        fmt.format("%05d", n);
+        fmt.format("%06d", n);
 
         id = id + fmt.toString();
 

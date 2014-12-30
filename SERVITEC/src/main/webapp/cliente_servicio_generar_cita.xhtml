@@ -56,6 +56,23 @@
                         </p:tab>
                         <p:tab title="PASO 2> Reservacion">
                             <p:panel header="Datos de la reservacion">
+                                <p:outputLabel styleClass="texto_formateado_03" value="Dia y hora de la reparacion domiciliaria" />
+                                <br/>
+                                <br/>
+                                <h:panelGrid columns="3">
+                                    <p:outputLabel for="fecha_orden" value="Fecha reservacion:"/>
+                                    <p:calendar id="fecha_orden" value="#{registrarOrdenCliente.reservacion.ffecha}" readonlyInput="true"
+                                                pattern="dd/MMM/yyyy HH:mm" mode="popup" navigator="true" showOn="button" locale="es" yearRange="c-100:c">
+                                    </p:calendar>
+                                    <p:message for="fecha_orden" display="both"/>
+                                </h:panelGrid>
+                                
+                                <br/>
+                                <p:separator />
+
+                                <p:outputLabel styleClass="texto_formateado_03" value="Lugar de domicilio del cliente" />
+                                <br/>
+                                <br/>
                                 <h:panelGrid columns="3">
                                     <p:outputLabel for="departamento" value="Departamento:" />
                                     <p:selectOneMenu id="departamento" value="#{registrarOrdenCliente.ubigeo_departamento}" required="true" >                                        
@@ -80,23 +97,28 @@
                                     </p:selectOneMenu>
                                     <p:message for="distrito" display="both" />
 
+                                    <p:outputLabel value="" />
+                                    <p:outputLabel value="" />
+                                    <p:outputLabel value="" />
+                                    
                                     <p:outputLabel for="direccion" value="Direccion:"/>
                                     <p:inputText id="direccion" value="#{registrarOrdenCliente.reservacion.ddireccion}" 
                                                  size="30" required="false" requiredMessage="Por favor ingrese su direccion"
                                                  validatorMessage="direccion invalida"/>
                                     <p:message for="direccion" display="text" />  
+                                </h:panelGrid>
 
-                                    <p:outputLabel for="fecha_orden" value="Fecha reservacion:"/>
-                                    <p:calendar id="fecha_orden" value="#{registrarOrdenCliente.reservacion.ffecha}" readonlyInput="true"
-                                                pattern="dd/MMM/yyyy" mode="popup" navigator="true" showOn="button" locale="es" yearRange="c-100:c">
-                                    </p:calendar>
-                                    <p:message for="fecha_orden" display="both"/>
-
+                                <br/>
+                                <p:separator />
+                                
+                                <p:outputLabel styleClass="texto_formateado_03" value="Numero telefonico para contacto" />
+                                <br/>
+                                <br/>
+                                <h:panelGrid columns="3" style="width: 550px">
                                     <p:outputLabel for="celular" value="Celular:"/>
                                     <p:inputMask id="celular"  value="#{registrarOrdenCliente.reservacion.dcelular}"
-                                                 mask="999999999"
-                                                 required="false" requiredMessage="Por favor ingreso un numero celular"/>
-                                    <p:message for="celular" display="text" />
+                                                 mask="999999999" required="false" requiredMessage="Por favor ingreso un numero celular"/>
+                                    <p:message for="celular" display="text" />                                    
                                 </h:panelGrid>
                             </p:panel>
                         </p:tab>
@@ -127,10 +149,10 @@
                                 <h:panelGrid columns="2">
                                     <p:outputLabel value="Fecha:" />
                                     <p:outputLabel value="#{tablaTipoBean.formatoFecha(registrarOrdenCliente.reservacion.ffecha)}" />
-                                    
+
                                     <p:outputLabel value="Lugar:" />
                                     <p:outputLabel value="#{ubigeo.descripcionDistrito(registrarOrdenCliente.reservacion.dubigeo)} - #{registrarOrdenCliente.reservacion.ddireccion}" />
-                                    
+
                                     <p:outputLabel value="Contacto por celular:" />
                                     <p:outputLabel value="#{registrarOrdenCliente.reservacion.dcelular}" />
                                 </h:panelGrid>

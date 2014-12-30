@@ -11,6 +11,11 @@ and open the template in the editor.
 body{
     background-color: #036fab;
 }
+
+
+.ui-panel-titlebar {
+    background-color: #0077B5 !important;
+}
 */
 .ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd{
     border: none;
@@ -36,9 +41,6 @@ body{
     width: 95% !important;
 }
 
-.ui-panel-titlebar {
-    background-color: #0077B5 !important;
-}
 
 
 .centrar{
@@ -78,12 +80,26 @@ body{
     background-size: cover;
 }
 
+.colorfondo{
+    background: #0000FF
+}
+
 .texto_formateado_01{
     font-weight:bold;
 }
 
 .texto_formateado_02{
     font-style: italic;
+}
+
+.texto_formateado_03{
+    font-weight:bold;
+    font-size: 14px;
+}
+
+.texto_formateado_04{
+    font-weight:bold;
+    font-size: 14px;
 }
 
 .columna_formato_tres{

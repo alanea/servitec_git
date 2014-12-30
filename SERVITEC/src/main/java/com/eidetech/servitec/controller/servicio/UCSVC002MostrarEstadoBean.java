@@ -43,7 +43,7 @@ public class UCSVC002MostrarEstadoBean implements Serializable {
         Set<Reservacion> l = beanCliente.getUsuario().getCliente().getReservaciones();
         List<Reservacion> lr = new ArrayList();
         lr.addAll(l);
-        listaPendienteRevisar = UtilServicio.reservacionPendienteRevisar(lr);
+        listaPendienteRevisar = UtilServicio.reservacionPendienteRevisarDomicilio(lr);
         listaPendienteReparar = UtilServicio.reservacionPendienteReparar(lr);
         listaReparados = UtilServicio.reservacionReparados(lr);
         listaNoReparados = UtilServicio.reservacionNoReparados(lr);

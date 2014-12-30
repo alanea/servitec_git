@@ -50,13 +50,13 @@ public class CategoriaDao implements ICategoriaDao, Serializable {
             session.beginTransaction();
             for (Categoria o : lista) {
                 String id = "" + PRE_ESPECIALIDAD;
-                n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_categoria,4,9),int))  FROM Categoria e ").uniqueResult();
+                n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_categoria,4,6),int))  FROM Categoria e ").uniqueResult();
                 if(n==null){
                     n=0;
                 }
                 n = n + 1;
                 Formatter fmt = new Formatter();
-                fmt.format("%05d", n);
+                fmt.format("%06d", n);
                 id = id + fmt.toString();
                 System.out.println("id="+id);
 

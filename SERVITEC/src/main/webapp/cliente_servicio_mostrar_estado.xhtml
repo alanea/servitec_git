@@ -11,18 +11,56 @@
 
     <ui:define name="content">
         <h:panelGrid columns="2">
-            <p:graphicImage value="#{root_img}servicio.png" height="128" width="128"/>
+            <p:graphicImage value="#{root_img}estado_reparado.png" height="128" width="128"/>
             <h:panelGrid columns="1">
-                <p:outputLabel><h2>Reparados</h2></p:outputLabel>
-                <p:dataList value="#{mostrarEstado.listaPendienteRevisar}" var="r" type="unordered" emptyMessage="">
+                <p:outputLabel><h2>Equipo reparado por los tecnicos de Eidetech S.A.C.</h2></p:outputLabel>
+                <p:dataList value="#{mostrarEstado.listaReparados}" var="r" type="unordered" emptyMessage="">
                     <p:outputLabel styleClass="texto_formateado_01" value="#{productoBean.descripcionProducto(r.dproducto)}" /><br/>
-                    <p:outputLabel value="#{r.dsintoma}" /><br/>
-                    <p:outputLabel value="#{r.dproblema}" /><br/>
-                    <p:outputLabel value="Orden generada en #{tablaTipoBean.formatoFecha(r.fcreacion)}" />
+                    <p:outputLabel value="Reservacion para el dia #{tablaTipoBean.formatoFechaHora(r.ffecha)}" /><br/>
+                    <p:outputLabel value="Problema: #{r.dproblema}" /><br/>
+                    <p:outputLabel styleClass="texto_formateado_02" value="Orden generada en #{tablaTipoBean.formatoFecha(r.fcreacion)}" /><br/><br/>
                 </p:dataList>
             </h:panelGrid>
         </h:panelGrid>
         
+        <h:panelGrid columns="2">
+            <p:graphicImage value="#{root_img}estado_pendiente_reparar.png" height="128" width="128"/>
+            <h:panelGrid columns="1">
+                <p:outputLabel><h2>Equipos que todavia no se terminan de trabajar por los tecnicos de Eidetech S.A.C.</h2></p:outputLabel>
+                <p:dataList value="#{mostrarEstado.listaPendienteReparar}" var="r" type="unordered" emptyMessage="">
+                    <p:outputLabel styleClass="texto_formateado_01" value="#{productoBean.descripcionProducto(r.dproducto)}" /><br/>
+                    <p:outputLabel value="Reservacion para el dia #{tablaTipoBean.formatoFechaHora(r.ffecha)}" /><br/>
+                    <p:outputLabel value="Problema: #{r.dproblema}" /><br/>
+                    <p:outputLabel styleClass="texto_formateado_02" value="Orden generada en #{tablaTipoBean.formatoFecha(r.fcreacion)}" /><br/><br/>
+                </p:dataList>
+            </h:panelGrid>
+        </h:panelGrid>
+        
+        <h:panelGrid columns="2">
+            <p:graphicImage value="#{root_img}estado_pendiente_revisar.png" height="128" width="128"/>
+            <h:panelGrid columns="1">
+                <p:outputLabel><h2>Pendiente de revisar por los tecnicos de Eidetech S.A.C.</h2></p:outputLabel>
+                <p:dataList value="#{mostrarEstado.listaPendienteRevisar}" var="r" type="unordered" emptyMessage="">
+                    <p:outputLabel styleClass="texto_formateado_01" value="#{productoBean.descripcionProducto(r.dproducto)}" /><br/>
+                    <p:outputLabel value="Reservacion para el dia #{tablaTipoBean.formatoFechaHora(r.ffecha)}" /><br/>
+                    <p:outputLabel value="Problema: #{r.dproblema}" /><br/>
+                    <p:outputLabel styleClass="texto_formateado_02" value="Orden generada en #{tablaTipoBean.formatoFecha(r.fcreacion)}" /><br/><br/>
+                </p:dataList>
+            </h:panelGrid>
+        </h:panelGrid>
+        
+        <h:panelGrid columns="2">
+            <p:graphicImage value="#{root_img}estado_no_reparado.png" height="128" width="128"/>
+            <h:panelGrid columns="1">
+                <p:outputLabel><h2>Equipo no reparado</h2></p:outputLabel>
+                <p:dataList value="#{mostrarEstado.listaNoReparados}" var="r" type="unordered" emptyMessage="">
+                    <p:outputLabel styleClass="texto_formateado_01" value="#{productoBean.descripcionProducto(r.dproducto)}" /><br/>
+                    <p:outputLabel value="Reservacion para el dia #{tablaTipoBean.formatoFechaHora(r.ffecha)}" /><br/>
+                    <p:outputLabel value="Problema: #{r.dproblema}" /><br/>
+                    <p:outputLabel styleClass="texto_formateado_02" value="Orden generada en #{tablaTipoBean.formatoFecha(r.fcreacion)}" /><br/><br/>
+                </p:dataList>
+            </h:panelGrid>
+        </h:panelGrid>
     </ui:define>
 
 </ui:composition>
