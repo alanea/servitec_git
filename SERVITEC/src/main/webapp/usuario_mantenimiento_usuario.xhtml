@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Mantenimiento de usuarios del sistema
+    </ui:define>
+
+    <ui:define name="content">
+        <p:panel header="Mantenimiento de usuarios del sistema">
+            <h:form>                
+                <p:hotkey bind="ctrl+shift+1" handler="PF('dlg_agregar').show();" />                
+                <p:commandButton value="Agregar usuario [Ctrl+Shift+1]" style="width: 190px" 
+                                 onclick="PF('dlg_agregar').show();" icon="icono_agregar_01" />
+            </h:form>
+
+            <h:form id="form_modificar">                
+                <p:growl id="growl_modificar" for="growl_modificar" showDetail="true" life="1000"  />
+                <p:dataTable var="t" value="#{mantenerUsuarioPersonal.listaUsuario}"  filteredValue="#{mantenerUsuarioPersonal.listaUsuarioFiltrado}"
+                             emptyMessage="No se hallo usuario" editable="true"  widgetVar="table"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+
+                    <p:ajax event="rowEdit" listener="#{mantenerUsuarioPersonal.onRowEdit}" update=":form_modificar:growl_modificar" />
+                    <p:ajax event="rowEditCancel" listener="#{mantenerUsuarioPersonal.onRowCancel}" update=":form_modificar:growl_modificar" />
+
+                    <p:column headerText="ID" filterBy="#{t.id_usuario}" filterMatchMode="contains" >
+                        <p:outputLabel value="#{t.id_usuario}" />
+                    </p:column>
+
+                    <p:column headerText="Nombre" filterBy="#{t.dname}" filterMatchMode="contains">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <p:outputLabel value="#{tablaTipoBean.datoRegistrado(t.dname)}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{t.dname}" />
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Tipo" filterBy="#{t.dtipo}" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
+                                <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{tablaTipoBean.siTipoUsuario}" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <p:outputLabel value="#{tablaTipoBean.descripcionTipoUsuario(t.dtipo)}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu value="#{t.dtipo}" required="true">
+                                    <f:selectItems value="#{tablaTipoBean.siTipoUsuario}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Estado" filterBy="#{t.destado}" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
+                                <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{tablaTipoBean.siEstadoRegistro}" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <p:outputLabel value="#{tablaTipoBean.descripcionEstadoRegistro(t.destado)}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu value="#{t.destado}" required="true">
+                                    <f:selectItems value="#{tablaTipoBean.siEstadoRegistro}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Fecha creacion">
+                        <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(t.fuserCreacion)}" />
+                    </p:column>
+
+                    <p:column headerText="Usuario creacion">
+                        <p:outputLabel value="#{t.duserCreacion}" />
+                    </p:column>
+
+                    <p:column headerText="Fecha modificacion">
+                        <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(t.fuserModificacion)}" />
+                    </p:column>
+
+                    <p:column headerText="Usuario modificacion">
+                        <p:outputLabel value="#{t.duserModificacion}" />
+                    </p:column>
+
+                    <p:column headerText="Editar" style="width:50px">
+                        <p:rowEditor />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+
+        <p:dialog modal="true" appendTo="@(body)" widgetVar="dlg_agregar" position="top" 
+                  header="Registro de nuevo usuario" closeOnEscape="true">
+            <h:form id="form_registrar">
+                <p:growl id="growl_registro" for="growl_registro_usuario" showDetail="true" life="2000"/>
+                <p:panel id="panel_registro">
+                    <p:focus/>
+                    <h:panelGrid columns="2" columnClasses="alinear_top,alinear_top">
+                        <h:panelGrid columns="1">
+                            <p:graphicImage value="#{root_img}icono_agregar_personal.png" height="96" width="96" />
+                            <p:outputLabel value="" /><br/>
+                            <p:link outcome="usuario_mantenimiento_personal" value="Crear un nuevo personal" target="_blank"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1">
+                            <p:outputLabel for="usuario_personal" value="Personal:" />                        
+                            <p:message for="usuario_personal" />
+                            <p:autoComplete id="usuario_personal" value="#{registrarUsuarioPersonal.usuario.personal}" completeMethod="#{registrarUsuarioPersonal.completarPersonal}"
+                                            var="pac" itemLabel="#{pac.dnombres}" itemValue="#{pac}" converter="uCSYS003PersonalConverter" 
+                                            required="true" forceSelection="true" size="50"  >
+                                <p:column style="width:50%">
+                                    <h:outputText value="#{pac.dnombres}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{pac.dapellidoPaterno} #{pac.dapellidoMaterno}" />
+                                </p:column>
+                                <p:ajax event="itemSelect" />
+                            </p:autoComplete>
+
+                            <p:outputLabel for="usuario_username" value="Username:" />
+                            <p:message for="usuario_username" />
+                            <p:inputText id="usuario_username" value="#{registrarUsuarioPersonal.usuario.dname}" required="true" />
+
+                            <p:outputLabel for="usuario_password" value="Contraseña" />
+                            <p:message for="usuario_password" display="both" />
+                            <p:password id="usuario_password" value="#{registrarUsuarioPersonal.usuario.dpassword}" 
+                                        required="true" label="clave" feedback="false" />
+
+                            <h:panelGrid columns="3" style="width: 500px">                                
+                                <p:outputLabel for="usuario_tipo" value="Tipo de Usuario:" />
+                                <p:outputLabel for="usuario_estado" value="Tipo de Usuario:" />
+                                <p:outputLabel for="usuario_menu" value="Menu de permisos:" />
+
+                                <p:message for="usuario_tipo" display="both"  />
+                                <p:message for="usuario_estado" display="both"  />
+                                <p:message for="usuario_menu" display="both"  />
+
+                                <p:selectOneMenu id="usuario_tipo" value="#{registrarUsuarioPersonal.usuario.dtipo}">
+                                    <f:selectItem itemLabel="Elija uno" itemValue="" />
+                                    <f:selectItems value="#{tablaTipoBean.siTipoUsuario}" />
+                                </p:selectOneMenu>
+                                <p:selectOneMenu id="usuario_estado" value="#{registrarUsuarioPersonal.usuario.destado}">
+                                    <f:selectItem itemLabel="Elija uno" itemValue="" />
+                                    <f:selectItems value="#{tablaTipoBean.siEstadoRegistro}" />
+                                </p:selectOneMenu>
+                                <p:selectOneMenu id="usuario_menu" value="#{registrarSubmenuPersonal.id_menu}" required="true">
+                                    <f:selectItem itemLabel="Elija uno" itemValue=""  />
+                                    <f:selectItems value="#{registrarSubmenuPersonal.siMenu}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" style="width: 250px" styleClass="centrar">
+                        <p:commandButton value="Aceptar" action="#{registrarUsuarioPersonal.registrarNuevoUsuario}" icon="ui-icon-check"
+                                         update="panel_registro,growl_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+                        <p:commandButton value="[Esc] Cerrar" onclick="PF('dlg_agregar').hide()" />
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

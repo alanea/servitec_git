@@ -36,12 +36,20 @@ public class Sede implements Serializable {
     private String dubigeo;
     @Column(name = "dtfno_sede")
     private String dfijo;
+    @Column(name = "dcel_sede")
+    private String dcelular;
     @Column(name = "fini_sede")
     private Date finicio;
     @Column(name = "fcese_sede")
     private Date fcese;
     @Column(name = "dweb_sede")
     private String dweb;
+    @Column(name = "demail_sede")
+    private String demail;    
+    @Column(name = "dfb_sede")
+    private String dfacebook;
+    @Column(name = "dtt_sede")
+    private String dtwitter;
     @Column(name = "dest_sede")
     private String destado;
     @Column(name = "dusercrea_sede")
@@ -100,6 +108,14 @@ public class Sede implements Serializable {
 
     public void setDfijo(String dfijo) {
         this.dfijo = dfijo;
+    }
+
+    public String getDcelular() {
+        return dcelular;
+    }
+
+    public void setDcelular(String dcelular) {
+        this.dcelular = dcelular;
     }
 
     public String getDweb() {
@@ -180,6 +196,30 @@ public class Sede implements Serializable {
 
     public void setFcese(Date fcese) {
         this.fcese = fcese;
+    }
+
+    public String getDemail() {
+        return demail;
+    }
+
+    public void setDemail(String demail) {
+        this.demail = demail;
+    }
+
+    public String getDfacebook() {
+        return dfacebook;
+    }
+
+    public void setDfacebook(String dfacebook) {
+        this.dfacebook = dfacebook;
+    }
+
+    public String getDtwitter() {
+        return dtwitter;
+    }
+
+    public void setDtwitter(String dtwitter) {
+        this.dtwitter = dtwitter;
     }
 
 }

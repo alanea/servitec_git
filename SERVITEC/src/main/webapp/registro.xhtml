@@ -51,7 +51,7 @@
                                         required="true" readonlyInput="true" yearRange="c-100:c" 
                                         pattern="dd/MMM/yyyy" mode="popup" navigator="true" showOn="button" locale="es"/>
                             <p:selectOneRadio id="genero" value="#{registrarCliente.cliente.dsexo}" required="true">
-                                <f:selectItems value="#{tablaTipoBean.siSexo}" />
+                                <f:selectItems value="#{tablaTipoBean.siGenero}" />
                             </p:selectOneRadio>
 
                             <p:message for="fecha_nac" display="both" />
@@ -88,7 +88,7 @@
                         <br/>
                         
                         <h:panelGrid columns="2" style="width: 300px">
-                            <p:selectBooleanCheckbox value="#{registrarCliente.recibir_email}" />
+                            <p:selectBooleanCheckbox value="#{registrarCliente.usuario.brecibirCorreos}" />
                             <p:outputLabel value="Quiero recibir ofertas por email" />
                         </h:panelGrid>
                         <p:outputLabel value="" />

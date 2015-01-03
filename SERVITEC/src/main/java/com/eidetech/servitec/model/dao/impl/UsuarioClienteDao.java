@@ -5,7 +5,9 @@
  */
 package com.eidetech.servitec.model.dao.impl;
 
+import com.eidetech.servitec.model.dao.IConfiguracionDao;
 import com.eidetech.servitec.model.dao.IUsuarioClienteDao;
+import com.eidetech.servitec.model.domain.entity.PermisoCliente;
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
 import java.io.Serializable;
 import java.util.Formatter;
@@ -30,12 +32,11 @@ public class UsuarioClienteDao implements IUsuarioClienteDao, Serializable {
 
     @Override
     public boolean agregarUsuarioCliente(UsuarioCliente usuario) {
-        String id = "" + PRE_USUARIO;
-        Integer n;
-
         boolean success = false;
         Session session = sessionFactory.openSession();
 
+        String id = "" + PRE_USUARIO;
+        Integer n;
         try {
             session.beginTransaction();
             Query q = session.createQuery("FROM UsuarioCliente u WHERE u.dname= :nombre");
@@ -44,7 +45,7 @@ public class UsuarioClienteDao implements IUsuarioClienteDao, Serializable {
             if (e != null) {
                 return false;
             }
-            
+
             n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_usuario,4,6),int))  FROM UsuarioCliente e ").uniqueResult();
             if (n == null) {
                 n = 0;
@@ -54,6 +55,21 @@ public class UsuarioClienteDao implements IUsuarioClienteDao, Serializable {
             fmt.format("%06d", n);
             id = id + fmt.toString();
             usuario.setId_usuario(id);
+
+            Integer n2 = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_permiso_cli,4,6),int))  FROM PermisoCliente e ").uniqueResult();
+            if (n2 == null) {
+                n2 = 0;
+            }
+            if (usuario.getPermisos() != null && !usuario.getPermisos().isEmpty()) {
+                for (PermisoCliente p : usuario.getPermisos()) {
+                    String id2 = "" + IConfiguracionDao.PRE_PERMISO;
+                    n2 = n2 + 1;
+                    Formatter fmt2 = new Formatter();
+                    fmt2.format("%06d", n2);
+                    id2 = id2 + fmt2.toString();
+                    p.setId_permiso_cli(id2);
+                }
+            }
 
             session.persist(usuario.getPersona());
             session.persist(usuario);

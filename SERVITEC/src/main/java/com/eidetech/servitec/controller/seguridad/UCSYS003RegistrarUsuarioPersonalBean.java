@@ -6,8 +6,10 @@
 package com.eidetech.servitec.controller.seguridad;
 
 import com.eidetech.servitec.controller.acceso.UCSYS001LoginPersonalBean;
+import com.eidetech.servitec.model.domain.entity.ConfiguracionMenu;
 import com.eidetech.servitec.model.domain.entity.Personal;
 import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
+import com.eidetech.servitec.model.util.UtilConfiguracion;
 import com.eidetech.servitec.model.util.UtilUsuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -33,6 +36,9 @@ public class UCSYS003RegistrarUsuarioPersonalBean implements Serializable {
     private List<Personal> personas;
     private List<Personal> personasFiltrados;
     private HashMap hmPersonas;
+    private String id_menu;
+    private List<ConfiguracionMenu> menus;
+    private List<SelectItem> siMenu;
     @ManagedProperty(value = "#{loginPersonal}")
     private UCSYS001LoginPersonalBean beanUsuario;
 
@@ -48,13 +54,17 @@ public class UCSYS003RegistrarUsuarioPersonalBean implements Serializable {
     @PostConstruct
     public void init() {
         personas = beanUsuario.getSeguridadService().listaPersonas();
+        menus = beanUsuario.getSeguridadService().listaConfiguracionMenuPersonal();
+        siMenu = listaSiMenu();
     }
-    
-    public void registrarNuevoUsuario(){
+
+    public void registrarNuevoUsuario() {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         FacesMessage mensaje;
         boolean exito = false;
-        
+
+        ConfiguracionMenu menu=UtilConfiguracion.obtenerMenu(menus, id_menu);
+        usuario.setMenu(UtilUsuario.getMenu(menu));
         usuario.setDtipo(UtilUsuario.TIPO_USUARIO_TECNICO);
         usuario.setSede(beanUsuario.getUsuario().getSede());
         usuario.setDuserCreacion(beanUsuario.getUsuario().getId_usuario());
@@ -68,7 +78,7 @@ public class UCSYS003RegistrarUsuarioPersonalBean implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage("growl_registro_usuario", mensaje);
         if (exito) {
-            String indexUsuario = "admin_crear_usuario.xhtml";
+            String indexUsuario = "usuario_mantenimiento_usuario.xhtml";
             requestContext.addCallbackParam("view", indexUsuario);
             requestContext.addCallbackParam("estaRegistrado", true);
             usuario = new UsuarioPersonal();
@@ -90,6 +100,17 @@ public class UCSYS003RegistrarUsuarioPersonalBean implements Serializable {
         }
 
         return personasFiltrado;
+    }
+
+    private List<SelectItem> listaSiMenu() {
+        List<SelectItem> l = new ArrayList();
+        if (menus != null && !menus.isEmpty()) {
+            for (ConfiguracionMenu c : menus) {
+                SelectItem s = new SelectItem(c.getId_menu(), c.getDnombre());
+                l.add(s);
+            }
+        }
+        return l;
     }
 
     public UsuarioPersonal getUsuario() {
@@ -118,6 +139,10 @@ public class UCSYS003RegistrarUsuarioPersonalBean implements Serializable {
 
     public HashMap getHmPersonas() {
         return hmPersonas;
+    }
+
+    public List<SelectItem> getSiMenu() {
+        return siMenu;
     }
 
 }

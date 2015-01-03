@@ -16,17 +16,19 @@ body{
 .ui-panel-titlebar {
     background-color: #0077B5 !important;
 }
-*/
 .ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd{
+    border: none !important;
+}
+
+
+
+*/
+.ui-layout-unit{
     border: none;
 }
 
 .ui-layout-north {
     z-index:20 !important;
-    overflow:visible !important;
-}
-
-.ui-layout-north .ui-layout-unit-content {
     overflow:visible !important;
 }
 
@@ -42,6 +44,10 @@ body{
 }
 
 
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
+}
+
 
 .centrar{
     margin-left:auto;
@@ -50,10 +56,6 @@ body{
 
 .alinear_top {   
     vertical-align: top;
-}
-
-.panelGridCenter {
-    margin: 0 auto;
 }
 
 .panelCentrar{
@@ -130,4 +132,10 @@ body{
 
 .panel_formato_2{
     opacity: 0.4;
+}
+
+.icono_agregar_01{
+    background-image: url('../../resources/img/icono_agregar.png') !important;
+    height:32px;
+    width:32px;
 }

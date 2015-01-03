@@ -89,16 +89,4 @@ public class SedeDaoTest {
         fail("The test case is a prototype.");
     }
 
-    @Ignore
-    @Test
-    public void testObtenerListaUsuario() {
-        System.out.println("obtenerListaUsuario");
-        Sede sede = null;
-        SedeDao instance = new SedeDao();
-        List<UsuarioPersonal> expResult = null;
-        List<UsuarioPersonal> result = instance.obtenerListaUsuario(sede);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-    
 }

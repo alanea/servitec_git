@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Permisos para el cliente
+    </ui:define>
+
+    <ui:define name="content">
+        
+        <h:form>
+            <p:growl id="growl_registro" for="growl_registro" showDetail="true" life="1000"  />
+            <p:panel id="panel_registro" header="Registrar permiso cliente" styleClass="centrar" >
+                <p:focus />
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="permiso_nombre" value="Nombre:" />
+                    <p:inputText id="permiso_nombre" value="#{registrarPermisoCliente.permisoCliente.dnombre}" size="50" required="true"/>
+                    <p:message for="permiso_nombre" display="both" />                            
+                    
+                    <p:outputLabel for="permiso_url" value="URL:" />
+                    <p:inputText id="permiso_url" value="#{registrarPermisoCliente.permisoCliente.durl}" size="50" required="true"/>
+                    <p:message for="permiso_url" display="both" />
+                </h:panelGrid>
+                <p:commandButton value="Registrar" action="#{registrarPermisoCliente.registrarNuevoPermiso}" icon="ui-icon-check"
+                                 update="growl_registro,panel_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+            </p:panel>
+        </h:form>
+        
+        <h:form id="form_modificar">
+            <p:growl id="growl_modificar" for="growl_modificar" showDetail="true" life="1000"  />
+            <p:dataTable var="t" value="#{mantenerPermisoCliente.listaPermiso}"  filteredValue="#{mantenerPermisoCliente.listaPermisoFiltrado}"
+                         emptyMessage="No se hallo permiso" editable="true"  widgetVar="tablasTipoTable"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+
+                <p:ajax event="rowEdit" listener="#{mantenerPermisoCliente.onRowEdit}" update=":form_modificar:growl_modificar" />
+                <p:ajax event="rowEditCancel" listener="#{mantenerPermisoCliente.onRowCancel}" update=":form_modificar:growl_modificar" />
+
+                <p:column headerText="ID" filterBy="#{t.id_permiso}" filterMatchMode="contains" >
+                    <p:outputLabel value="#{t.id_permiso}" />
+                </p:column>
+
+                <p:column headerText="Orden" filterBy="#{t.norden}" filterMatchMode="contains" >
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.norden}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.norden}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Nombre" filterBy="#{t.dnombre}" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.dnombre}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.dnombre}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                
+                <p:column headerText="Nombre" filterBy="#{t.durl}" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.durl}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.durl}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Editar" style="width:50px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

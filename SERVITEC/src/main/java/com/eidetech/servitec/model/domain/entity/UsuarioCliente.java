@@ -46,6 +46,8 @@ public class UsuarioCliente implements Serializable {
     private Date fuserModificacion;
     @Column(name = "dest_usercli")
     private String destado;
+    @Column(name = "brcbemail_usercli")
+    private boolean brecibirCorreos;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_psn")
     private Persona persona;     
@@ -116,6 +118,14 @@ public class UsuarioCliente implements Serializable {
 
     public void setDestado(String destado) {
         this.destado = destado;
+    }
+
+    public boolean isBrecibirCorreos() {
+        return brecibirCorreos;
+    }
+
+    public void setBrecibirCorreos(boolean brecibirCorreos) {
+        this.brecibirCorreos = brecibirCorreos;
     }
 
     public Persona getPersona() {

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Mantenimiento de los submenu de los menues
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <p:growl id="growl_registro" for="growl_registro" showDetail="true" life="1000"  />
+            <p:panel id="panel_registro" header="Registrar submenu" styleClass="centrar" >
+                <p:focus />
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="submenu_menu" value="Menu:" />
+                    <p:selectOneMenu id="submenu_menu" value="#{registrarSubmenuPersonal.id_menu}" required="true">
+                        <f:selectItem itemLabel="-- Seleccionar Uno --" itemValue=""  />
+                        <f:selectItems value="#{registrarSubmenuPersonal.siMenu}"/>
+                    </p:selectOneMenu>
+                    <p:message for="submenu_menu" display="both"  />
+
+                    <p:outputLabel for="submenu_nombre" value="Nombre" />
+                    <p:inputText id="submenu_nombre" value="#{registrarSubmenuPersonal.configuracionSubmenu.dnombre}" size="40" required="true"/>
+                    <p:message for="submenu_nombre" display="both" />
+
+                </h:panelGrid>
+                <p:commandButton value="Registrar" action="#{registrarSubmenuPersonal.registrarNuevoSubmenu}" icon="ui-icon-check"
+                                 update="growl_registro,panel_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+            </p:panel>
+        </h:form>
+        
+        <h:form id="form_modificar">
+            <p:growl id="growl_modificar" for="growl_modificar" showDetail="true" life="1000"  />
+            <p:dataTable var="t" value="#{mantenerSubmenuPersonal.submenus}"  filteredValue="#{mantenerSubmenuPersonal.submenusFiltrado}"
+                         emptyMessage="No se hallo submenu" editable="true"  widgetVar="tablasTable"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+                
+                <p:ajax event="rowEdit" listener="#{mantenerSubmenuPersonal.onRowEdit}" update=":form_modificar:growl_modificar" />
+                <p:ajax event="rowEditCancel" listener="#{mantenerSubmenuPersonal.onRowCancel}" update=":form_modificar:growl_modificar" />
+
+                <p:column headerText="ID" filterBy="#{t.id_submenu}" filterMatchMode="contains" >
+                    <p:outputLabel value="#{t.id_submenu}" />
+                </p:column>
+
+                <p:column headerText="Menu" filterBy="#{t.menu.id_menu}" filterMatchMode="exact" >
+                    <f:facet name="filter">
+                        <p:selectOneMenu style="width: 100px" onchange="PF('tablasTable').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mantenerSubmenuPersonal.siMenu}" />
+                        </p:selectOneMenu>
+                    </f:facet>                                                        
+                    <p:outputLabel value="#{t.menu.dnombre}" />
+                </p:column>
+
+                <p:column headerText="Nombre" filterBy="#{t.dnombre}" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.dnombre}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.dnombre}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

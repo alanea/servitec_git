@@ -53,7 +53,7 @@ public class UsuarioClienteDaoTest {
         persona.setFuserCreacion(new Date());
         
         
-        List<ConfiguracionPermisoCliente> lcpc = configuracionDao.obtenerListaPermisoCliente();
+        List<ConfiguracionPermisoCliente> lcpc = configuracionDao.obtenerListaConfiguracionPermisoCliente();
         usuario.setPermisos(UtilUsuario.getPermisoCliente(usuario, lcpc));
         
         usuario.setPersona(persona);

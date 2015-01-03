@@ -7,16 +7,10 @@ package com.eidetech.servitec.model.dao.impl;
 
 import com.eidetech.servitec.model.dao.ISedeDao;
 import com.eidetech.servitec.model.domain.entity.Sede;
-import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import com.eidetech.servitec.model.util.UtilHibernate;
 import java.io.Serializable;
 import java.util.List;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.TransactionException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -54,31 +48,4 @@ public class SedeDao implements ISedeDao, Serializable {
     public boolean agregarListaSede(List<Sede> sedes) {
         return UtilHibernate.agregarListaEntidad(sessionFactory, sedes);
     }
-
-    @Override
-    public List<UsuarioPersonal> obtenerListaUsuario(Sede sede) {
-    List<UsuarioPersonal> l = null;
-        Session session = sessionFactory.openSession();
-
-        try {
-            session.getTransaction().begin();
-            Query q = session.createQuery("FROM Usuario u WHERE u.sede.id_sede= :nombre_sede");
-            q.setParameter("nombre_sede", sede.getId_sede());
-            l = (List<UsuarioPersonal>) q.list();
-        } catch (ConstraintViolationException he) {
-            System.out.println("excepcion01: " + he);
-            session.getTransaction().rollback();
-        } catch (TransactionException he) {
-            System.out.println("excepcion02: " + he);
-            session.getTransaction().rollback();
-        } catch (HibernateException he) {
-            System.out.println("excepcion03: " + he);
-            session.getTransaction().rollback();
-        } finally {
-            session.getTransaction().commit();
-            session.close();
-        }
-        return l;
-    }
-
 }

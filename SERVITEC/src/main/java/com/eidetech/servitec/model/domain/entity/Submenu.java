@@ -12,8 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,9 +29,8 @@ import org.hibernate.annotations.Proxy;
 public class Submenu implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_submen")
-    private int id_submenu;
+    private String id_submenu;
     @Column(name = "dnm_submen")
     private String dnombre;
     @Column(name = "nord_submen")
@@ -44,11 +41,11 @@ public class Submenu implements Serializable{
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "submenu")
     private Set<Permiso> permisos;
 
-    public int getId_submenu() {
+    public String getId_submenu() {
         return id_submenu;
     }
 
-    public void setId_submenu(int id_submenu) {
+    public void setId_submenu(String id_submenu) {
         this.id_submenu = id_submenu;
     }
 

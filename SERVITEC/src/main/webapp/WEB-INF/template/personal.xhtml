@@ -21,7 +21,7 @@
             <link rel="stylesheet" type="text/css" href="#{root_css}estilo.css"/>
             <script type="text/javascript" src="#{root_js}funciones.js"></script>
 
-            <title><ui:insert name="title"></ui:insert> - #{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}</title>
+            <title><ui:insert name="title"></ui:insert> - #{indexBean.sede.dnombre}</title>
         </h:head>
         <h:body styleClass="body_usuario">
             <p:layout fullPage="true">
@@ -49,12 +49,19 @@
                         <p:menu model="#{loginPersonal.menuUsuarioPersonal}" style="width:200px" />
                     </p:panel>
                 </p:layoutUnit>
+                
+                
+                <p:layoutUnit position="south" size="40" resizable="false" closable="true" collapsible="true">
+                    <h:panelGrid columns="3" style="width: 100%">
+                        <p:outputLabel value="#{loginPersonal.usuario.sede.dnombre}" />
+                        <p:outputLabel value="#{loginPersonal.usuario.dname} - #{tablaTipoBean.descripcionTipoUsuario(loginPersonal.usuario.dtipo)} - #{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}" />
+                        <p:clock pattern="hh:mm:ss a dd/MM/yyyy" mode="client" />
+                    </h:panelGrid>
+                </p:layoutUnit>
 
                 <p:layoutUnit position="center" resizable="true" >
-                    <p:panel>
-                        <ui:insert name="content">
-                        </ui:insert>
-                    </p:panel>
+                    <ui:insert name="content">
+                    </ui:insert>
                 </p:layoutUnit>
 
             </p:layout>

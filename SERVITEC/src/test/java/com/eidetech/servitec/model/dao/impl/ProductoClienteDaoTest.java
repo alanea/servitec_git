@@ -30,7 +30,7 @@ public class ProductoClienteDaoTest {
     @Autowired
     IProductoClienteDao productoClienteDao;
 
-//    @Ignore
+    @Ignore
     @Test
     public void testAgregarProducto() {
         System.out.println("agregarProducto");

@@ -6,7 +6,6 @@
 package com.eidetech.servitec.model.dao;
 
 import com.eidetech.servitec.model.domain.entity.Sede;
-import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import java.util.List;
 
 /**
@@ -23,7 +22,5 @@ public interface ISedeDao{
     
     public List<Sede> obtenerListaSedes();
     
-    public boolean agregarListaSede(List<Sede> sedes);
-    
-    public List<UsuarioPersonal> obtenerListaUsuario(Sede sede);
+    public boolean agregarListaSede(List<Sede> sedes);    
 }

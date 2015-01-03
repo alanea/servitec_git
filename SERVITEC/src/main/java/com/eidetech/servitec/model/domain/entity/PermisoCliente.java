@@ -10,8 +10,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,9 +25,8 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 public class PermisoCliente implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_perm_cli")
-    private int id_permiso_cli;
+    private String id_permiso_cli;
     @Column(name = "dnm_perm_cli")
     private String dnombre;
     @Column(name = "durl_perm_cli")
@@ -40,11 +37,11 @@ public class PermisoCliente implements Serializable{
     @JoinColumn(name = "id_usercli", referencedColumnName = "id_usercli")
     private UsuarioCliente cliente;
 
-    public int getId_permiso_cli() {
+    public String getId_permiso_cli() {
         return id_permiso_cli;
     }
 
-    public void setId_permiso_cli(int id_permiso_cli) {
+    public void setId_permiso_cli(String id_permiso_cli) {
         this.id_permiso_cli = id_permiso_cli;
     }
 

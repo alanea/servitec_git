@@ -11,8 +11,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,9 +26,8 @@ import org.hibernate.annotations.Proxy;
 public class ConfiguracionMenu implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_men_conf")
-    private int id_menu_conf;
+    private String id_menu;
     @Column(name = "dnm_men_conf")
     private String dnombre;
     @Column(name = "nord_men_conf")
@@ -38,12 +35,12 @@ public class ConfiguracionMenu implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "menu")
     private Set<ConfiguracionSubmenu> submenus;
 
-    public int getId_menu_conf() {
-        return id_menu_conf;
+    public String getId_menu() {
+        return id_menu;
     }
 
-    public void setId_menu_conf(int id_menu_conf) {
-        this.id_menu_conf = id_menu_conf;
+    public void setId_menu(String id_menu) {
+        this.id_menu = id_menu;
     }
 
     public String getDnombre() {

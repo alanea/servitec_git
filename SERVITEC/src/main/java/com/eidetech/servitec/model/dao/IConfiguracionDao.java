@@ -17,6 +17,10 @@ import java.util.List;
  */
 public interface IConfiguracionDao {
 
+    public static String PRE_MENU = "MEN";
+    public static String PRE_SUBMENU = "SUB";
+    public static String PRE_PERMISO = "PER";
+
     public boolean agregarConfiguracionMenuPersonal(ConfiguracionMenu menu);
 
     public boolean agregarConfiguracionSubmenuPersonal(ConfiguracionSubmenu submenu);
@@ -24,8 +28,18 @@ public interface IConfiguracionDao {
     public boolean agregarConfiguracionPermisoPersonal(ConfiguracionPermiso permiso);
 
     public boolean agregarConfiguracionPermisoCliente(ConfiguracionPermisoCliente permiso);
-    
+
     public ConfiguracionMenu obtenerConfiguracionMenuPersonal(ConfiguracionMenu menu);
-    
-    public List<ConfiguracionPermisoCliente> obtenerListaPermisoCliente();
+
+    public List<ConfiguracionPermisoCliente> obtenerListaConfiguracionPermisoCliente();
+
+    public boolean actualizarConfiguracionMenuPersonal(ConfiguracionMenu menu);
+
+    public boolean actualizarConfiguracionSubmenuPersonal(ConfiguracionSubmenu submenu);
+
+    public boolean actualizarConfiguracionPermisoPersonal(ConfiguracionPermiso permiso);
+
+    public boolean actualizarConfiguracionPermisoCliente(ConfiguracionPermisoCliente permiso);
+
+    public List<ConfiguracionMenu> obtenerListaConfiguracionMenuPersonal();
 }

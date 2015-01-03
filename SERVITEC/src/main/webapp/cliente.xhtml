@@ -1,14 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/template/cliente.xhtml">
+                template="./WEB-INF/template/cliente.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         Bienvenido a Eidetech S.A.C
     </ui:define>
 
     <ui:define name="content">
-        
+        <h:panelGrid columns="2" style="width: 100%" styleClass="centrar">
+            <h:panelGrid style="width: 250px" styleClass="centrar">
+                <p:graphicImage value="#{root_img}carrito.png" width="200" />
+                <br/>
+                <p:button outcome="cliente_servicio_generar_orden" value="Generar orden de servicio" />
+            </h:panelGrid>
+            <h:panelGrid style="width: 250px" styleClass="centrar">
+                <p:graphicImage value="#{root_img}estado.png" width="200" />
+                <br/>
+                <p:button outcome="cliente_servicio_mostrar_estado" value="Mostrar estado de mis ordenes" />                
+            </h:panelGrid>
+        </h:panelGrid>
     </ui:define>
 
 </ui:composition>

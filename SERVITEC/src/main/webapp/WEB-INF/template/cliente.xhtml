@@ -39,7 +39,7 @@
                 <p:link href="cliente.xhtml"><p:graphicImage value="#{root_img}logo.jpg" width="312" /></p:link>
                 <ui:insert name="menu">
                     <h:form>
-                        <p:tabMenu activeIndex="1">
+                        <p:tabMenu activeIndex="0">
                             <p:menuitem value="Inicio" url="#{root}cliente.xhtml" icon="ui-icon-home">
                                 <f:param name="i" value="0" />
                             </p:menuitem>
@@ -97,9 +97,9 @@
             </h:panelGrid>
 
             <h:panelGrid style="width: 1000px;text-align: right" styleClass="centrar" >
-                <p:outputLabel styleClass="texto_formateado_04" value="Lima,Miraflores - Av. Pethit Thours 4990" />
-                <p:outputLabel styleClass="texto_formateado_04" value="Email: eidetech@hotmail.com" />      
-                <p:outputLabel styleClass="texto_formateado_04" value="Telefono: 7777777" />
+                <p:outputLabel styleClass="texto_formateado_04" value="#{ubigeo.descripcionProvincia(indexBean.sede.dubigeo)},#{ubigeo.descripcionDistrito(indexBean.sede.dubigeo)} - #{indexBean.sede.ddireccion}" />
+                <p:outputLabel styleClass="texto_formateado_04" value="Email: #{indexBean.sede.demail}" />      
+                <p:outputLabel styleClass="texto_formateado_04" value="Telefono: #{indexBean.sede.dfijo} #{indexBean.sede.dcelular}" />
             </h:panelGrid>
         </h:panelGrid>
     </h:body>

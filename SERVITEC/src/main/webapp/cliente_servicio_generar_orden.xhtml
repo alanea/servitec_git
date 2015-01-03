@@ -15,7 +15,7 @@
             <p:growl id="growl_registro" for="growl_registrar_reservacion" showDetail="true" life="1000"/>
             <p:fieldset id="panel_registro_orden" legend="Generar orden de servicio tecnico" style="width: 700px" styleClass="centrar">
                 <h:panelGrid columns="2" columnClasses="alinear_top,alinear_top" >
-                    <p:wizard nextLabel="Siguiente" backLabel="Anterior" style="height: 500px;width: 590px">
+                    <p:wizard id="wizard_registro" nextLabel="Siguiente" backLabel="Anterior" style="height: 500px;width: 590px">
                         <p:tab title="PASO 1> Producto">
                             <p:panel header="Informacion del producto">
                                 <h:panelGrid columns="1" style="width: 550px">
@@ -62,11 +62,12 @@
                                 <h:panelGrid columns="3">
                                     <p:outputLabel for="fecha_orden" value="Fecha reservacion:"/>
                                     <p:calendar id="fecha_orden" value="#{registrarOrdenCliente.reservacion.ffecha}" readonlyInput="true"
-                                                pattern="dd/MMM/yyyy HH:mm" mode="popup" navigator="true" showOn="button" locale="es" yearRange="c-100:c">
+                                                pattern="dd/MMM/yyyy HH:mm" mode="popup" navigator="true" showOn="button" locale="es" yearRange="c-100:c"
+                                                required="true">
                                     </p:calendar>
                                     <p:message for="fecha_orden" display="both"/>
                                 </h:panelGrid>
-                                
+
                                 <br/>
                                 <p:separator />
 
@@ -100,24 +101,24 @@
                                     <p:outputLabel value="" />
                                     <p:outputLabel value="" />
                                     <p:outputLabel value="" />
-                                    
+
                                     <p:outputLabel for="direccion" value="Direccion:"/>
                                     <p:inputText id="direccion" value="#{registrarOrdenCliente.reservacion.ddireccion}" 
-                                                 size="30" required="false" requiredMessage="Por favor ingrese su direccion"
+                                                 size="30" required="true" requiredMessage="Por favor ingrese su direccion"
                                                  validatorMessage="direccion invalida"/>
                                     <p:message for="direccion" display="text" />  
                                 </h:panelGrid>
 
                                 <br/>
                                 <p:separator />
-                                
+
                                 <p:outputLabel styleClass="texto_formateado_03" value="Numero telefonico para contacto" />
                                 <br/>
                                 <br/>
                                 <h:panelGrid columns="3" style="width: 550px">
                                     <p:outputLabel for="celular" value="Celular:"/>
                                     <p:inputMask id="celular"  value="#{registrarOrdenCliente.reservacion.dcelular}"
-                                                 mask="999999999" required="false" requiredMessage="Por favor ingreso un numero celular"/>
+                                                 mask="999999999" required="true" requiredMessage="Por favor ingreso un numero celular"/>
                                     <p:message for="celular" display="text" />                                    
                                 </h:panelGrid>
                             </p:panel>
@@ -125,41 +126,30 @@
                         <p:tab title="PASO 3> Confirmacion">
                             <p:panel header="Confirmar reservacion">
                                 <h4>Informacion del producto</h4>
-                                <h:panelGrid columns="2">
-                                    <p:outputLabel value="Tipo de producto:" />
-                                    <p:outputLabel value="#{productoBean.descripcionCategoria(registrarOrdenCliente.reservacion.dcategoria_producto)} / #{productoBean.descripcionProducto(registrarOrdenCliente.reservacion.dproducto)}" />
-
-                                    <p:outputLabel value="Marca:" />
-                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dmarca}" />
-
-                                    <p:outputLabel value="Modelo:" />
-                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dmodelo}" />
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{productoBean.descripcionCategoria(registrarOrdenCliente.reservacion.dcategoria_producto)}" styleClass="texto_formateado_02" />
+                                    <p:outputLabel value="#{productoBean.descripcionProducto(registrarOrdenCliente.reservacion.dproducto)}" styleClass="texto_formateado_02" />
+                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dmarca} / #{registrarOrdenCliente.reservacion.dmodelo}" styleClass="texto_formateado_02" />
                                 </h:panelGrid>
 
                                 <h4>Problema</h4>
-                                <h:panelGrid columns="2">
-                                    <p:outputLabel value="Diagnostico:" />
-                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dsintoma}" />
-
-                                    <p:outputLabel value="Problema:" />
-                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dproducto}" />                                    
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dproblema}" styleClass="texto_formateado_02"/>                                    
                                 </h:panelGrid>
 
                                 <h4>Reservacion</h4>
-                                <h:panelGrid columns="2">
-                                    <p:outputLabel value="Fecha:" />
-                                    <p:outputLabel value="#{tablaTipoBean.formatoFecha(registrarOrdenCliente.reservacion.ffecha)}" />
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Lugar y fecha de la reparacion:" />
+                                    <p:outputLabel value="#{ubigeo.descripcionDistrito(registrarOrdenCliente.reservacion.dubigeo)} - #{registrarOrdenCliente.reservacion.ddireccion}, #{tablaTipoBean.formatoFechaHora(registrarOrdenCliente.reservacion.ffecha)}" styleClass="texto_formateado_02"/>
 
-                                    <p:outputLabel value="Lugar:" />
-                                    <p:outputLabel value="#{ubigeo.descripcionDistrito(registrarOrdenCliente.reservacion.dubigeo)} - #{registrarOrdenCliente.reservacion.ddireccion}" />
-
-                                    <p:outputLabel value="Contacto por celular:" />
-                                    <p:outputLabel value="#{registrarOrdenCliente.reservacion.dcelular}" />
+                                    <p:outputLabel value="Contacto:" />
+                                    <p:outputLabel value="#{loginCliente.usuario.persona.dnombres}, #{loginCliente.usuario.persona.dapellidoPaterno} #{loginCliente.usuario.persona.dapellidoMaterno} via celular #{registrarOrdenCliente.reservacion.dcelular}" styleClass="texto_formateado_02"/>
                                 </h:panelGrid>
 
-                                <p:commandButton value="Aceptar" action="#{registrarOrdenCliente.registrarNuevaOrdenServicio}"
-                                                 update="growl_registro,panel_registro_orden" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
-
+                                <h:panelGrid style="width: 100px" styleClass="centrar">
+                                    <p:commandButton value="Aceptar" action="#{registrarOrdenCliente.registrarNuevaOrdenServicio}"
+                                                     update="growl_registro,panel_registro_orden,wizard_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>                                    
+                                </h:panelGrid>
                             </p:panel>
                         </p:tab>
                     </p:wizard>

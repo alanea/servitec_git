@@ -8,6 +8,7 @@ package com.eidetech.servitec.controller;
 import com.eidetech.servitec.model.domain.entity.UbigeoDepartamento;
 import com.eidetech.servitec.model.domain.entity.UbigeoDistrito;
 import com.eidetech.servitec.model.domain.entity.UbigeoProvincia;
+import com.eidetech.servitec.model.util.UtilCadena;
 import com.eidetech.servitec.model.util.UtilUbigeo;
 import com.eidetech.servitec.service.IPortalService;
 import java.io.Serializable;
@@ -88,8 +89,6 @@ public class UbigeoBean implements Serializable {
         if (id_ubigeo != null && id_ubigeo.length() == 6) {
             UbigeoDepartamento u = UtilUbigeo.obtenerDepartamento(ubigeoDepartamentos, id_ubigeo.substring(0, 2));
             UbigeoProvincia u1 = UtilUbigeo.obtenerProvincia(u.getListaProvincias(), id_ubigeo.substring(0, 4));
-            System.out.println("departamento:"+id_ubigeo.substring(0, 1));
-            System.out.println("provincia:"+id_ubigeo.substring(0, 3));
             if (u1 == null) {
                 return id_ubigeo;
             } else {
@@ -114,6 +113,13 @@ public class UbigeoBean implements Serializable {
             return id_ubigeo;
         }
 
+    }
+    
+    public String descripcionUbigeo(String ubigeo) {
+        if (UtilCadena.cadenaValido(ubigeo) && ubigeo.length() == 6) {
+            return descripcionDepartamento(ubigeo) + " / " + descripcionProvincia(ubigeo) + " / " + descripcionDistrito(ubigeo);
+        }
+        return "";
     }
 
     public List<UbigeoDepartamento> getUbigeoDepartamentos() {

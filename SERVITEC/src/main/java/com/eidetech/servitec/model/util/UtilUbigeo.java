@@ -9,6 +9,7 @@ import com.eidetech.servitec.model.domain.entity.UbigeoDepartamento;
 import com.eidetech.servitec.model.domain.entity.UbigeoDistrito;
 import com.eidetech.servitec.model.domain.entity.UbigeoProvincia;
 import java.util.List;
+
 /**
  *
  * @author usuario-laptop
@@ -49,7 +50,7 @@ public class UtilUbigeo {
     }
 
     public static List<UbigeoDistrito> listaDistrito(List<UbigeoDepartamento> ubigeoDepartamentos, String clave) {
-        
+
         UbigeoDepartamento udep = UtilUbigeo.obtenerDepartamento(ubigeoDepartamentos, valorUbigeoDepartamento(clave));
         if (udep != null) {
             List<UbigeoProvincia> ubigeoProvincias = udep.getListaProvincias();
@@ -66,9 +67,9 @@ public class UtilUbigeo {
 
         return null;
     }
-    
-    public static String ubigeoDistrito(List<UbigeoDistrito> l,String nombreDistrito){
-        String d=nombreDistrito.toUpperCase();
+
+    public static String ubigeoDistrito(List<UbigeoDistrito> l, String nombreDistrito) {
+        String d = nombreDistrito.toUpperCase();
         if (l != null && d != null) {
             for (UbigeoDistrito u : l) {
                 if (u.getDnombre().equals(d)) {
@@ -135,6 +136,9 @@ public class UtilUbigeo {
         }
         return "";
     }
-    
-    
+
+    public static boolean esValidoUbigeo(String ubigeo) {
+        return UtilCadena.cadenaValido(ubigeo) && ubigeo.length() == 6;
+    }
+
 }

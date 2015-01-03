@@ -6,7 +6,7 @@
 package com.eidetech.servitec.model.util.validator;
 
 import com.eidetech.servitec.model.domain.entity.Sede;
-
+import com.eidetech.servitec.model.util.UtilCadena;
 
 /**
  *
@@ -14,8 +14,15 @@ import com.eidetech.servitec.model.domain.entity.Sede;
  */
 public class ValidatorSede {
 
+    public static boolean esValidoSede(Sede sede) {
+        if (sede != null) {
+            return UtilCadena.cadenaValido(sede.getDnombre());
+        }
+        return false;
+    }
+
     public static Sede validarSede(Sede sede) {
-        
+
         return sede;
     }
 }

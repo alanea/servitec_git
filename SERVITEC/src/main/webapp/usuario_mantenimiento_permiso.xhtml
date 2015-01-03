@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Mantenimiento de los permisos de los usuario
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+            <p:growl id="growl_registro" for="growl_registro" showDetail="true" life="1000"  />
+            <p:panel id="panel_registro" header="Registro de permisos" styleClass="centrar" >
+                <p:focus />
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="permiso_menu" value="Menu" />
+                    <p:selectOneMenu id="permiso_menu" value="#{registrarPermisoPersonal.id_menu}" required="true">
+                        <f:selectItem itemLabel="-- Seleccionar Uno --" itemValue=""  />
+                        <f:selectItems value="#{registrarPermisoPersonal.siMenu}"/>
+                        <p:ajax event="change" update="permiso_submenu" listener="#{registrarPermisoPersonal.actualizarSubmenu}"/>
+                    </p:selectOneMenu>
+                    <p:message for="permiso_menu" display="both"  />
+
+                    <p:outputLabel for="permiso_submenu" value="Submenu:" />
+                    <p:selectOneMenu id="permiso_submenu" value="#{registrarPermisoPersonal.id_submenu}" required="true">
+                        <f:selectItem itemLabel="-- Seleccionar Uno --" itemValue=""  />
+                        <f:selectItems value="#{registrarPermisoPersonal.siSubmenu}"/>
+                    </p:selectOneMenu>
+                    <p:message for="permiso_submenu" display="both"  />
+                    
+                    <p:outputLabel for="permiso_nombre" value="Nombre:" />
+                    <p:inputText id="permiso_nombre" value="#{registrarPermisoPersonal.configuracionPermiso.dnombre}" size="50" required="true"/>
+                    <p:message for="permiso_nombre" display="both" />
+
+                    <p:outputLabel for="permiso_url" value="URL:" />
+                    <p:inputText id="permiso_url" value="#{registrarPermisoPersonal.configuracionPermiso.durl}" size="50" required="true"/>
+                    <p:message for="permiso_url" display="both" />
+
+                </h:panelGrid>
+                <p:commandButton value="Registrar" action="#{registrarPermisoPersonal.registrarNuevoPermiso}" icon="ui-icon-check"
+                                 update="growl_registro,panel_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+            </p:panel>
+        </h:form>
+
+        <h:form id="form_modificar">
+            <p:growl id="growl_modificar" for="growl_modificar" showDetail="true" life="1000"  />
+            <p:dataTable var="t" value="#{mantenerPermisoPersonal.permisos}"  filteredValue="#{mantenerPermisoPersonal.permisosFiltrado}"
+                         emptyMessage="No se hallo permiso" editable="true"  widgetVar="tablasTable" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+
+                <p:ajax event="rowEdit" listener="#{mantenerPermisoPersonal.onRowEdit}" update=":form_modificar:growl_modificar" />
+                <p:ajax event="rowEditCancel" listener="#{mantenerPermisoPersonal.onRowCancel}" update=":form_modificar:growl_modificar" />
+
+                <p:column headerText="ID" filterBy="#{t.id_permiso}" filterMatchMode="contains" style="width: 100px" >
+                    <p:outputLabel value="#{t.id_permiso}" />
+                </p:column>
+
+                <p:column headerText="Menu" filterBy="#{t.submenu.menu.id_menu}" filterMatchMode="exact" style="width: 150px">
+                    <f:facet name="filter">
+                        <p:selectOneMenu value="#{mantenerPermisoPersonal.id_menu}" style="width: 100px" onchange="PF('tablasTable').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mantenerPermisoPersonal.siMenu}" />    
+                            <p:ajax event="change" update="permiso_submenu_tabla" listener="#{mantenerPermisoPersonal.actualizarSubmenu}"/>
+                        </p:selectOneMenu>
+                    </f:facet>                                                        
+                    <p:outputLabel value="#{t.submenu.menu.dnombre}" />
+                </p:column>
+                
+                <p:column headerText="Submenu" filterBy="#{t.submenu.id_submenu}" filterMatchMode="exact" style="width: 150px">
+                    <f:facet name="filter">
+                        <p:selectOneMenu id="permiso_submenu_tabla" value="#{mantenerPermisoPersonal.id_submenu}" style="width: 100px" onchange="PF('tablasTable').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mantenerPermisoPersonal.siSubmenu}" />
+                        </p:selectOneMenu>
+                    </f:facet>                                                        
+                    <p:outputLabel value="#{t.submenu.dnombre}" />
+                </p:column>
+
+                <p:column headerText="Nombre" filterBy="#{t.dnombre}" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.dnombre}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.dnombre}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="URL" filterBy="#{t.durl}" filterMatchMode="contains" style="width: 300px" >
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{t.durl}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.durl}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Editar" style="width:50px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

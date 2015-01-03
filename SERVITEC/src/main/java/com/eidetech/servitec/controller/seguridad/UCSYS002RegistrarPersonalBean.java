@@ -54,7 +54,7 @@ public class UCSYS002RegistrarPersonalBean implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage("growl_registro", mensaje);
         if (exito) {
-            String indexUsuario = "admin_crear_usuario.xhtml";
+            String indexUsuario = "usuario_mantenimiento_personal.xhtml";
             requestContext.addCallbackParam("view", indexUsuario);
             requestContext.addCallbackParam("estaRegistrado", true);
             personal = new Personal();

@@ -27,7 +27,6 @@ public class UCWEB001RegistrarClienteBean implements Serializable{
     
     private Persona cliente;
     private UsuarioCliente usuario;
-    private boolean recibir_email;    
     @ManagedProperty(value = "#{seguridadService}")
     private ISeguridadService seguridadService;
 
@@ -86,13 +85,4 @@ public class UCWEB001RegistrarClienteBean implements Serializable{
     public void setUsuario(UsuarioCliente usuario) {
         this.usuario = usuario;
     }
-
-    public boolean isRecibir_email() {
-        return recibir_email;
-    }
-
-    public void setRecibir_email(boolean recibir_email) {
-        this.recibir_email = recibir_email;
-    }
-
 }

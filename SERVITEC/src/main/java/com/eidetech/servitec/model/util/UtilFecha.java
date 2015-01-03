@@ -8,6 +8,7 @@ package com.eidetech.servitec.model.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -21,10 +22,10 @@ public class UtilFecha {
     public static boolean fechaValido(Date f) {
         return f != null;
     }
-    
-    public static boolean fechaMayorActual(Date f){
-        Date d=new Date();
-        if(fechaValido(f)){
+
+    public static boolean fechaMayorActual(Date f) {
+        Date d = new Date();
+        if (fechaValido(f)) {
             return d.before(f);
         }
         return false;
@@ -91,6 +92,16 @@ public class UtilFecha {
         return salida;
     }
 
+    public static Date agregarNhorasFecha(Date d, int horas) {
+        if (fechaValido(d)) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(d);
+            calendar.add(Calendar.HOUR, horas);
+            return calendar.getTime(); // Devuelve el objeto Date con las nuevas horas añadidas
+        }
+        return d;
+    }
+
     public static Date obtenerFechaCvs(String s) {//16/01/2006 17:07
         Date d;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -131,7 +142,7 @@ public class UtilFecha {
         }
         return "";
     }
-    
+
     public static String formatoFecha(Date fecha) {
         if (UtilFecha.fechaValido(fecha)) {
             DateFormat df1 = DateFormat.getDateInstance(DateFormat.LONG);
@@ -144,7 +155,7 @@ public class UtilFecha {
         if (UtilFecha.fechaValido(fecha)) {
             DateFormat df1 = DateFormat.getDateInstance(DateFormat.LONG);
             SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-            return df1.format(fecha) + " "+sdf1.format(fecha);
+            return df1.format(fecha) + " " + sdf1.format(fecha);
         }
         return "";
     }

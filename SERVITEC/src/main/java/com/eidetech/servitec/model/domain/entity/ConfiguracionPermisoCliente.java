@@ -9,8 +9,6 @@ package com.eidetech.servitec.model.domain.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.hibernate.annotations.Proxy;
@@ -24,9 +22,8 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 public class ConfiguracionPermisoCliente implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_permcli_conf")
-    private int id_permiso;
+    private String id_permiso;
     @Column(name = "dnm_permcli_conf")
     private String dnombre;
     @Column(name = "nord_permcli_conf")
@@ -34,11 +31,11 @@ public class ConfiguracionPermisoCliente implements Serializable{
     @Column(name = "durl_permcli_conf")
     private String durl;
 
-    public int getId_permiso() {
+    public String getId_permiso() {
         return id_permiso;
     }
 
-    public void setId_permiso(int id_permiso) {
+    public void setId_permiso(String id_permiso) {
         this.id_permiso = id_permiso;
     }
 
