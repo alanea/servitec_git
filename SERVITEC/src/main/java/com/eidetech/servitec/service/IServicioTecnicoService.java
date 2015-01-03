@@ -7,6 +7,7 @@ package com.eidetech.servitec.service;
 
 import com.eidetech.servitec.model.domain.entity.Reservacion;
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
+import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import java.util.List;
 
 /**
@@ -27,8 +28,8 @@ public interface IServicioTecnicoService {
 
     public List<Reservacion> listaNoReparados();
 
-    public boolean registrarPendienteReparar(Reservacion reservacion);
+    public boolean registrarPendienteReparar(UsuarioPersonal usuarioPersonal,Reservacion reservacion);
 
-    public boolean registrarNoReparar(Reservacion reservacion);
+    public boolean registrarNoReparar(UsuarioPersonal usuarioPersonal,Reservacion reservacion);
 
 }

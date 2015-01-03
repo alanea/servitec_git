@@ -8,6 +8,7 @@ package com.eidetech.servitec.model.dao.impl;
 import com.eidetech.servitec.model.dao.IReservacionDao;
 import com.eidetech.servitec.model.domain.entity.Cliente;
 import com.eidetech.servitec.model.domain.entity.Reservacion;
+import com.eidetech.servitec.model.util.UtilCadena;
 import com.eidetech.servitec.model.util.UtilHibernate;
 import java.io.Serializable;
 import java.util.Formatter;
@@ -110,8 +111,44 @@ public class ReservacionDao implements IReservacionDao, Serializable {
 
         try {
             session.getTransaction().begin();
-            Query q = session.createQuery("FROM Reservacion u WHERE u.destado= :reservacion_estado");
-            q.setParameter("reservacion_estado", reservacion.getDestado());
+
+            String sql = "FROM Reservacion u WHERE ";
+            int i=0;
+            if (UtilCadena.cadenaValido(reservacion.getDtipoDireccion())) {
+                String add="u.dtipoDireccion= :lugar";
+                if(i>0){
+                    add=" AND "+add;                    
+                }
+                sql=sql+add;
+                i++;
+            }
+            if (UtilCadena.cadenaValido(reservacion.getDestadoReservacion())) {
+                String add="u.destadoReservacion= :estado_reservacion";
+                if(i>0){
+                    add=" AND "+add;                    
+                }
+                sql=sql+add;
+                i++;
+            }
+            if (UtilCadena.cadenaValido(reservacion.getDestadoServicio())) {
+                String add="u.destadoServicio= :estado_servicio";
+                if(i>0){
+                    add=" AND "+add;                    
+                }
+                sql=sql+add;
+                i++;
+            }
+
+            Query q = session.createQuery(sql);
+            if (UtilCadena.cadenaValido(reservacion.getDtipoDireccion())) {
+                q.setParameter("lugar", reservacion.getDtipoDireccion());
+            }
+            if (UtilCadena.cadenaValido(reservacion.getDestadoReservacion())) {
+                q.setParameter("estado_reservacion", reservacion.getDestadoReservacion());
+            }
+            if (UtilCadena.cadenaValido(reservacion.getDestadoServicio())) {
+                q.setParameter("estado_servicio", reservacion.getDestadoServicio());
+            }
             l = (List<Reservacion>) q.list();
 
         } catch (ConstraintViolationException he) {

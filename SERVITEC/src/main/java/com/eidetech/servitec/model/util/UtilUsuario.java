@@ -58,8 +58,9 @@ public class UtilUsuario {
     }
 
     public static Menu getMenu(ConfiguracionMenu configuracion) {
-        Menu menu = new Menu();
+        Menu menu = null;
         if (configuracion != null) {
+            menu = new Menu();
             menu.setDnombre(configuracion.getDnombre());
             menu.setNorden(configuracion.getNorden());
             menu.setSubmenus(new HashSet());

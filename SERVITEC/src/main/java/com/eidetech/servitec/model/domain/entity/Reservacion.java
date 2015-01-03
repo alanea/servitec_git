@@ -56,7 +56,19 @@ public class Reservacion implements Serializable{
     @Column(name = "fmod_resrv")
     private Date fmodificacion;
     @Column(name = "dest_resrv")
-    private String destado;
+    private String destadoReservacion;
+    @Column(name = "destsvc_resrv")
+    private String destadoServicio;
+    @Column(name = "dtiplg_resrv")
+    private String dtipoDireccion;
+    @Column(name = "duserrev_resrv")
+    private String duserRevisor;
+    @Column(name = "fuserrev_resrv")
+    private Date frevision;    
+    @Column(name = "duserrep_resrv")
+    private String duserReparador;
+    @Column(name = "fuserrep_resrv")
+    private Date freparacion;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cli", referencedColumnName = "id_cli")
     private Cliente cliente;
@@ -173,12 +185,60 @@ public class Reservacion implements Serializable{
         this.fmodificacion = fmodificacion;
     }
 
-    public String getDestado() {
-        return destado;
+    public String getDestadoReservacion() {
+        return destadoReservacion;
     }
 
-    public void setDestado(String destado) {
-        this.destado = destado;
+    public void setDestadoReservacion(String destadoReservacion) {
+        this.destadoReservacion = destadoReservacion;
+    }
+
+    public String getDestadoServicio() {
+        return destadoServicio;
+    }
+
+    public void setDestadoServicio(String destadoServicio) {
+        this.destadoServicio = destadoServicio;
+    }
+
+    public String getDtipoDireccion() {
+        return dtipoDireccion;
+    }
+
+    public void setDtipoDireccion(String dtipoDireccion) {
+        this.dtipoDireccion = dtipoDireccion;
+    }
+
+    public String getDuserRevisor() {
+        return duserRevisor;
+    }
+
+    public void setDuserRevisor(String duserRevisor) {
+        this.duserRevisor = duserRevisor;
+    }
+
+    public Date getFrevision() {
+        return frevision;
+    }
+
+    public void setFrevision(Date frevision) {
+        this.frevision = frevision;
+    }
+
+    public String getDuserReparador() {
+        return duserReparador;
+    }
+
+    public void setDuserReparador(String duserReparador) {
+        this.duserReparador = duserReparador;
+    }
+
+    public Date getFreparacion() {
+        return freparacion;
+    }
+
+    public void setFreparacion(Date freparacion) {
+        this.freparacion = freparacion;
     }
 
     public Cliente getCliente() {

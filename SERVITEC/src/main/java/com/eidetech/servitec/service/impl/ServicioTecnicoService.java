@@ -10,6 +10,7 @@ import com.eidetech.servitec.model.dao.IReservacionDao;
 import com.eidetech.servitec.model.domain.entity.ProductoCliente;
 import com.eidetech.servitec.model.domain.entity.Reservacion;
 import com.eidetech.servitec.model.domain.entity.UsuarioCliente;
+import com.eidetech.servitec.model.domain.entity.UsuarioPersonal;
 import com.eidetech.servitec.model.util.UtilCadena;
 import com.eidetech.servitec.model.util.UtilServicio;
 import com.eidetech.servitec.model.util.validator.ValidatorReservacion;
@@ -28,12 +29,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("servicioTecnicoService")
 @Transactional(readOnly = true)
 public class ServicioTecnicoService implements IServicioTecnicoService, Serializable {
-
+    
     @Autowired
     IReservacionDao reservacionDao;
     @Autowired
     IProductoClienteDao productoClienteDao;
-
+    
     @Override
     public boolean registrarNuevoReservacion(UsuarioCliente usuarioCliente, Reservacion reservacion) {
         if (!ValidatorReservacion.esValidoReservacion(reservacion)) {
@@ -43,7 +44,7 @@ public class ServicioTecnicoService implements IServicioTecnicoService, Serializ
         p.setDproducto(reservacion.getDproducto());
         p.setDcategoria(reservacion.getDcategoria_producto());
         p.setCliente(usuarioCliente.getCliente());
-
+        
         if (usuarioCliente.getCliente().getProductos() != null) {
             if (!usuarioCliente.getCliente().getProductos().contains(p)) {
                 productoClienteDao.agregarProducto(p);
@@ -51,69 +52,79 @@ public class ServicioTecnicoService implements IServicioTecnicoService, Serializ
         } else {
             productoClienteDao.agregarProducto(p);
         }
-
+        
+        reservacion.setDtipoDireccion(UtilServicio.TIPO_LUGAR_SERVICIO_FUERA);
+        reservacion.setDestadoReservacion(UtilServicio.TIPO_REPARACION_PENDIENTE_REVISAR);
+        reservacion.setDestadoServicio(UtilServicio.TIPO_SERVICIO_PENDIENTE);
         reservacion.setFcreacion(new Date());
         return reservacionDao.agregarReservacion(reservacion);
     }
-
+    
     @Override
     public List<Reservacion> listaPendienteRevisarDomicilio() {
         Reservacion r = new Reservacion();
-        r.setDestado(UtilServicio.TIPO_RESERVACION_PENDIENTE_REVISAR_DOMICILIO);
-
+        
+        r.setDtipoDireccion(UtilServicio.TIPO_LUGAR_SERVICIO_FUERA);
+        r.setDestadoServicio(UtilServicio.TIPO_SERVICIO_PENDIENTE);
+        
         return reservacionDao.obtenerListaReservacion(r);
     }
-
+    
     @Override
     public List<Reservacion> listaPendienteRevisar() {
         Reservacion r = new Reservacion();
-        r.setDestado(UtilServicio.TIPO_RESERVACION_PENDIENTE_REVISAR);
-
+        r.setDestadoServicio(UtilServicio.TIPO_SERVICIO_PENDIENTE);
+        
         return reservacionDao.obtenerListaReservacion(r);
     }
-
+    
     @Override
     public List<Reservacion> listaPendienteReparar() {
         Reservacion r = new Reservacion();
-        r.setDestado(UtilServicio.TIPO_RESERVACION_PENDIENTE_REPARAR);
-
+        r.setDestadoReservacion(UtilServicio.TIPO_REPARACION_PENDIENTE_REPARAR);
+        r.setDestadoServicio(UtilServicio.TIPO_SERVICIO_ACEPTADO);
+        
         return reservacionDao.obtenerListaReservacion(r);
     }
-
+    
     @Override
     public List<Reservacion> listaReparados() {
         Reservacion r = new Reservacion();
-        r.setDestado(UtilServicio.TIPO_RESERVACION_REPARADO);
-
+        r.setDestadoReservacion(UtilServicio.TIPO_REPARACION_REPARADO);
+        r.setDestadoServicio(UtilServicio.TIPO_SERVICIO_ACEPTADO);
+        
         return reservacionDao.obtenerListaReservacion(r);
     }
-
+    
     @Override
     public List<Reservacion> listaNoReparados() {
         Reservacion r = new Reservacion();
-        r.setDestado(UtilServicio.TIPO_RESERVACION_NO_REPARADO);
-
+        r.setDestadoReservacion(UtilServicio.TIPO_REPARACION_NO_REPARADO);
+        
         return reservacionDao.obtenerListaReservacion(r);
     }
-
+    
     @Override
-    public boolean registrarPendienteReparar(Reservacion reservacion) {
-        if (reservacion == null || !UtilCadena.cadenaValido(reservacion.getDestado())) {
+    public boolean registrarPendienteReparar(UsuarioPersonal usuarioPersonal,Reservacion reservacion) {
+        if (reservacion == null || !UtilCadena.cadenaValido(reservacion.getDestadoReservacion())) {
             return false;
         }
-        reservacion.setDestado(UtilServicio.TIPO_RESERVACION_PENDIENTE_REPARAR);
+        reservacion.setDestadoReservacion(UtilServicio.TIPO_REPARACION_PENDIENTE_REPARAR);
+        reservacion.setDestadoServicio(UtilServicio.TIPO_SERVICIO_ACEPTADO);
+        reservacion.setDuserRevisor(usuarioPersonal.getId_usuario());
         reservacion.setFmodificacion(new Date());
         return reservacionDao.actualizarReservacion(reservacion);
     }
-
+    
     @Override
-    public boolean registrarNoReparar(Reservacion reservacion) {
-        if (reservacion == null || !UtilCadena.cadenaValido(reservacion.getDestado())) {
+    public boolean registrarNoReparar(UsuarioPersonal usuarioPersonal,Reservacion reservacion) {
+        if (reservacion == null || !UtilCadena.cadenaValido(reservacion.getDestadoReservacion())) {
             return false;
         }
-        reservacion.setDestado(UtilServicio.TIPO_RESERVACION_NO_REPARADO);
+        reservacion.setDestadoReservacion(UtilServicio.TIPO_REPARACION_NO_REPARADO);
+        reservacion.setDuserRevisor(usuarioPersonal.getId_usuario());
         reservacion.setFmodificacion(new Date());
         return reservacionDao.actualizarReservacion(reservacion);
     }
-
+    
 }

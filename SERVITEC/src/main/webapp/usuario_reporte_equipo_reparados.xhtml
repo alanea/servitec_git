@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Equipos reparados
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="form_reporte">                
+            <p:growl id="growl_reporte" for="growl_reporte" showDetail="true" life="1000"  />
+            <p:dataTable var="t" value="#{equiposReparados.listaReparados}"  filteredValue="#{equiposReparados.listaReparadosFiltrado}"
+                         emptyMessage="No se hallo elementos" editable="true"  widgetVar="table"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+
+                <p:column headerText="ID" filterBy="#{t.id_reservacion}" filterMatchMode="contains" >
+                    <p:outputLabel value="#{t.id_reservacion}" />
+                </p:column>
+
+                <p:column headerText="Cliente" filterBy="#{t.cliente.dnombre}" filterMatchMode="contains">
+                    <p:outputLabel value="#{t.cliente.dnombre}" />
+                </p:column>
+
+                <p:column headerText="Categoria producto" filterBy="#{t.dcategoria_producto}" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu value="#{equiposReparados.categoria_producto}" style="width: 200px" onchange="PF('table').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{productoBean.siCategoria}" />
+                            <p:ajax event="change" update="producto" />
+                        </p:selectOneMenu>
+                    </f:facet>
+                    <p:outputLabel value="#{productoBean.descripcionProducto(t.dcategoria_producto)}" />                        
+                </p:column>
+
+                <p:column headerText="Producto" filterBy="#{t.dproducto}" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu id="producto" style="width: 200px" onchange="PF('table').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{productoBean.siProducto(t.dcategoria_producto)}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+                    <p:outputLabel value="#{productoBean.descripcionProducto(t.dcategoria_producto)}" />
+                </p:column>
+
+                <p:column headerText="Marca" filterBy="#{t.dmarca}" filterMatchMode="contains">
+                    <p:outputLabel value="#{t.dmarca}" />
+                </p:column>
+
+                <p:column headerText="Modelo" filterBy="#{t.dmodelo}" filterMatchMode="contains">
+                    <p:outputLabel value="#{t.dmodelo}" />
+                </p:column>
+
+                <p:column headerText="Fecha Reservacion">
+                    <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(t.ffecha)}" />
+                </p:column>
+
+                <p:column headerText="Fecha Reparacion">
+                    <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(t.freparacion)}" />
+                </p:column>
+
+                <p:column headerText="Reparado por">
+                    <p:outputLabel value="#{t.duserReparador}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -48,19 +48,11 @@ public class UCSVC008HorarioBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        List<Reservacion> lista1 = beanUsuario.getTecnicoService().listaPendienteRevisarDomicilio();
         List<Reservacion> lista2 = beanUsuario.getTecnicoService().listaPendienteRevisar();
         modeloEventos = new DefaultScheduleModel();
-        if (lista1 != null && !lista1.isEmpty()) {
-            for (Reservacion r : lista1) {
-                DefaultScheduleEvent dse = new DefaultScheduleEvent(r.getDestado(), r.getFfecha(), UtilFecha.agregarNhorasFecha(r.getFfecha(), 1), true);
-                dse.setData(r);
-                modeloEventos.addEvent(dse);
-            }
-        }
         if (lista2 != null && !lista2.isEmpty()) {
             for (Reservacion r : lista2) {
-                DefaultScheduleEvent dse = new DefaultScheduleEvent(r.getDestado(), r.getFfecha(), UtilFecha.agregarNhorasFecha(r.getFfecha(), 1), true);
+                DefaultScheduleEvent dse = new DefaultScheduleEvent("Pendiente revision", r.getFfecha(), UtilFecha.agregarNhorasFecha(r.getFfecha(), 1), true);
                 dse.setData(r);
                 modeloEventos.addEvent(dse);
             }
@@ -80,14 +72,18 @@ public class UCSVC008HorarioBean implements Serializable {
     public void onEventSelect(SelectEvent selectEvent) {
         evento = (ScheduleEvent) selectEvent.getObject();
         reservacion = (Reservacion) evento.getData();
-        System.out.println("reservacion1: " + reservacion.getId_reservacion());
+        if (reservacion == null) {
+            reservacion = new Reservacion();
+        }
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
         evento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
 
         reservacion = (Reservacion) evento.getData();
-        System.out.println("reservacion2: " + reservacion.getId_reservacion());
+        if (reservacion == null) {
+            reservacion = new Reservacion();
+        }
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {

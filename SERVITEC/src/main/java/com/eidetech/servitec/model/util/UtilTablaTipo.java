@@ -60,21 +60,16 @@ public class UtilTablaTipo {
     public static String TIPO_VAR_SHARED_ROUTE = "41";
     public static String TIPO_TIPO_DIAGNOSTICO = "42";
     public static String TIPO_IGV = "43";
-    public static String TIPO_GRUPO_ESPECIALIDAD = "44";    
+    public static String TIPO_GRUPO_ESPECIALIDAD = "44";
+    public static String TIPO_ESTADO_USUARIO = "45";
+    public static String TIPO_ESTADO_SERVICIO = "46";
+    public static String TIPO_LUGAR_SERVICIO = "47";
+    public static String TIPO_SINTOMA_SERVICIO = "48";
+    public static String TIPO_PROBLEMA_SERVICIO = "49";
+    public static String TIPO_SOLUCION_SERVICIO = "50";
+    public static String TIPO_MOTIVO_CANCELACION_SERVICIO = "51";
+    public static String TIPO_ESTADO_REPARACION = "52";
     
-    public static String TIPO_CATEGORIA = "45";
-    public static String TIPO_CATEGORIA_IMAGEN_SONIDO = "52";
-    public static String TIPO_CATEGORIA_MOVILE = "50";
-    public static String TIPO_CATEGORIA_LAPTOP = "51";
-    public static String TIPO_CATEGORIA_WIFI = "53";
-    public static String TIPO_SINTOMA_TELEVISORES = "47";
-    public static String TIPO_SINTOMA_VIDEO = "48";
-    public static String TIPO_SINTOMA_EQUIPO_SONIDO = "46";
-    public static String TIPO_SINTOMA_AUTORADIO = "49";
-    public static String TIPO_SINTOMA_CELULARES = "54";
-    public static String TIPO_SINTOMA_MONITORES = "55";
-    public static String TIPO_SINTOMA_ALMACENAMIENTO_OPTICO = "56";
-
     public static String descripcionTipo(List<TablaTipo> lista, String tabla, String tipo) {
         if (lista != null && tipo != null) {
             for (TablaTipo t : lista) {

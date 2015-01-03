@@ -15,17 +15,25 @@ import java.util.List;
  */
 public class UtilServicio {
 
-    public static String TIPO_RESERVACION_PENDIENTE_REVISAR = "PENDIENTE_REVISAR";
-    public static String TIPO_RESERVACION_PENDIENTE_REVISAR_DOMICILIO = "PENDIENTE_REVISAR_DOMICILIO";
-    public static String TIPO_RESERVACION_PENDIENTE_REPARAR = "PENDIENTE_REPARAR";
-    public static String TIPO_RESERVACION_REPARADO = "REPARADO";
-    public static String TIPO_RESERVACION_NO_REPARADO = "NO_REPARADO";
+    public static String TIPO_REPARACION_PENDIENTE_REVISAR = "1";
+    public static String TIPO_REPARACION_PENDIENTE_REPARAR = "2";
+    public static String TIPO_REPARACION_EN_REPARACION = "3";
+    public static String TIPO_REPARACION_REPARADO = "4";
+    public static String TIPO_REPARACION_NO_REPARADO = "5";
+    public static String TIPO_SERVICIO_PENDIENTE = "1";
+    public static String TIPO_SERVICIO_ACEPTADO = "2";
+    public static String TIPO_SERVICIO_CANCELADO = "3";
+    public static String TIPO_LUGAR_SERVICIO_LOCAL = "1";
+    public static String TIPO_LUGAR_SERVICIO_FUERA = "2";
 
     public static List<Reservacion> reservacionPendienteRevisar(List<Reservacion> lista) {
         List<Reservacion> l = new ArrayList();
         if (lista != null) {
             for (Reservacion r : lista) {
-                if (UtilCadena.cadenaValido(r.getDestado()) && r.getDestado().equals(TIPO_RESERVACION_PENDIENTE_REVISAR)) {
+                if (UtilCadena.cadenaValido(r.getDestadoReservacion())
+                        && UtilCadena.cadenaValido(r.getDestadoServicio())
+                        && r.getDestadoReservacion().equals(TIPO_REPARACION_PENDIENTE_REVISAR)
+                        && r.getDestadoServicio().equals(TIPO_SERVICIO_PENDIENTE)) {
                     l.add(r);
                 }
             }
@@ -37,19 +45,27 @@ public class UtilServicio {
         List<Reservacion> l = new ArrayList();
         if (lista != null) {
             for (Reservacion r : lista) {
-                if (UtilCadena.cadenaValido(r.getDestado()) && r.getDestado().equals(TIPO_RESERVACION_PENDIENTE_REVISAR_DOMICILIO)) {
+                if (UtilCadena.cadenaValido(r.getDestadoReservacion())
+                        && UtilCadena.cadenaValido(r.getDestadoServicio())
+                        &&UtilCadena.cadenaValido(r.getDtipoDireccion())
+                        && r.getDestadoReservacion().equals(TIPO_REPARACION_PENDIENTE_REVISAR)
+                        && r.getDestadoServicio().equals(TIPO_SERVICIO_PENDIENTE)
+                        && r.getDtipoDireccion().equals(TIPO_LUGAR_SERVICIO_FUERA)) {
                     l.add(r);
                 }
             }
         }
         return l;
     }
-    
+
     public static List<Reservacion> reservacionPendienteReparar(List<Reservacion> lista) {
         List<Reservacion> l = new ArrayList();
         if (lista != null) {
             for (Reservacion r : lista) {
-                if (UtilCadena.cadenaValido(r.getDestado()) && r.getDestado().equals(TIPO_RESERVACION_PENDIENTE_REPARAR)) {
+                if (UtilCadena.cadenaValido(r.getDestadoReservacion())
+                        && UtilCadena.cadenaValido(r.getDestadoServicio())
+                        && r.getDestadoReservacion().equals(TIPO_REPARACION_PENDIENTE_REPARAR)
+                        && r.getDestadoServicio().equals(TIPO_SERVICIO_ACEPTADO)) {
                     l.add(r);
                 }
             }
@@ -61,7 +77,10 @@ public class UtilServicio {
         List<Reservacion> l = new ArrayList();
         if (lista != null) {
             for (Reservacion r : lista) {
-                if (UtilCadena.cadenaValido(r.getDestado()) && r.getDestado().equals(TIPO_RESERVACION_REPARADO)) {
+                if (UtilCadena.cadenaValido(r.getDestadoReservacion())
+                        && UtilCadena.cadenaValido(r.getDestadoServicio())
+                        && r.getDestadoReservacion().equals(TIPO_REPARACION_REPARADO)
+                        && r.getDestadoServicio().equals(TIPO_SERVICIO_ACEPTADO)) {
                     l.add(r);
                 }
             }
@@ -73,7 +92,9 @@ public class UtilServicio {
         List<Reservacion> l = new ArrayList();
         if (lista != null) {
             for (Reservacion r : lista) {
-                if (UtilCadena.cadenaValido(r.getDestado()) && r.getDestado().equals(TIPO_RESERVACION_NO_REPARADO)) {
+                if (UtilCadena.cadenaValido(r.getDestadoReservacion())
+                        && UtilCadena.cadenaValido(r.getDestadoServicio())
+                        && r.getDestadoReservacion().equals(TIPO_REPARACION_NO_REPARADO)){
                     l.add(r);
                 }
             }

@@ -10,8 +10,10 @@
         Pendientes de revision en domicilio del cliente
     </ui:define>
 
-    <ui:define name="content">
-        <p:fieldset legend="Equipos pendientes por revisar">
+    <ui:define name="content">       
+        <p:fieldset legend="Equipos pendientes por revisar en ubicacion del cliente">            
+            <p:graphicImage value="#{root_img}mini_mapa.png" width="100" height="100"/>
+            
             <h:form id="mantener">
                 <p:growl id="growl_mantener" for="growl_actualizacion" life="2000" showDetail="true"/>
 

@@ -145,4 +145,12 @@ public class UCSYS003RegistrarUsuarioPersonalBean implements Serializable {
         return siMenu;
     }
 
+    public String getId_menu() {
+        return id_menu;
+    }
+
+    public void setId_menu(String id_menu) {
+        this.id_menu = id_menu;
+    }
+
 }

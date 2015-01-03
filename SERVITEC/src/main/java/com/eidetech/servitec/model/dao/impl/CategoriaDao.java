@@ -51,14 +51,14 @@ public class CategoriaDao implements ICategoriaDao, Serializable {
             for (Categoria o : lista) {
                 String id = "" + PRE_ESPECIALIDAD;
                 n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_categoria,4,6),int))  FROM Categoria e ").uniqueResult();
-                if(n==null){
-                    n=0;
+                if (n == null) {
+                    n = 0;
                 }
                 n = n + 1;
                 Formatter fmt = new Formatter();
                 fmt.format("%06d", n);
                 id = id + fmt.toString();
-                System.out.println("id="+id);
+                System.out.println("id=" + id);
 
                 o.setId_categoria(id);
                 session.saveOrUpdate(o);
@@ -120,38 +120,39 @@ public class CategoriaDao implements ICategoriaDao, Serializable {
 
     @Override
     public List<Categoria> obtenerTodoCategoria() {
-        List<Categoria> l = null;
-        Session session = sessionFactory.openSession();
-
-        try {
-            session.getTransaction().begin();
-            Query q = session.createQuery("FROM Categoria");
-            l = (List<Categoria>) q.list();
-            if (l != null && l.size() > 0) {
-                for (Categoria e : l) {
-                    Query q1 = session.createQuery("FROM Producto u WHERE u.categoria.id_categoria= :categoria_id");
-                    q1.setParameter("categoria_id", e.getId_categoria());
-                    List<Producto> l1 = (List<Producto>) q1.list();
-
-                    e.setProductos(new HashSet());
-                    e.getProductos().addAll(l1);
-                }
-            }
-        } catch (ConstraintViolationException he) {
-            System.out.println("excepcion01: " + he);
-            session.getTransaction().rollback();
-        } catch (TransactionException he) {
-            System.out.println("excepcion02: " + he);
-            session.getTransaction().rollback();
-        } catch (HibernateException he) {
-            System.out.println("excepcion03: " + he);
-            session.getTransaction().rollback();
-        } finally {
-            session.getTransaction().commit();
-            session.close();
-        }
-
-        return l;
+//        List<Categoria> l = null;
+//        Session session = sessionFactory.openSession();
+//
+//        try {
+//            session.getTransaction().begin();
+//            Query q = session.createQuery("FROM Categoria");
+//            l = (List<Categoria>) q.list();
+//            if (l != null && l.size() > 0) {
+//                for (Categoria e : l) {
+//                    Query q1 = session.createQuery("FROM Producto u WHERE u.categoria.id_categoria= :categoria_id");
+//                    q1.setParameter("categoria_id", e.getId_categoria());
+//                    List<Producto> l1 = (List<Producto>) q1.list();
+//
+//                    e.setProductos(new HashSet());
+//                    e.getProductos().addAll(l1);
+//                }
+//            }
+//        } catch (ConstraintViolationException he) {
+//            System.out.println("excepcion01: " + he);
+//            session.getTransaction().rollback();
+//        } catch (TransactionException he) {
+//            System.out.println("excepcion02: " + he);
+//            session.getTransaction().rollback();
+//        } catch (HibernateException he) {
+//            System.out.println("excepcion03: " + he);
+//            session.getTransaction().rollback();
+//        } finally {
+//            session.getTransaction().commit();
+//            session.close();
+//        }
+//
+//        return l;
+        return UtilHibernate.obtenerListaEntidades(sessionFactory, Categoria.class);
     }
 
     private String idEspecialidad() {

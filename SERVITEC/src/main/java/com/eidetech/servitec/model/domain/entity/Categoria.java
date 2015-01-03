@@ -6,9 +6,7 @@
 package com.eidetech.servitec.model.domain.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -49,11 +46,8 @@ public class Categoria implements Serializable {
     private String duserModificacion;
     @Column(name = "fusermod_ctg")
     private Date fuserModificacion;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_ctg")
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "categoria")
     private Set<Producto> productos;
-    @Transient
-    private List<Producto> listaProductos;
 
     public String toString() {
         return "Categoria [id=" + this.id_categoria + ",nombre=" + this.dnombre + "]";
@@ -151,17 +145,4 @@ public class Categoria implements Serializable {
     public void setProductos(Set<Producto> productos) {
         this.productos = productos;
     }
-
-    public List<Producto> getListaProductos() {
-        if (listaProductos == null || listaProductos.isEmpty()) {
-            listaProductos = new ArrayList();
-            listaProductos.addAll(productos);
-        }
-        return listaProductos;
-    }
-
-    public void setListaProductos(List<Producto> listaProductos) {
-        this.listaProductos = listaProductos;
-    }
-
 }

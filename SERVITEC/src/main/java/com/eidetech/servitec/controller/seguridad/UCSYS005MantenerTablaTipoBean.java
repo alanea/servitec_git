@@ -72,7 +72,7 @@ public class UCSYS005MantenerTablaTipoBean implements Serializable {
             msg = new FacesMessage("Error", "No se pudo registrar");
         }
 
-        FacesContext.getCurrentInstance().addMessage("growl_registrar_tabla", msg);
+        FacesContext.getCurrentInstance().addMessage("usuario_mantenimiento_tabla", msg);
         if (exito) {
             String indexUsuario = "usuario_registrar_tabla.xhtml";
             requestContext.addCallbackParam("view", indexUsuario);
@@ -97,7 +97,7 @@ public class UCSYS005MantenerTablaTipoBean implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage("growl_registrar_tabla", msg);
         if (exito) {
-            String indexUsuario = "usuario_registrar_tipo.xhtml";
+            String indexUsuario = "usuario_mantenimiento_tipo.xhtml";
             requestContext.addCallbackParam("view", indexUsuario);
             requestContext.addCallbackParam("estaRegistrado", true);
         } else {

@@ -105,7 +105,7 @@
         </p:panel>
 
         <p:dialog modal="true" appendTo="@(body)" widgetVar="dlg_agregar" position="top" 
-                  header="Registro de nuevo usuario" closeOnEscape="true">
+                  header="Registro de nuevo usuario" closeOnEscape="true" showEffect="blind" hideEffect="explode">
             <h:form id="form_registrar">
                 <p:growl id="growl_registro" for="growl_registro_usuario" showDetail="true" life="2000"/>
                 <p:panel id="panel_registro">
@@ -159,9 +159,9 @@
                                     <f:selectItem itemLabel="Elija uno" itemValue="" />
                                     <f:selectItems value="#{tablaTipoBean.siEstadoRegistro}" />
                                 </p:selectOneMenu>
-                                <p:selectOneMenu id="usuario_menu" value="#{registrarSubmenuPersonal.id_menu}" required="true">
+                                <p:selectOneMenu id="usuario_menu" value="#{registrarUsuarioPersonal.id_menu}" required="true">
                                     <f:selectItem itemLabel="Elija uno" itemValue=""  />
-                                    <f:selectItems value="#{registrarSubmenuPersonal.siMenu}"/>
+                                    <f:selectItems value="#{registrarUsuarioPersonal.siMenu}"/>
                                 </p:selectOneMenu>
                             </h:panelGrid>
                         </h:panelGrid>

@@ -50,21 +50,19 @@ public class UCSVC004PendienteRevisarDomicilioBean implements Serializable {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         FacesMessage msg;
         boolean exito = false;
-        if (reservacion != null) {
-            if (beanUsuario.getTecnicoService().registrarPendienteReparar(reservacion)) {
-                msg = new FacesMessage("Exito", "Se confirmo la asistencia");
-                exito = true;
-            } else {
-                msg = new FacesMessage("Error", "No se confirmo la asistencia");
-            }
-            FacesContext.getCurrentInstance().addMessage("growl_actualizacion", msg);
-            if (exito) {
-                String indexUsuario = "usuario_pendiente_domicilio.xhtml";
-                requestContext.addCallbackParam("view", indexUsuario);
-                requestContext.addCallbackParam("estaRegistrado", true);
-            } else {
-                requestContext.addCallbackParam("estaRegistrado", false);
-            }
+        if (beanUsuario.getTecnicoService().registrarPendienteReparar(beanUsuario.getUsuario(),reservacion)) {
+            msg = new FacesMessage("Exito", "Se confirmo la asistencia");
+            exito = true;
+        } else {
+            msg = new FacesMessage("Error", "No se confirmo la asistencia");
+        }
+        FacesContext.getCurrentInstance().addMessage("growl_actualizacion", msg);
+        if (exito) {
+            String indexUsuario = "usuario_equipo_pendiente_domicilio.xhtml";
+            requestContext.addCallbackParam("view", indexUsuario);
+            requestContext.addCallbackParam("estaRegistrado", true);
+        } else {
+            requestContext.addCallbackParam("estaRegistrado", false);
         }
     }
 
@@ -72,21 +70,19 @@ public class UCSVC004PendienteRevisarDomicilioBean implements Serializable {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         FacesMessage msg;
         boolean exito = false;
-        if (reservacion != null) {
-            if (beanUsuario.getTecnicoService().registrarNoReparar(reservacion)) {
-                msg = new FacesMessage("Exito", "Se confirmo la inasistencia");
-                exito = true;
-            } else {
-                msg = new FacesMessage("Error", "No se confirmo la inasistencia");
-            }
-            FacesContext.getCurrentInstance().addMessage("growl_actualizacion", msg);
-            if (exito) {
-                String indexUsuario = "usuario_pendiente_domicilio.xhtml";
-                requestContext.addCallbackParam("view", indexUsuario);
-                requestContext.addCallbackParam("estaRegistrado", true);
-            } else {
-                requestContext.addCallbackParam("estaRegistrado", false);
-            }
+        if (beanUsuario.getTecnicoService().registrarNoReparar(beanUsuario.getUsuario(),reservacion)) {
+            msg = new FacesMessage("Exito", "Se confirmo la inasistencia");
+            exito = true;
+        } else {
+            msg = new FacesMessage("Error", "No se confirmo la inasistencia");
+        }
+        FacesContext.getCurrentInstance().addMessage("growl_actualizacion", msg);
+        if (exito) {
+            String indexUsuario = "usuario_equipo_pendiente_domicilio.xhtml";
+            requestContext.addCallbackParam("view", indexUsuario);
+            requestContext.addCallbackParam("estaRegistrado", true);
+        } else {
+            requestContext.addCallbackParam("estaRegistrado", false);
         }
     }
 

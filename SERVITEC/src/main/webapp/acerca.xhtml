@@ -34,7 +34,7 @@
         <h2>Nuestra Mision</h2>
         <h:panelGrid columns="2">
             <p:graphicImage value="#{root_img}mision.jpg" width="300" />
-            <p:outputLabel value="La mision de ..." styleClass="texto_formateado_02" />
+            <p:outputLabel value="La mision de #{indexBean.sede.dnombre} es ser líderes en distribución de accesorios informáticos" styleClass="texto_formateado_02" />
         </h:panelGrid>
         
         <p:separator/>
@@ -42,7 +42,7 @@
         <h2>Nuestra Vision</h2>
         <h:panelGrid columns="2">
             <p:graphicImage value="#{root_img}vision.jpg" width="300" />
-            <p:outputLabel value="La vision de ..." styleClass="texto_formateado_02" />
+            <p:outputLabel value="La vision de #{indexBean.sede.dnombre} es proporcionar a nuestros clientes servicios integrales e innovadores" styleClass="texto_formateado_02" />
         </h:panelGrid>
     </ui:define>
 

@@ -47,7 +47,6 @@ public class UCSVC001RegistrarOrdenClienteBean implements Serializable {
         boolean exito = false;
         
         reservacion.setCliente(beanCliente.getUsuario().getCliente());
-        reservacion.setDestado(UtilServicio.TIPO_RESERVACION_PENDIENTE_REVISAR_DOMICILIO);
 
         if (beanCliente.getServicioTecnicoService().registrarNuevoReservacion(beanCliente.getUsuario(),reservacion)) {
             beanCliente.getUsuario().getCliente().getReservaciones().add(reservacion);
