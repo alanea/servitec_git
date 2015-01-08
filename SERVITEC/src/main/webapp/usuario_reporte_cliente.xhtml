@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        Reporte clientes
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <p:growl id="growl_reporte" for="growl_reporte" showDetail="true" life="2000" />
+            <p:panel id="panel_reporte" header="Reporte de clientes por dia">
+            <p:fieldset legend="Parametro">
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="parametro_fecha_inicio" value="Fecha inicio" />
+                    <p:outputLabel for="parametro_fecha_fin" value="Fecha fin" />
+
+                    <p:message for="parametro_fecha_inicio" />                    
+                    <p:message for="parametro_fecha_fin" />
+
+                    <p:calendar id="parametro_fecha_inicio" value="#{reporteUsuarioCliente.parametro.fecha_inicio}" 
+                                required="true" readonlyInput="true"  
+                                pattern="dd/MMM/yyyy" mode="popup" navigator="true" showOn="button" locale="es"/>
+                    <p:calendar id="parametro_fecha_fin" value="#{reporteUsuarioCliente.parametro.fecha_fin}" 
+                                required="true" readonlyInput="true" 
+                                pattern="dd/MMM/yyyy" mode="popup" navigator="true" showOn="button" locale="es"/>
+                </h:panelGrid>
+                <p:commandButton value="Ejecutar" action="#{reporteUsuarioCliente.ejecutarReporteUsuarioClienteDiario}"
+                                 update="resultado_diario,panel_reporte,growl_reporte" />
+            </p:fieldset>
+            <p:fieldset legend="Resultado">                	
+                <p:chart id="resultado_diario" type="line" model="#{reporteUsuarioCliente.lineModelo}" style="height:300px;"/>
+            </p:fieldset>
+        </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

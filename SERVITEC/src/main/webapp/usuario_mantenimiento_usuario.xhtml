@@ -12,8 +12,8 @@
 
     <ui:define name="content">
         <p:panel header="Mantenimiento de usuarios del sistema">
-            <h:form>                
-                <p:hotkey bind="ctrl+shift+1" handler="PF('dlg_agregar').show();" />                
+            <h:form>
+                <p:hotkey bind="ctrl+shift+1" handler="PF('dlg_agregar').show();" />
                 <p:commandButton value="Agregar usuario [Ctrl+Shift+1]" style="width: 190px" 
                                  onclick="PF('dlg_agregar').show();" icon="icono_agregar_01" />
             </h:form>
@@ -81,6 +81,13 @@
                         </p:cellEditor>
                     </p:column>
 
+                    <p:column headerText="Permisos">
+                        <p:commandButton value="cambiar" action="#{mantenerUsuarioPersonal.inicializarPickList}" onclick="PF('dlg_modificar_permiso').show()"
+                                         update=":form_modificar_permiso:panel_modificar_permiso">
+                            <f:setPropertyActionListener value="#{t}" target="#{mantenerUsuarioPersonal.usuarioPersonal}" />
+                        </p:commandButton>
+                    </p:column>
+
                     <p:column headerText="Fecha creacion">
                         <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(t.fuserCreacion)}" />
                     </p:column>
@@ -142,14 +149,12 @@
                             <p:password id="usuario_password" value="#{registrarUsuarioPersonal.usuario.dpassword}" 
                                         required="true" label="clave" feedback="false" />
 
-                            <h:panelGrid columns="3" style="width: 500px">                                
+                            <h:panelGrid columns="2" style="width: 500px">                                
                                 <p:outputLabel for="usuario_tipo" value="Tipo de Usuario:" />
                                 <p:outputLabel for="usuario_estado" value="Tipo de Usuario:" />
-                                <p:outputLabel for="usuario_menu" value="Menu de permisos:" />
 
                                 <p:message for="usuario_tipo" display="both"  />
                                 <p:message for="usuario_estado" display="both"  />
-                                <p:message for="usuario_menu" display="both"  />
 
                                 <p:selectOneMenu id="usuario_tipo" value="#{registrarUsuarioPersonal.usuario.dtipo}">
                                     <f:selectItem itemLabel="Elija uno" itemValue="" />
@@ -159,11 +164,21 @@
                                     <f:selectItem itemLabel="Elija uno" itemValue="" />
                                     <f:selectItems value="#{tablaTipoBean.siEstadoRegistro}" />
                                 </p:selectOneMenu>
-                                <p:selectOneMenu id="usuario_menu" value="#{registrarUsuarioPersonal.id_menu}" required="true">
-                                    <f:selectItem itemLabel="Elija uno" itemValue=""  />
-                                    <f:selectItems value="#{registrarUsuarioPersonal.siMenu}"/>
-                                </p:selectOneMenu>
                             </h:panelGrid>
+
+                            <p:pickList value="#{registrarUsuarioPersonal.listaDualPermiso}" var="perm" effect="bounce" 
+                                        itemValue="#{perm}" itemLabel="#{perm.dnombre}" showSourceControls="true" showTargetControls="true" showCheckbox="true"
+                                        showSourceFilter="false" showTargetFilter="false" filterMatchMode="contains" converter="uCSYS003PermisoPersonalConverter2">
+
+                                <f:facet name="sourceCaption">Permisos disponibles</f:facet>
+                                <f:facet name="targetCaption">Permisos del usuario</f:facet>
+
+                                <p:ajax event="transfer" listener="#{registrarUsuarioPersonal.onTransfer}" update="growl_registro" />
+
+                                <p:column>
+                                    <h:outputText value="#{perm.submenu.dnombre} | #{perm.dnombre}" />
+                                </p:column>
+                            </p:pickList>
                         </h:panelGrid>
                     </h:panelGrid>
 
@@ -171,6 +186,35 @@
                         <p:commandButton value="Aceptar" action="#{registrarUsuarioPersonal.registrarNuevoUsuario}" icon="ui-icon-check"
                                          update="panel_registro,growl_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
                         <p:commandButton value="[Esc] Cerrar" onclick="PF('dlg_agregar').hide()" />
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog modal="true" appendTo="@(body)" widgetVar="dlg_modificar_permiso" position="top" 
+                  header="Modificacion de permisos de usuario" closeOnEscape="true" showEffect="blind" hideEffect="explode">
+            <h:form id="form_modificar_permiso">
+                <p:growl id="growl_modificar_permiso" for="growl_modificar_permiso" showDetail="true" life="2000"/>
+                <p:panel id="panel_modificar_permiso">
+                    <p:focus/>
+                    <p:pickList value="#{mantenerUsuarioPersonal.listaDualPermiso}" var="perm" effect="bounce" 
+                                itemValue="#{perm}" itemLabel="#{perm.dnombre}" showSourceControls="true" showTargetControls="true" showCheckbox="true"
+                                showSourceFilter="false" showTargetFilter="false" filterMatchMode="contains" converter="uCSYS003PermisoPersonalConverter">
+
+                        <f:facet name="sourceCaption">Permisos disponibles</f:facet>
+                        <f:facet name="targetCaption">Permisos del usuario</f:facet>
+
+                        <p:ajax event="transfer" listener="#{mantenerUsuarioPersonal.onTransfer}" update="growl_modificar_permiso" />
+
+                        <p:column>
+                            <h:outputText value="#{perm.submenu.dnombre} | #{perm.dnombre}" />
+                        </p:column>
+                    </p:pickList>
+
+                    <h:panelGrid columns="2" style="width: 250px" styleClass="centrar">
+                        <p:commandButton value="Cambiar" action="#{mantenerUsuarioPersonal.registrarNuevoPermisos}" icon="ui-icon-check"
+                                         update="panel_modificar_permiso,growl_modificar_permiso" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+                        <p:commandButton value="[Esc] Cerrar" onclick="PF('dlg_modificar_permiso').hide()" />
                     </h:panelGrid>
                 </p:panel>
             </h:form>

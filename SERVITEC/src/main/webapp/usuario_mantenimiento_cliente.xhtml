@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/personal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Mantenimiento de clientes
+    </ui:define>
+
+    <ui:define name="content">
+        <p:panel header="Mantenimiento de clientes">
+
+            <h:form id="form_modificar">                
+                <p:growl id="growl_modificar" for="growl_modificar" showDetail="true" life="1000"  />
+                <p:dataTable var="t" value="#{mantenerCliente.listaCliente}"  filteredValue="#{mantenerCliente.listaClienteFiltrado}"
+                             emptyMessage="No se hallo elementos" editable="true"  widgetVar="table"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+
+                    <p:ajax event="rowEdit" listener="#{mantenerCliente.onRowEdit}" update=":form_modificar:growl_modificar" />
+                    <p:ajax event="rowEditCancel" listener="#{mantenerCliente.onRowCancel}" update=":form_modificar:growl_modificar" />
+
+                    <p:column headerText="ID" filterBy="#{t.id_cliente}" filterMatchMode="contains" >
+                        <p:outputLabel value="#{t.id_cliente}" />
+                    </p:column>
+
+                    <p:column headerText="RUC" filterBy="#{t.druc}" filterMatchMode="contains" >
+                        <p:outputLabel value="#{t.druc}" />
+                    </p:column>
+
+                    <p:column headerText="DNI" filterBy="#{t.ddni}" filterMatchMode="contains" >
+                        <p:outputLabel value="#{t.ddni}" />
+                    </p:column>
+
+                    <p:column headerText="Nombre" filterBy="#{t.dnombre}" filterMatchMode="contains">
+                        <p:outputLabel value="#{tablaTipoBean.datoRegistrado(t.dnombre)}" />
+                    </p:column>
+
+                    <p:column headerText="Tipo" filterBy="#{t.dtipo}" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
+                                <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{tablaTipoBean.siTipoCliente}" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <p:outputLabel value="#{tablaTipoBean.descripcionTipoCliente(t.dtipo)}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu value="#{t.dtipo}" required="true">
+                                    <f:selectItems value="#{tablaTipoBean.siTipoCliente}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>

@@ -7,7 +7,7 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
     
-    <context:component-scan base-package="com.eidetech.servitec" />
+    <context:component-scan base-package="com.eidetech" />
     <context:annotation-config/>
     <context:spring-configured/>
     
@@ -33,37 +33,37 @@
         <property name="dataSource" ref="DataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>com.eidetech.servitec.model.domain.entity.Archivo</value>
-                <value>com.eidetech.servitec.model.domain.entity.Categoria</value>
-                <value>com.eidetech.servitec.model.domain.entity.Cliente</value>
-                <value>com.eidetech.servitec.model.domain.entity.Comprobante</value>
-                <value>com.eidetech.servitec.model.domain.entity.ComprobanteDetalle</value>
-                <value>com.eidetech.servitec.model.domain.entity.ConfiguracionMenu</value>
-                <value>com.eidetech.servitec.model.domain.entity.ConfiguracionPermiso</value>
-                <value>com.eidetech.servitec.model.domain.entity.ConfiguracionPermisoCliente</value>
-                <value>com.eidetech.servitec.model.domain.entity.ConfiguracionSubmenu</value>
-                <value>com.eidetech.servitec.model.domain.entity.Empresa</value>
-                <value>com.eidetech.servitec.model.domain.entity.HistorialProductoCliente</value>
-                <value>com.eidetech.servitec.model.domain.entity.Menu</value>
-                <value>com.eidetech.servitec.model.domain.entity.NotaCredito</value>
-                <value>com.eidetech.servitec.model.domain.entity.Permiso</value>
-                <value>com.eidetech.servitec.model.domain.entity.PermisoCliente</value>
-                <value>com.eidetech.servitec.model.domain.entity.Persona</value>
-                <value>com.eidetech.servitec.model.domain.entity.Personal</value>
-                <value>com.eidetech.servitec.model.domain.entity.Producto</value>
-                <value>com.eidetech.servitec.model.domain.entity.ProductoCliente</value>
-                <value>com.eidetech.servitec.model.domain.entity.Reservacion</value>
-                <value>com.eidetech.servitec.model.domain.entity.Sede</value>
-                <value>com.eidetech.servitec.model.domain.entity.Serie</value>
-                <value>com.eidetech.servitec.model.domain.entity.SeriePK</value>
-                <value>com.eidetech.servitec.model.domain.entity.Submenu</value>
-                <value>com.eidetech.servitec.model.domain.entity.TablaTipo</value>
-                <value>com.eidetech.servitec.model.domain.entity.Talon</value>
-                <value>com.eidetech.servitec.model.domain.entity.UbigeoDepartamento</value>
-                <value>com.eidetech.servitec.model.domain.entity.UbigeoDistrito</value>
-                <value>com.eidetech.servitec.model.domain.entity.UbigeoProvincia</value>
-                <value>com.eidetech.servitec.model.domain.entity.UsuarioCliente</value>
-                <value>com.eidetech.servitec.model.domain.entity.UsuarioPersonal</value>
+                <value>com.eidetech.model.domain.entity.Archivo</value>
+                <value>com.eidetech.model.domain.entity.Categoria</value>
+                <value>com.eidetech.model.domain.entity.Cliente</value>
+                <value>com.eidetech.model.domain.entity.Comprobante</value>
+                <value>com.eidetech.model.domain.entity.ComprobanteDetalle</value>
+                <value>com.eidetech.model.domain.entity.ConfiguracionMenu</value>
+                <value>com.eidetech.model.domain.entity.ConfiguracionPermiso</value>
+                <value>com.eidetech.model.domain.entity.ConfiguracionPermisoCliente</value>
+                <value>com.eidetech.model.domain.entity.ConfiguracionSubmenu</value>
+                <value>com.eidetech.model.domain.entity.Empresa</value>
+                <value>com.eidetech.model.domain.entity.HistorialProductoCliente</value>
+                <value>com.eidetech.model.domain.entity.Menu</value>
+                <value>com.eidetech.model.domain.entity.NotaCredito</value>
+                <value>com.eidetech.model.domain.entity.Permiso</value>
+                <value>com.eidetech.model.domain.entity.PermisoCliente</value>
+                <value>com.eidetech.model.domain.entity.Persona</value>
+                <value>com.eidetech.model.domain.entity.Personal</value>
+                <value>com.eidetech.model.domain.entity.Producto</value>
+                <value>com.eidetech.model.domain.entity.ProductoCliente</value>
+                <value>com.eidetech.model.domain.entity.Reservacion</value>
+                <value>com.eidetech.model.domain.entity.Sede</value>
+                <value>com.eidetech.model.domain.entity.Serie</value>
+                <value>com.eidetech.model.domain.entity.SeriePK</value>
+                <value>com.eidetech.model.domain.entity.Submenu</value>
+                <value>com.eidetech.model.domain.entity.TablaTipo</value>
+                <value>com.eidetech.model.domain.entity.Talon</value>
+                <value>com.eidetech.model.domain.entity.UbigeoDepartamento</value>
+                <value>com.eidetech.model.domain.entity.UbigeoDistrito</value>
+                <value>com.eidetech.model.domain.entity.UbigeoProvincia</value>
+                <value>com.eidetech.model.domain.entity.UsuarioCliente</value>
+                <value>com.eidetech.model.domain.entity.UsuarioPersonal</value>
             </list>
         </property>
         <property name="hibernateProperties">
