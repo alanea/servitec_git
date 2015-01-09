@@ -12,18 +12,21 @@
 
     <ui:define name="menu">
         <h:form>
-            <p:tabMenu activeIndex="1">
+            <p:tabMenu activeIndex="2">
                 <p:menuitem value="Inicio" url="#{root}index.xhtml" icon="ui-icon-home">
                     <f:param name="i" value="0" />
                 </p:menuitem>
-                <p:menuitem value="Servicio Tecnico" url="#{root}servicios.xhtml">
+                <p:menuitem value="Nosotros" url="#{root}nosotros.xhtml">
                     <f:param name="i" value="1" />
                 </p:menuitem>
-                <p:menuitem value="Productos" url="#{root}productos.xhtml">
+                <p:menuitem value="Servicios" url="#{root}servicios.xhtml">
                     <f:param name="i" value="2" />
                 </p:menuitem>
-                <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
+                <p:menuitem value="Productos" url="#{root}productos.xhtml">
                     <f:param name="i" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
+                    <f:param name="i" value="4" />
                 </p:menuitem>
             </p:tabMenu>
         </h:form>

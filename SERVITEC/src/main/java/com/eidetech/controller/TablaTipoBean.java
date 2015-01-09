@@ -217,6 +217,10 @@ public class TablaTipoBean implements Serializable {
     public String formatoFechaHora(Date fecha) {
         return UtilFecha.formatoFechaHora(fecha);
     }
+    
+    public String formatoFechaHora2(Date fecha) {
+        return UtilFecha.formatoFechaHora(fecha,UtilFecha.FORMATO_DD_MM_YYYY);
+    }
 
     public String datoRegistrado(String descripcion) {
         if (UtilCadena.cadenaValido(descripcion)) {

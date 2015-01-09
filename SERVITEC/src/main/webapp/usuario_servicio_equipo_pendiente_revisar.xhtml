@@ -13,103 +13,102 @@
     <ui:define name="content">
         <p:fieldset legend="Equipos pendientes por REVISAR">
             <p:graphicImage value="#{root_img}estado_pendiente_revisar.png" height="100" width="100"/>
-
-            <h:form id="mantener">
-                <p:growl id="growl_mantener" for="growl_actualizacion" life="2000" showDetail="true"/>
-
-                <p:dataTable var="r" value="#{pendienteRevisar.listaReservacion}" filteredValue="#{pendienteRevisar.listaReservacionFiltrado}"
-                             emptyMessage="No se hallo reservacion" editable="true"  widgetVar="table"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rows="50"  paginator="true" rowsPerPageTemplate="10,20,50"  >
-                    <p:column headerText="Cliente">
-                        <p:outputLabel value="#{r.cliente.dnombre}" />
-                    </p:column>
-                    <p:column headerText="Celular">
-                        <p:outputLabel value="#{r.dcelular}" />
-                    </p:column>
-                    <p:column headerText="Lugar">
-                        <p:outputLabel value="#{ubigeo.descripcionDistrito(r.dubigeo)} - #{r.ddireccion}" />
-                    </p:column>
-                    <p:column headerText="Fecha">
-                        <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(r.ffecha)}" />
-                    </p:column>                
-                    <p:column headerText="Equipo">
-                        <p:outputLabel value="#{productoBean.descripcionCategoria(r.dcategoria_producto)} / #{productoBean.descripcionProducto(r.dproducto)}" />
-                    </p:column>
-                    <p:column headerText="Problema">
-                        <p:outputLabel value="#{r.dproblema}" />
-                    </p:column>
-                    <p:column headerText="Trabajo realizable">
-                        <p:commandButton value="SI" icon="ui-icon-search" onclick="PF('dlg_si').show()"
-                                         update=":form_si:panel_si">
-                            <f:setPropertyActionListener value="#{r}" target="#{pendienteRevisar.reservacion}" />
-                        </p:commandButton>
-                        <p:commandButton value="NO" icon="ui-icon-search" onclick="PF('dlg_no').show()"
-                                         update=":form_no:panel_no">
-                            <f:setPropertyActionListener value="#{r}" target="#{pendienteRevisar.reservacion}" />
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-            </h:form>
         </p:fieldset>
+
+        <h:form id="mantener">
+            <p:growl id="growl_mantener" for="growl_actualizacion" life="2000" showDetail="true"/>
+
+            <p:dataTable var="r" value="#{pendienteRevisar.listaReservacion}" filteredValue="#{pendienteRevisar.listaReservacionFiltrado}"
+                         emptyMessage="No se hallo reservacion" editable="true"  widgetVar="table"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="50"  paginator="true" rowsPerPageTemplate="10,20,50"  >
+                <p:column headerText="Cliente" style="width: 120px">
+                    <p:outputLabel value="#{r.cliente.dnombre}" />
+                </p:column>
+                <p:column headerText="Celular" style="width: 80px">
+                    <p:outputLabel value="#{r.dcelular}" />
+                </p:column>
+                <p:column headerText="Lugar">
+                    <p:outputLabel value="#{ubigeo.descripcionDistrito(r.dubigeo)}" /><br/>
+                    <p:outputLabel value="#{r.ddireccion}" />
+                </p:column>
+                <p:column headerText="Fecha reparacion" style="width: 125px">
+                    <p:outputLabel value="#{tablaTipoBean.formatoFechaHora2(r.ffecha)}" />
+                </p:column>                
+                <p:column headerText="Equipo">
+                    <p:outputLabel value="#{productoBean.descripcionCategoria(r.dcategoria_producto)} / #{productoBean.descripcionProducto(r.dproducto)}" />
+                </p:column>
+                <p:column headerText="Problema">
+                    <p:outputLabel value="#{r.dproblema}" />
+                </p:column>
+                <p:column headerText="Trabajo realizable" style="width: 80px">
+                    <p:commandButton value="SI" icon="ui-icon-check" onclick="PF('dlg_si').show()"
+                                     update=":form_si:panel_si">
+                        <f:setPropertyActionListener value="#{r}" target="#{pendienteRevisar.reservacion}" />
+                    </p:commandButton>
+                    <p:commandButton value="NO" icon="ui-icon-cancel" onclick="PF('dlg_no').show()"
+                                     update=":form_no:panel_no">
+                        <f:setPropertyActionListener value="#{r}" target="#{pendienteRevisar.reservacion}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
 
         <p:dialog modal="true" appendTo="@(body)" widgetVar="dlg_si" position="top" width="700"
                   header="Confirmar realizacion del trabajo" closeOnEscape="true" showEffect="blind" hideEffect="explode">
             <h:form id="form_si">
                 <p:panel id="panel_si">
-                    <p:panelGrid columns="2">
-                        <p:outputLabel value="Cliente:" />
-                        <p:outputLabel value="#{pendienteRevisar.reservacion.cliente.dnombre}" />
+                    <h:panelGrid columns="2" columnClasses="alinear_top,alinear_top" cellpadding="5">
+                        <p:graphicImage value="#{root_img}estado_reparado.png" height="128" width="128"/>            
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Cliente:" />
+                            <p:outputLabel styleClass="texto_formateado_02" value="#{pendienteRevisar.reservacion.cliente.dnombre}, #{pendienteRevisar.reservacion.dcelular}, #{ubigeo.descripcionDistrito(pendienteRevisar.reservacion.dubigeo)} - #{pendienteRevisar.reservacion.ddireccion}" />
 
-                        <p:outputLabel value="Celular:" />
-                        <p:outputLabel value="#{pendienteRevisar.reservacion.dcelular}" />
+                            <p:outputLabel value="Fecha:" />
+                            <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(pendienteRevisar.reservacion.ffecha)}" />
 
-                        <p:outputLabel value="Lugar:" />
-                        <p:outputLabel value="#{ubigeo.descripcionDistrito(pendienteRevisar.reservacion.dubigeo)} - #{pendienteRevisar.reservacion.ddireccion}" />
+                            <p:outputLabel value="Equipo:" />
+                            <p:outputLabel value="#{productoBean.descripcionCategoria(pendienteRevisar.reservacion.dcategoria_producto)} / #{productoBean.descripcionProducto(pendienteRevisar.reservacion.dproducto)}" />
 
-                        <p:outputLabel value="Fecha:" />
-                        <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(pendienteRevisar.reservacion.ffecha)}" />
+                            <p:outputLabel value="Problema:" />
+                            <p:outputLabel value="#{pendienteRevisar.reservacion.dproblema}" />
+                        </p:panelGrid>
+                    </h:panelGrid>                    
 
-                        <p:outputLabel value="Equipo:" />
-                        <p:outputLabel value="#{productoBean.descripcionCategoria(pendienteRevisar.reservacion.dcategoria_producto)} / #{productoBean.descripcionProducto(pendienteRevisar.reservacion.dproducto)}" />
-
-                        <p:outputLabel value="Problema:" />
-                        <p:outputLabel value="#{pendienteRevisar.reservacion.dproblema}" />
-                    </p:panelGrid>
-
-                    <p:commandButton value="Confirmar trabajo" action="#{pendienteRevisar.registrarPendienteReparar}"
-                                     update=":mantener:growl_mantener" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
-                    <p:commandButton value="Cancelar" onclick="PF('dlg_si').hide();"/>
+                    <h:panelGrid columns="2" style="width: 300px" styleClass="centrar">
+                        <p:commandButton value="Confirmar" action="#{pendienteRevisar.registrarPendienteReparar}" icon="ui-icon-check" 
+                                         update=":mantener:growl_mantener" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+                        <p:commandButton value="[Esc] Cancelar" onclick="PF('dlg_si').hide();" icon="ui-icon-cancel"/>                        
+                    </h:panelGrid>
                 </p:panel>
             </h:form>
         </p:dialog>
 
-        <p:dialog modal="true" appendTo="@(body)" widgetVar="dlg_no" position="top" 
+        <p:dialog modal="true" appendTo="@(body)" widgetVar="dlg_no" position="top" width="700"
                   header="Desistir de realizar el trabajo" closeOnEscape="true" showEffect="blind" hideEffect="explode">
             <h:form id="form_no">
                 <p:panel id="panel_no">
-                    <p:panelGrid columns="2">
-                        <p:outputLabel value="Cliente:" />
-                        <p:outputLabel value="#{pendienteRevisar.reservacion.cliente.dnombre}" />
+                    <h:panelGrid columns="2" columnClasses="alinear_top,alinear_top" cellpadding="5">
+                        <p:graphicImage value="#{root_img}estado_no_reparado.png" height="128" width="128"/>            
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Cliente:" />
+                            <p:outputLabel styleClass="texto_formateado_02" value="#{pendienteRevisar.reservacion.cliente.dnombre}, #{pendienteRevisar.reservacion.dcelular}, #{ubigeo.descripcionDistrito(pendienteRevisar.reservacion.dubigeo)} - #{pendienteRevisar.reservacion.ddireccion}" />
 
-                        <p:outputLabel value="Celular:" />
-                        <p:outputLabel value="#{pendienteRevisar.reservacion.dcelular}" />
+                            <p:outputLabel value="Fecha:" />
+                            <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(pendienteRevisar.reservacion.ffecha)}" />
 
-                        <p:outputLabel value="Lugar:" />
-                        <p:outputLabel value="#{ubigeo.descripcionDistrito(pendienteRevisar.reservacion.dubigeo)} - #{pendienteRevisar.reservacion.ddireccion}" />
+                            <p:outputLabel value="Equipo:" />
+                            <p:outputLabel value="#{productoBean.descripcionCategoria(pendienteRevisar.reservacion.dcategoria_producto)} / #{productoBean.descripcionProducto(pendienteRevisar.reservacion.dproducto)}" />
 
-                        <p:outputLabel value="Fecha:" />
-                        <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(pendienteRevisar.reservacion.ffecha)}" />
-
-                        <p:outputLabel value="Equipo:" />
-                        <p:outputLabel value="#{productoBean.descripcionCategoria(pendienteRevisar.reservacion.dcategoria_producto)} / #{productoBean.descripcionProducto(pendienteRevisar.reservacion.dproducto)}" />
-
-                        <p:outputLabel value="Problema:" />
-                        <p:outputLabel value="#{pendienteRevisar.reservacion.dproblema}" />
-                    </p:panelGrid>
-                    <p:commandButton value="Confirmar inasistencia" action="#{pendienteRevisar.registrarCancelarReparacion}" 
-                                     update=":mantener:growl_mantener" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
-                    <p:commandButton value="Cancelar" onclick="PF('dlg_no').hide();" />                
+                            <p:outputLabel value="Problema:" />
+                            <p:outputLabel value="#{pendienteRevisar.reservacion.dproblema}" />
+                        </p:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" style="width: 300px" styleClass="centrar">
+                        <p:commandButton value="Confirmar" action="#{pendienteRevisar.registrarCancelarReparacion}" icon="ui-icon-check" 
+                                         update=":mantener:growl_mantener" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
+                        <p:commandButton value="[Esc] Cancelar" onclick="PF('dlg_no').hide();" icon="ui-icon-cancel"/>                                
+                    </h:panelGrid>
                 </p:panel>
             </h:form>
         </p:dialog>

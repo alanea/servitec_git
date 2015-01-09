@@ -12,18 +12,21 @@
 
     <ui:define name="menu">
         <h:form>
-            <p:tabMenu activeIndex="3">
+            <p:tabMenu activeIndex="4">
                 <p:menuitem value="Inicio" url="#{root}index.xhtml" icon="ui-icon-home">
                     <f:param name="i" value="0" />
                 </p:menuitem>
-                <p:menuitem value="Servicio Tecnico" url="#{root}servicios.xhtml">
+                <p:menuitem value="Nosotros" url="#{root}nosotros.xhtml">
                     <f:param name="i" value="1" />
                 </p:menuitem>
-                <p:menuitem value="Productos" url="#{root}productos.xhtml">
+                <p:menuitem value="Servicios" url="#{root}servicios.xhtml">
                     <f:param name="i" value="2" />
                 </p:menuitem>
-                <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
+                <p:menuitem value="Productos" url="#{root}productos.xhtml">
                     <f:param name="i" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
+                    <f:param name="i" value="4" />
                 </p:menuitem>
             </p:tabMenu>
         </h:form>
@@ -31,16 +34,26 @@
 
     <ui:define name="content">
 
-        <h2>Nuestra Mision</h2>
-        <h:panelGrid columns="2">
+        <h2>Filosofia empresarial</h2>
+
+        <h2>Política</h2>
+        <h:panelGrid columns="2" style="width: 700px" styleClass="centrar" columnClasses="alinear_top,alinear_top">
+            <p:outputLabel value="·"/>
+            <p:outputLabel value="Satisfacer los requerimientos de nuestros clientes para los servicios de comercialización y post venta, para los productos y los servicios de soporte asociados a nuestros productos distribuidos." />
+            <p:outputLabel value="·"/>
+            <p:outputLabel value="Cumplir los requisitos legales que nos aplican y otros que suscribimos libremente"/>
+            <p:outputLabel value="·"/>
+            <p:outputLabel value="Solo se vende productos de marca"/>
+        </h:panelGrid>
+
+        <h2>Mision</h2>
+        <h:panelGrid columns="2" style="width: 800px" styleClass="centrar">
             <p:graphicImage value="#{root_img}mision.jpg" width="300" />
             <p:outputLabel value="La mision de #{indexBean.sede.dnombre} es ser líderes en distribución de accesorios informáticos" styleClass="texto_formateado_02" />
         </h:panelGrid>
-        
-        <p:separator/>
-        
-        <h2>Nuestra Vision</h2>
-        <h:panelGrid columns="2">
+
+        <h2>Vision</h2>
+        <h:panelGrid columns="2" style="width: 800px" styleClass="centrar">
             <p:graphicImage value="#{root_img}vision.jpg" width="300" />
             <p:outputLabel value="La vision de #{indexBean.sede.dnombre} es proporcionar a nuestros clientes servicios integrales e innovadores" styleClass="texto_formateado_02" />
         </h:panelGrid>

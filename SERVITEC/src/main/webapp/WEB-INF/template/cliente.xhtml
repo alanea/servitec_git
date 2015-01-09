@@ -28,9 +28,12 @@
                 <h:form>
                     <p:menubar style="width: 900px">
                         <p:menuitem url="#{root}cliente.xhtml" icon="icon_logo" />
-                        <f:facet name="options">
-                            <p:commandButton value="Salir" action="#{loginCliente.logout}"
-                                             icon="ui-icon-extlink" oncomplete="logout(xhr, status, args)" />
+                        <f:facet name="options">                            
+                            <p:menuButton value="Sistema" iconPos="right">
+                                <p:menuitem value="Cambiar clave" outcome="cliente_cambiar_clave" />
+                                <p:menuitem value="Salir" action="#{loginCliente.logout}"
+                                            icon="ui-icon-extlink" oncomplete="logout(xhr, status, args)" />
+                            </p:menuButton>
                         </f:facet>
                     </p:menubar>
                 </h:form>
@@ -64,34 +67,28 @@
         </p:panel>
 
         <h:panelGrid style="background-color: #20B2AA;width: 1000px" styleClass="centrar">
-            <h:panelGrid columns="3" style="width: 1000px" styleClass="centrar" columnClasses="alinear_top,alinear_top" >
+            <h:panelGrid columns="3" style="width: 1000px" styleClass="centrar" columnClasses="alinear_top,alinear_top,alinear_top" >
                 <p:outputLabel>Nosotros</p:outputLabel>
                 <p:outputLabel>Productos</p:outputLabel>
                 <p:outputLabel>Servicios</p:outputLabel>
-                
+
                 <h:panelGrid columns="1" style="background-color: transparent;width: 325px">                    
                     <p:link outcome="index" value="Inicio" style="display:inline-block"/>
-                    <p:link outcome="acerca" value="Nosotros" style="display:inline-block"/>
+                    <p:link outcome="nosotros" value="Nosotros" style="display:inline-block"/>
+                    <p:link outcome="acerca" value="Mision" style="display:inline-block"/>
+                    <p:link outcome="acerca" value="Vision" style="display:inline-block"/>
                 </h:panelGrid>
 
-                <h:panelGrid columns="2" style="background-color: transparent;width: 325px">                    
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                <h:panelGrid columns="1" style="background-color: transparent;width: 325px">                    
                     <p:link outcome="productos" value="Sonido y música" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="PC y laptop" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="Smatphones" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="Wifi y bluetooth" style="display:inline-block"/>
-
                 </h:panelGrid>
 
-                <h:panelGrid columns="2" style="background-color: transparent;width: 325px">                    
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                <h:panelGrid columns="1" style="background-color: transparent;width: 325px">                    
                     <p:link outcome="servicios" value="Reparacion domiciliaria" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="servicios" value="Diagnostico preventivo" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="servicios" value="Reparacion" style="display:inline-block"/>
                 </h:panelGrid>
             </h:panelGrid>

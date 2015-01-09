@@ -83,7 +83,7 @@ public class ReservacionDao implements IReservacionDao, Serializable {
 
         try {
             session.getTransaction().begin();
-            Query q = session.createQuery("FROM Reservacion u WHERE u.cliente.id_cliente= :cliente_id");
+            Query q = session.createQuery("FROM Reservacion u WHERE u.cliente.id_cliente= :cliente_id ORDER BY u.ffecha ASC");
             q.setParameter("cliente_id", cliente.getId_cliente());
             l = (List<Reservacion>) q.list();
 
@@ -154,6 +154,8 @@ public class ReservacionDao implements IReservacionDao, Serializable {
                 sql=sql+add;
                 i++;
             }
+            
+            sql=sql+"  ORDER BY u.ffecha ASC";
 
             Query q = session.createQuery(sql);
             if (UtilCadena.cadenaValido(reservacion.getDtipoDireccion())) {

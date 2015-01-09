@@ -16,25 +16,34 @@
             <p:growl id="messages" showDetail="true" />
 
             <h:panelGrid columnClasses="value" style="width: 100%">
-                <h3 style="margin-top: 0">Horarios</h3>
-                <p:schedule id="schedule" value="#{horarioReservaciones.modeloEventos}" widgetVar="myschedule" timeZone="GMT-5" locale="es">
-
-                    <p:ajax event="dateSelect" listener="#{horarioReservaciones.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventSelect" listener="#{horarioReservaciones.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                <p:schedule id="schedule" value="#{horarioReservaciones.modeloEventos}" widgetVar="myschedule" timeZone="GMT-5" locale="es"
+                            draggable="false" resizable="false">
+                    <p:ajax event="eventSelect" listener="#{horarioReservaciones.onEventSelect}" update="eventDetails" oncomplete="PF('dlg_orden').show();" />
                     <p:ajax event="eventMove" listener="#{horarioReservaciones.onEventMove}" update="messages" />
                     <p:ajax event="eventResize" listener="#{horarioReservaciones.onEventResize}" update="messages" />
-
                 </p:schedule>
             </h:panelGrid>
 
-            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-                <h:panelGrid id="eventDetails" columns="2">
-                    <p:outputLabel value="Fecha reservacion:" />
-                    <p:outputLabel value="#{horarioReservaciones.reservacion.ffecha}" />
-                    
-                    <p:outputLabel value="Estado:" />
-                    <p:outputLabel value="#{horarioReservaciones.reservacion.destadoReservacion}" />
-                </h:panelGrid>
+            <p:dialog widgetVar="dlg_orden" showEffect="clip" hideEffect="clip"
+                      header="Detalles de la orden de servicio" closeOnEscape="true">
+                <p:panelGrid>
+                    <h:panelGrid id="eventDetails" columns="2" cellspacing="5">
+                        <p:outputLabel value="Cliente:" />
+                        <p:outputLabel styleClass="texto_formateado_02" value="#{horarioReservaciones.reservacion.cliente.dnombre}, #{horarioReservaciones.reservacion.dcelular}, #{ubigeo.descripcionDistrito(horarioReservaciones.reservacion.dubigeo)} - #{horarioReservaciones.reservacion.ddireccion}" />
+
+                        <p:outputLabel value="Fecha:" />
+                        <p:outputLabel styleClass="texto_formateado_02" value="#{tablaTipoBean.formatoFechaHora2(horarioReservaciones.reservacion.ffecha)}" />
+
+                        <p:outputLabel value="Estado:" />
+                        <p:outputLabel value="#{tablaTipoBean.descripcionEstadoServicio(horarioReservaciones.reservacion.destadoReservacion)}" />
+
+                        <p:outputLabel value="Equipo:" />
+                        <p:outputLabel styleClass="texto_formateado_02" value="#{productoBean.descripcionCategoria(horarioReservaciones.reservacion.dcategoria_producto)} / #{productoBean.descripcionProducto(horarioReservaciones.reservacion.dproducto)}" />
+
+                        <p:outputLabel value="Problema:" />
+                        <p:outputLabel value="#{horarioReservaciones.reservacion.dproblema}" />                    
+                    </h:panelGrid>
+                </p:panelGrid>
             </p:dialog>
         </h:form>
     </ui:define>

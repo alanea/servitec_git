@@ -1,15 +1,22 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/template/public.xhtml"
+                template="./WEB-INF/template/personal.xhtml"
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
-        Recuperar clave
+        Modulo de reparacion
     </ui:define>
 
     <ui:define name="content">
-        <p:graphicImage value="#{root_img}no_disponible_01.jpg" />
+        <p:panel>
+            <p:panel id="teclado">
+                <p:graphicImage value="#{root_img}parte_pc_teclado.jpg" />
+            </p:panel>
+        </p:panel>        
+
+        <p:draggable for="teclado" containment="parent" opacity="0.5"  grid="100,240"/>
+
     </ui:define>
 
 </ui:composition>

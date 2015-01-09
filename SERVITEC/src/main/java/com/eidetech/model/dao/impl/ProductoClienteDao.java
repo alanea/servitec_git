@@ -9,6 +9,7 @@ import com.eidetech.model.dao.IProductoClienteDao;
 import com.eidetech.model.domain.entity.Cliente;
 import com.eidetech.model.domain.entity.HistorialProductoCliente;
 import com.eidetech.model.domain.entity.ProductoCliente;
+import com.eidetech.model.domain.entity.Reservacion;
 import com.eidetech.model.util.UtilHibernate;
 import java.io.Serializable;
 import java.util.Formatter;
@@ -43,7 +44,7 @@ public class ProductoClienteDao implements IProductoClienteDao, Serializable {
         try {
             session.getTransaction().begin();
             n = (Integer) session.createQuery("SELECT MAX(cast(substring(e.id_producto_cliente,4,6),int)) FROM ProductoCliente e ").uniqueResult();
-            
+
             if (n == null) {
                 n = 0;
             }
@@ -109,7 +110,7 @@ public class ProductoClienteDao implements IProductoClienteDao, Serializable {
 
     @Override
     public boolean agregarHistorialProducto(HistorialProductoCliente historialProductoCliente) {
-    boolean success = false;
+        boolean success = false;
         String PRE_HISTORIAL = "HST";
         String id = "" + PRE_HISTORIAL;
         Integer n;
@@ -151,6 +152,35 @@ public class ProductoClienteDao implements IProductoClienteDao, Serializable {
     @Override
     public boolean actualizarHistorialProducto(HistorialProductoCliente historialProductoCliente) {
         return UtilHibernate.actualizarEntidad(sessionFactory, historialProductoCliente);
+    }
+
+    @Override
+    public ProductoCliente obtenerProducto(Reservacion reservacion) {
+        ProductoCliente p = null;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.getTransaction().begin();
+            Query q = session.createQuery("FROM ProductoCliente u WHERE u.cliente.id_cliente= :cliente_id AND u.dproducto= :producto_codigo");
+            q.setParameter("cliente_id", reservacion.getCliente().getId_cliente());
+            q.setParameter("producto_codigo", reservacion.getDproducto());
+            p = (ProductoCliente) q.uniqueResult();
+
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return p;
     }
 
 }

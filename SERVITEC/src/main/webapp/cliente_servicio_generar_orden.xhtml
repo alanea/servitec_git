@@ -34,14 +34,16 @@
                                         <f:selectItems value="#{productoBean.siProducto(registrarOrdenCliente.reservacion.dcategoria_producto)}" />
                                     </p:selectOneMenu>
 
-                                    <p:message for="marca" display="both" />
-                                    <p:outputLabel for="marca" value="Marca:" />
-                                    <p:inputText id="marca" value="#{registrarOrdenCliente.reservacion.dmarca}" required="true" />
+                                    <h:panelGrid columns="2">
+                                        <p:message for="marca" display="both" />
+                                        <p:message for="modelo" display="both" />
 
-                                    <p:message for="modelo" display="both" />
-                                    <p:outputLabel for="modelo" value="Modelo:" />
-                                    <p:inputText id="modelo" value="#{registrarOrdenCliente.reservacion.dmodelo}" />
+                                        <p:outputLabel for="marca" value="Marca:" />
+                                        <p:outputLabel for="modelo" value="Modelo:" />
 
+                                        <p:inputText id="marca" value="#{registrarOrdenCliente.reservacion.dmarca}" required="true" />
+                                        <p:inputText id="modelo" value="#{registrarOrdenCliente.reservacion.dmodelo}" />                                        
+                                    </h:panelGrid>
                                 </h:panelGrid>
                             </p:panel>
 
@@ -60,7 +62,7 @@
                                 <br/>
                                 <br/>
                                 <h:panelGrid columns="3">
-                                    <p:outputLabel for="fecha_orden" value="Fecha reservacion:"/>
+                                    <p:outputLabel for="fecha_orden" value="Fecha y hora reservacion:"/>
                                     <p:calendar id="fecha_orden" value="#{registrarOrdenCliente.reservacion.ffecha}" readonlyInput="true"
                                                 pattern="dd/MMM/yyyy HH:mm" mode="popup" navigator="true" showOn="button" locale="es" yearRange="c-100:c"
                                                 required="true">

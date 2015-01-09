@@ -13,55 +13,53 @@
     <ui:define name="content">
         <p:fieldset legend="Equipos pendientes de asignar">
             <p:graphicImage value="#{root_img}estado_pendiente_revisar.png" height="100" width="100"/>
-
-            <h:form id="form_mantener">
-                <p:growl id="growl_mantener" for="growl_actualizacion" life="2000" showDetail="true"/>
-
-                <p:dataTable var="r" value="#{asignacionTrabajo.listaReservacion}" filteredValue="#{asignacionTrabajo.listaReservacionFiltrado}"
-                             emptyMessage="No se hallo reservacion" editable="true"  widgetVar="table"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rows="50"  paginator="true" rowsPerPageTemplate="10,20,50"  >
-
-                    <p:ajax event="rowEdit" listener="#{asignacionTrabajo.onRowEdit}" update=":form_mantener:growl_mantener" />
-                    <p:ajax event="rowEditCancel" listener="#{asignacionTrabajo.onRowCancel}" update=":form_mantener:growl_mantener" />
-
-                    <p:column headerText="Cliente">
-                        <p:outputLabel value="#{r.cliente.dnombre}" />
-                    </p:column>
-                    <p:column headerText="Celular">
-                        <p:outputLabel value="#{r.dcelular}" />
-                    </p:column>
-                    <p:column headerText="Lugar">
-                        <p:outputLabel value="#{ubigeo.descripcionDistrito(r.dubigeo)} - #{r.ddireccion}" />
-                    </p:column>
-                    <p:column headerText="Fecha">
-                        <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(r.ffecha)}" />
-                    </p:column>                
-                    <p:column headerText="Equipo">
-                        <p:outputLabel value="#{productoBean.descripcionCategoria(r.dcategoria_producto)} / #{productoBean.descripcionProducto(r.dproducto)}" />
-                    </p:column>
-                    <p:column headerText="Problema">
-                        <p:outputLabel value="#{r.dproblema}" />
-                    </p:column>
-                    <p:column headerText="Tecnico asignado">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <p:outputLabel value="#{asignacionTrabajo.descripcionUsuario(r.duserRevisor)}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:selectOneMenu value="#{r.duserRevisor}" required="true">
-                                    <f:selectItem itemLabel="Elija uno" itemValue=""  />
-                                    <f:selectItems value="#{asignacionTrabajo.siUsuario}" />
-                                </p:selectOneMenu>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="Editar" style="width:50px">
-                        <p:rowEditor />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
         </p:fieldset>
+
+        <h:form id="form_mantener">
+            <p:growl id="growl_mantener" for="growl_modificar" life="2000" showDetail="true"/>
+
+            <p:dataTable var="r" value="#{asignacionTrabajo.listaReservacion}" filteredValue="#{asignacionTrabajo.listaReservacionFiltrado}"
+                         emptyMessage="No se hallo reservacion" editable="true"  widgetVar="table"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="50"  paginator="true" rowsPerPageTemplate="10,20,50"  >
+
+                <p:ajax event="rowEdit" listener="#{asignacionTrabajo.onRowEdit}" update=":form_mantener:growl_mantener" />
+                <p:ajax event="rowEditCancel" listener="#{asignacionTrabajo.onRowCancel}" update=":form_mantener:growl_mantener" />
+
+                <p:column headerText="Cliente" style="width: 120px">
+                    <p:outputLabel value="#{r.cliente.dnombre}" />
+                </p:column>
+                <p:column headerText="Celular" style="width: 80px">
+                    <p:outputLabel value="#{r.dcelular}" />
+                </p:column>
+                <p:column headerText="Lugar">
+                    <p:outputLabel value="#{ubigeo.descripcionDistrito(r.dubigeo)}" /><br/>
+                    <p:outputLabel value="#{r.ddireccion}" />
+                </p:column>
+                <p:column headerText="Fecha" style="width: 125px">
+                    <p:outputLabel value="#{tablaTipoBean.formatoFechaHora2(r.ffecha)}" />
+                </p:column>                
+                <p:column headerText="Equipo">
+                    <p:outputLabel value="#{productoBean.descripcionCategoria(r.dcategoria_producto)} / #{productoBean.descripcionProducto(r.dproducto)}" />
+                </p:column>
+                <p:column headerText="Tecnico asignado" style="width: 150px">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{asignacionTrabajo.descripcionUsuario(r.duserRevisor)}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu value="#{r.duserRevisor}" required="true">
+                                <f:selectItem itemLabel="Elija uno" itemValue=""  />
+                                <f:selectItems value="#{asignacionTrabajo.siUsuario}" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Editar" style="width:50px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 
 </ui:composition>

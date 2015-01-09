@@ -31,6 +31,7 @@ import com.eidetech.model.domain.entity.Submenu;
 import com.eidetech.model.domain.entity.TablaTipo;
 import com.eidetech.model.domain.entity.UsuarioCliente;
 import com.eidetech.model.domain.entity.UsuarioPersonal;
+import com.eidetech.model.util.UtilCadena;
 import com.eidetech.model.util.UtilUsuario;
 import com.eidetech.model.util.validator.ValidatorCliente;
 import com.eidetech.model.util.validator.ValidatorConfiguracion;
@@ -312,12 +313,12 @@ public class SeguridadService implements ISeguridadService, Serializable {
         }
 
         Menu m = usuarioPersonal.getMenu();
-        
-        List<Permiso> lt=UtilUsuario.listaPermisosPersonal(m);
-        for(Permiso p:lt){
+
+        List<Permiso> lt = UtilUsuario.listaPermisosPersonal(m);
+        for (Permiso p : lt) {
             p.setBestado(false);
         }
-        
+
         for (Permiso p : nuevo_permisos) {
             Submenu s = UtilUsuario.obtenerSubmenu(m.getSubmenus(), p.getSubmenu());
             if (s == null) {
@@ -335,17 +336,17 @@ public class SeguridadService implements ISeguridadService, Serializable {
                     p.setBestado(true);
                     p.setSubmenu(s);
                     s.getPermisos().add(p);
-                }else{
+                } else {
                     pn.setBestado(true);
                 }
             }
         }
-        
+
         List<Permiso> l = UtilUsuario.listaPermisosPersonal(m);
 
         System.out.println(".--------nuevos permisos");
         for (Permiso p : l) {
-            System.out.println("permiso:" + p.getDurl()+"-submenu:"+p.getSubmenu().getDnombre()+",estado="+p.isBestado());
+            System.out.println("permiso:" + p.getDurl() + "-submenu:" + p.getSubmenu().getDnombre() + ",estado=" + p.isBestado());
         }
 
         if (menuPersonalDao.agregarMenuPersonal(m)) {
@@ -353,6 +354,23 @@ public class SeguridadService implements ISeguridadService, Serializable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean cambiarClaveUsuarioCliente(UsuarioCliente usuarioCliente, String clave_actual, String clave_nueva) {
+        if (!UtilCadena.cadenaValido(clave_actual)
+                || !UtilCadena.cadenaValido(clave_nueva)
+                || !ValidatorCliente.esClienteValido(usuarioCliente)
+                || !usuarioCliente.getDpassword().equals(clave_actual)) {
+            return false;
+        }
+        usuarioCliente.setDpassword(clave_nueva);
+        if (usuarioClienteDao.actualizarUsuarioCliente(usuarioCliente)) {
+            return true;
+        } else {
+            usuarioCliente.setDpassword(clave_actual);
+            return false;
+        }
     }
 
 }

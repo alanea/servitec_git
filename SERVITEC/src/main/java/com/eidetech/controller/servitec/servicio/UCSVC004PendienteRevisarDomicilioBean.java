@@ -58,7 +58,7 @@ public class UCSVC004PendienteRevisarDomicilioBean implements Serializable {
         }
         FacesContext.getCurrentInstance().addMessage("growl_actualizacion", msg);
         if (exito) {
-            String indexUsuario = "usuario_equipo_pendiente_domicilio.xhtml";
+            String indexUsuario = "usuario_servicio_equipo_pendiente_domicilio.xhtml";
             requestContext.addCallbackParam("view", indexUsuario);
             requestContext.addCallbackParam("estaRegistrado", true);
         } else {
@@ -78,7 +78,7 @@ public class UCSVC004PendienteRevisarDomicilioBean implements Serializable {
         }
         FacesContext.getCurrentInstance().addMessage("growl_actualizacion", msg);
         if (exito) {
-            String indexUsuario = "usuario_equipo_pendiente_domicilio.xhtml";
+            String indexUsuario = "usuario_servicio_equipo_pendiente_domicilio.xhtml";
             requestContext.addCallbackParam("view", indexUsuario);
             requestContext.addCallbackParam("estaRegistrado", true);
         } else {

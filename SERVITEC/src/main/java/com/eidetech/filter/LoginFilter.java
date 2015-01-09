@@ -86,13 +86,13 @@ public class LoginFilter implements Filter {
 
         //El recurso requiere protección, pero el usuario ya está logueado.
         if (bLoginPersonal) {
-//            if (protegerPersonal(loginPersonal.getUsuario(), url, urlStr)) {
+            if (protegerPersonal(loginPersonal.getUsuario(), url, urlStr)) {
                 chain.doFilter(request, response);
                 return;
-//            } else {
-//                res.sendRedirect(req.getContextPath() + "/usuario.xhtml");
-//                return;
-//            }
+            } else {
+                res.sendRedirect(req.getContextPath() + "/usuario.xhtml");
+                return;
+            }
         }
         if (bLoginCliente) {
             if (protegerCliente(loginCliente.getUsuario(), url, urlStr)) {
@@ -133,17 +133,13 @@ public class LoginFilter implements Filter {
 
     private boolean noProteger(String url, String urlStr) {
 
-        /*
-         * Este es un buen lugar para colocar y programar todos los patrones que
-         * creamos convenientes para determinar cuales de los recursos no
-         * requieren protección. Sin duda que habría que crear un mecanizmo tal
-         * que se obtengan de un archivo de configuración o algo que no requiera
-         * compilación.
-         */
         if (urlStr.equals(url)) {
             return true;
         }
         if (urlStr.equals(url + "/")) {
+            return true;
+        }
+        if (urlStr.startsWith(url + "/index.xhtml")) {
             return true;
         }
         if (urlStr.startsWith(url + "/login.xhtml")) {
@@ -152,32 +148,30 @@ public class LoginFilter implements Filter {
         if (urlStr.startsWith(url + "/login_2.xhtml")) {
             return true;
         }
-        if (urlStr.startsWith(url + "/index.xhtml")) {
+        if (urlStr.startsWith(url + "/recuperar_clave.xhtml")) {
             return true;
         }
         if (urlStr.startsWith(url + "/registro.xhtml")) {
             return true;
         }
-        if (urlStr.startsWith(url + "/acerca.xhtml")) {
-            return true;
-        }
-        if (urlStr.startsWith(url + "/productos.xhtml")) {
-            return true;
-        }
-        if (urlStr.startsWith(url + "/servicios.xhtml")) {
-            return true;
-        }
-        if (urlStr.indexOf("/javax.faces.resource/") != -1) {
-            return true;
-        }
-        if (urlStr.indexOf("/resources/") != -1) {
+        if(noProtegerRecursos(url, urlStr)){
             return true;
         }
         return false;
     }
 
     public boolean noProtegerRecursos(String url, String urlStr) {
-        if (urlStr.startsWith(url + "/file/")) {
+        
+        if (urlStr.startsWith(url + "/acerca.xhtml")) {
+            return true;
+        }
+        if (urlStr.startsWith(url + "/nosotros.xhtml")) {
+            return true;
+        }
+        if (urlStr.startsWith(url + "/productos.xhtml")) {
+            return true;
+        }
+        if (urlStr.startsWith(url + "/servicios.xhtml")) {
             return true;
         }
         if (urlStr.indexOf("/javax.faces.resource/") != -1) {

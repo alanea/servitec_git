@@ -40,21 +40,18 @@
                     </h:form>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="250" collapsible="false">
+                <p:layoutUnit position="west" size="250" header="#{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno} #{loginPersonal.usuario.personal.dapellidoMaterno}" collapsible="true">
                     <p:panel>
-                        <p:panel>
-                            <p:graphicImage width="150" value="#{root_img}usuario.png" />
-                            <p:outputLabel styleClass="texto_formateado1">#{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}</p:outputLabel>
-                        </p:panel>
-                        <p:menu model="#{loginPersonal.menuUsuarioPersonal}" style="width:200px" />
+                        <p:graphicImage width="150" value="#{root_img}usuario.png" />
                     </p:panel>
+                    <p:panelMenu model="#{loginPersonal.menuUsuarioPersonal}" />
                 </p:layoutUnit>
-                
-                
-                <p:layoutUnit position="south" size="40" resizable="false" closable="true" collapsible="true">
+
+
+                <p:layoutUnit position="south" size="45" resizable="false" closable="true" collapsible="true">
                     <h:panelGrid columns="3" style="width: 100%">
                         <p:outputLabel value="#{loginPersonal.usuario.sede.dnombre}" />
-                        <p:outputLabel value="#{loginPersonal.usuario.dname} - #{tablaTipoBean.descripcionTipoUsuario(loginPersonal.usuario.dtipo)} - #{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno}" />
+                        <p:outputLabel value="#{loginPersonal.usuario.id_usuario} - #{tablaTipoBean.descripcionTipoUsuario(loginPersonal.usuario.dtipo)} - #{loginPersonal.usuario.personal.dnombres} #{loginPersonal.usuario.personal.dapellidoPaterno} #{loginPersonal.usuario.personal.dapellidoMaterno}" />
                         <p:clock pattern="hh:mm:ss a dd/MM/yyyy" mode="client" />
                     </h:panelGrid>
                 </p:layoutUnit>

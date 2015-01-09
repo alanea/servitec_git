@@ -2,17 +2,17 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./WEB-INF/template/public.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        Nuestros productos
+        Nosotros
     </ui:define>
 
     <ui:define name="menu">
         <h:form>
-            <p:tabMenu activeIndex="3">
+            <p:tabMenu activeIndex="1">
                 <p:menuitem value="Inicio" url="#{root}index.xhtml" icon="ui-icon-home">
                     <f:param name="i" value="0" />
                 </p:menuitem>
@@ -33,7 +33,17 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:graphicImage value="#{root_img}no_disponible_02.jpg" />
+        <h2>Antecedentes</h2>
+        <h:panelGrid columns="1" style="width: 700px" styleClass="centrar">
+            <p:outputLabel value="La empresa distribuidora Eidetech SAC ubicada en la  fue fundada en el año 2010. Se dedica a la comercialización y distribución de accesorios de computadoras y smartphones de marca y a la prestación de servicio técnico para el mantenimiento y reparación de computadoras, laptops, tablets y smatrphones." />
+        </h:panelGrid>
+
+        <h2>Encuentranos</h2>
+        <h:panelGrid columns="1" style="width: 700px" styleClass="centrar">
+            <p:outputLabel value="Estamos ubicados en #{ubigeo.descripcionProvincia(indexBean.sede.dubigeo)}, #{ubigeo.descripcionDistrito(indexBean.sede.dubigeo)} - #{indexBean.sede.ddireccion}" />
+            <p:gmap center="41.381542, 2.122893" zoom="15" type="hybrid"
+                    style="width:600px;height:400px" model="#{indexBean.mapa}"/>
+        </h:panelGrid>        
     </ui:define>
 
 </ui:composition>

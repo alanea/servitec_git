@@ -19,6 +19,8 @@ public class UtilFecha {
 
     public static final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día
     public static String FORMATO_YYYY_MM_DD = "YYYY-MM-dd";
+    public static String FORMATO_DD_MM_YYYY = "dd/MM/YYYY";
+    public static String FORMATO_HH_MM = "HH:mm";
 
     public static boolean esValidoFecha(Date f) {
         return f != null;
@@ -68,7 +70,7 @@ public class UtilFecha {
         }
         return (int) d;
     }
-    
+
     public static Date agregarNhorasFecha(Date d, int horas) {
         if (esValidoFecha(d)) {
             Calendar calendar = Calendar.getInstance();
@@ -191,7 +193,7 @@ public class UtilFecha {
     public static String formatoFechaHora(Date fecha) {
         if (UtilFecha.esValidoFecha(fecha)) {
             DateFormat df1 = DateFormat.getDateInstance(DateFormat.LONG);
-            SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat sdf1 = new SimpleDateFormat(FORMATO_HH_MM);
             return df1.format(fecha) + " " + sdf1.format(fecha);
         }
         return "";
@@ -199,10 +201,17 @@ public class UtilFecha {
 
     public static String formatoFecha(Date fecha, String formato) {
         if (esValidoFecha(fecha)) {
-            if (formato.equals(FORMATO_YYYY_MM_DD)) {
-                SimpleDateFormat sdf = new SimpleDateFormat(formato);
-                return sdf.format(fecha);
-            }
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+            return sdf.format(fecha);
+        }
+        return "";
+    }
+
+    public static String formatoFechaHora(Date fecha, String formato) {
+        if (esValidoFecha(fecha)) {
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+            SimpleDateFormat sdf1 = new SimpleDateFormat(FORMATO_HH_MM);
+            return sdf.format(fecha) + " " + sdf1.format(fecha);
         }
         return "";
     }

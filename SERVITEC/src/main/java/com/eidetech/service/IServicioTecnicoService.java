@@ -7,6 +7,7 @@ package com.eidetech.service;
 
 import com.eidetech.model.domain.ParametroReporte;
 import com.eidetech.model.domain.Reporte;
+import com.eidetech.model.domain.entity.HistorialProductoCliente;
 import com.eidetech.model.domain.entity.Reservacion;
 import com.eidetech.model.domain.entity.UsuarioCliente;
 import com.eidetech.model.domain.entity.UsuarioPersonal;
@@ -23,7 +24,7 @@ public interface IServicioTecnicoService {
     public List<Reservacion> listaPendienteRevisarDomicilio(UsuarioPersonal usuarioPersonal);
 
     public List<Reservacion> listaPendienteRevisar();
-    
+
     public List<Reservacion> listaPendienteRevisar(UsuarioPersonal usuarioPersonal);
 
     public List<Reservacion> listaPendienteReparar(UsuarioPersonal usuarioPersonal);
@@ -43,4 +44,8 @@ public interface IServicioTecnicoService {
     public Reporte reporteUsuarioClienteAnual(ParametroReporte parametroReporte);
 
     public boolean registrarAsignacion(Reservacion reservacion);
+
+    public boolean registrarEquipoNoReparado(UsuarioPersonal usuarioPersonal, Reservacion reservacion);
+
+    public boolean registrarEquipoReparado(UsuarioPersonal usuarioPersonal, Reservacion reservacion, HistorialProductoCliente historialProductoCliente);
 }

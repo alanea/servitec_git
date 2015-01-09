@@ -23,7 +23,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "mostrarEstado")
 @ViewScoped
-public class UCSVC002MostrarEstadoBean implements Serializable {
+public class UCCLI002MostrarEstadoBean implements Serializable {
 
     private List<Reservacion> listaPendienteRevisar;
     private List<Reservacion> listaPendienteReparar;
@@ -35,7 +35,7 @@ public class UCSVC002MostrarEstadoBean implements Serializable {
     /**
      * Creates a new instance of UCSVC002MostrarEstadoBean
      */
-    public UCSVC002MostrarEstadoBean() {
+    public UCCLI002MostrarEstadoBean() {
     }
 
     @PostConstruct

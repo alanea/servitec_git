@@ -126,6 +126,18 @@ body{
     width:250px;
 }
 
+.icon_facebook{
+    background-image: url('../../resources/img/icono_facebook.png') !important;
+    height:32px;
+    width:32px;
+}
+
+.icon_twitter{
+    background-image: url('../../resources/img/logo_mini.jpg') !important;
+    height:32px;
+    width:32px;
+}
+
 .panel_formato_1{
     background-color: transparent;
 }

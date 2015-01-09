@@ -10,6 +10,7 @@ import com.eidetech.model.dao.IReservacionDao;
 import com.eidetech.model.dao.IUsuarioClienteDao;
 import com.eidetech.model.domain.ParametroReporte;
 import com.eidetech.model.domain.Reporte;
+import com.eidetech.model.domain.entity.HistorialProductoCliente;
 import com.eidetech.model.domain.entity.ProductoCliente;
 import com.eidetech.model.domain.entity.Reservacion;
 import com.eidetech.model.domain.entity.UsuarioCliente;
@@ -86,16 +87,6 @@ public class ServicioTecnicoService implements IServicioTecnicoService, Serializ
         r.setDestadoServicio(UtilServicio.TIPO_SERVICIO_PENDIENTE);
 
         return reservacionDao.obtenerListaReservacion(r);
-//        List<Reservacion> ltemp= reservacionDao.obtenerListaReservacion(r);
-//        List<Reservacion> l=new ArrayList();
-//        if(UtilLista.esValidaLista(ltemp)){
-//            for(Reservacion re: ltemp){
-//                if(!UtilCadena.cadenaValido(re.getDuserRevisor())){
-//                    l.add(re);
-//                }
-//            }
-//        }
-//        return l;
     }
 
     @Override
@@ -112,7 +103,7 @@ public class ServicioTecnicoService implements IServicioTecnicoService, Serializ
     public List<Reservacion> listaPendienteReparar(UsuarioPersonal usuarioPersonal) {
         Reservacion r = new Reservacion();
 
-        r.setDuserReparador(usuarioPersonal.getId_usuario());
+        r.setDuserRevisor(usuarioPersonal.getId_usuario());
         r.setDestadoReservacion(UtilServicio.TIPO_REPARACION_PENDIENTE_REPARAR);
         r.setDestadoServicio(UtilServicio.TIPO_SERVICIO_ACEPTADO);
 
@@ -186,6 +177,29 @@ public class ServicioTecnicoService implements IServicioTecnicoService, Serializ
     @Override
     public boolean registrarAsignacion(Reservacion reservacion) {
         return reservacionDao.actualizarReservacion(reservacion);
+    }
+
+    @Override
+    public boolean registrarEquipoNoReparado(UsuarioPersonal usuarioPersonal, Reservacion reservacion) {
+        reservacion.setFreparacion(new Date());
+        reservacion.setDestadoReservacion(UtilServicio.TIPO_REPARACION_NO_REPARADO);
+        return reservacionDao.actualizarReservacion(reservacion);
+    }
+
+    @Override
+    public boolean registrarEquipoReparado(UsuarioPersonal usuarioPersonal, Reservacion reservacion, HistorialProductoCliente historialProductoCliente) {
+        reservacion.setFreparacion(new Date());
+        reservacion.setDestadoReservacion(UtilServicio.TIPO_REPARACION_REPARADO);
+
+        ProductoCliente pc = productoClienteDao.obtenerProducto(reservacion);
+        historialProductoCliente.setProducto(pc);
+        historialProductoCliente.setDuserCreacion(usuarioPersonal.getId_usuario());
+        historialProductoCliente.setFuserCreacion(new Date());
+
+        if (productoClienteDao.agregarHistorialProducto(historialProductoCliente)) {
+            return reservacionDao.actualizarReservacion(reservacion);
+        }
+        return false;
     }
 
 }

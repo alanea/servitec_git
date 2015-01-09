@@ -15,6 +15,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -28,6 +32,7 @@ public class IndexBean implements Serializable {
     private List<Imagen> productos;
     private List<Imagen> servicios;
     private Sede sede;
+    private MapModel mapa = new DefaultMapModel();
 
     @ManagedProperty(value = "#{seguridadService}")
     ISeguridadService seguridadService;
@@ -36,6 +41,7 @@ public class IndexBean implements Serializable {
      * Creates a new instance of ImagenesBean
      */
     public IndexBean() {
+        mapa.addOverlay(new Marker(new LatLng(36.879466, 30.667648), "M1"));
     }
 
     @PostConstruct
@@ -135,6 +141,10 @@ public class IndexBean implements Serializable {
 
     public void setSede(Sede sede) {
         this.sede = sede;
+    }
+
+    public MapModel getMapa() {
+        return mapa;
     }
 
 }

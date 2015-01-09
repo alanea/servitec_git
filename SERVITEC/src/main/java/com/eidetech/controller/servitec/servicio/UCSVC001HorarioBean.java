@@ -34,6 +34,7 @@ import org.primefaces.model.ScheduleModel;
 @ViewScoped
 public class UCSVC001HorarioBean implements Serializable {
 
+    private boolean esnonulo;
     private ScheduleModel modeloEventos;
     private ScheduleEvent evento = new DefaultScheduleEvent();
     private Reservacion reservacion;
@@ -52,7 +53,7 @@ public class UCSVC001HorarioBean implements Serializable {
         modeloEventos = new DefaultScheduleModel();
         if (lista2 != null && !lista2.isEmpty()) {
             for (Reservacion r : lista2) {
-                DefaultScheduleEvent dse = new DefaultScheduleEvent("Pendiente revision", r.getFfecha(), UtilFecha.agregarNhorasFecha(r.getFfecha(), 1), true);
+                DefaultScheduleEvent dse = new DefaultScheduleEvent("Pendiente revision", r.getFfecha(), UtilFecha.agregarNhorasFecha(r.getFfecha(), 1));
                 dse.setData(r);
                 modeloEventos.addEvent(dse);
             }
@@ -72,17 +73,18 @@ public class UCSVC001HorarioBean implements Serializable {
     public void onEventSelect(SelectEvent selectEvent) {
         evento = (ScheduleEvent) selectEvent.getObject();
         reservacion = (Reservacion) evento.getData();
-        if (reservacion == null) {
-            reservacion = new Reservacion();
+        esnonulo=true;
+        if(reservacion==null){
+            esnonulo=false;
         }
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
         evento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
-
         reservacion = (Reservacion) evento.getData();
-        if (reservacion == null) {
-            reservacion = new Reservacion();
+        esnonulo=true;
+        if(reservacion==null){
+            esnonulo=false;
         }
     }
 
@@ -128,6 +130,14 @@ public class UCSVC001HorarioBean implements Serializable {
 
     public void setBeanUsuario(UCSYS001LoginPersonalBean beanUsuario) {
         this.beanUsuario = beanUsuario;
+    }
+
+    public boolean isEsnonulo() {
+        return esnonulo;
+    }
+
+    public void setEsnonulo(boolean esnonulo) {
+        this.esnonulo = esnonulo;
     }
 
 }

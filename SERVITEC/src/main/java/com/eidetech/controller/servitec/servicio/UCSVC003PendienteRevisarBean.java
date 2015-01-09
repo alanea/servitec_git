@@ -40,7 +40,7 @@ public class UCSVC003PendienteRevisarBean implements Serializable{
     
     @PostConstruct
     public void init() {
-        listaReservacion = beanUsuario.getServicioTecnicoService().listaPendienteRevisarDomicilio(beanUsuario.getUsuario());
+        listaReservacion = beanUsuario.getServicioTecnicoService().listaPendienteRevisar(beanUsuario.getUsuario());
         if (listaReservacion == null) {
             listaReservacion = new ArrayList();
         }
@@ -60,7 +60,7 @@ public class UCSVC003PendienteRevisarBean implements Serializable{
         }
         FacesContext.getCurrentInstance().addMessage("growl_actualizacion", msg);
         if (exito) {
-            String indexUsuario = "usuario_equipo_pendiente_revisar.xhtml";
+            String indexUsuario = "usuario_servicio_equipo_pendiente_revisar.xhtml";
             requestContext.addCallbackParam("view", indexUsuario);
             requestContext.addCallbackParam("estaRegistrado", true);
         } else {
@@ -82,7 +82,7 @@ public class UCSVC003PendienteRevisarBean implements Serializable{
         }
         FacesContext.getCurrentInstance().addMessage("growl_actualizacion", msg);
         if (exito) {
-            String indexUsuario = "usuario_equipo_pendiente_revisar.xhtml";
+            String indexUsuario = "usuario_servicio_equipo_pendiente_revisar.xhtml";
             requestContext.addCallbackParam("view", indexUsuario);
             requestContext.addCallbackParam("estaRegistrado", true);
         } else {

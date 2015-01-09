@@ -18,6 +18,7 @@
 
         <link rel="stylesheet" type="text/css" href="#{root_css}estilo.css"/>
         <script type="text/javascript" src="#{root_js}funciones.js"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title><ui:insert name="title">Bienvenido</ui:insert> - #{indexBean.sede.dnombre}</title>
     </h:head>
@@ -29,12 +30,18 @@
                 <h:panelGrid style="width: 300px">
                     <p:link href="index.xhtml"><p:graphicImage value="#{root_img}logo.jpg" width="312" height="50" /></p:link>                
                 </h:panelGrid>
-                <h:panelGrid columns="1">
-                    <h:panelGrid columns="1" style="width: 100%;" dir="RTL">
-                        <h:panelGrid columns="3" style="width: 100px;">
-                            <p:link value="Registrarse" outcome="registro"/>
-                            <p:outputLabel value="|" />
+                <h:panelGrid columns="1" style="width: 700px">
+                    <h:panelGrid columns="3" style="width: 100%;">
+                        <h:panelGrid columns="1" style="width: 500px">
+                            <p:outputLabel value="" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="3" rendered="#{!loginCliente.logeado}">
                             <p:link value="Login" outcome="login" />
+                            <p:outputLabel value="|" />
+                            <p:link value="Registrarse" outcome="registro"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:link href="#{indexBean.sede.dfacebook}"  styleClass="ui-icon icon_facebook" style="float:left;margin-right:10px" />
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid columns="1">
@@ -44,14 +51,17 @@
                                     <p:menuitem value="Inicio" url="#{root}index.xhtml" icon="ui-icon-home">
                                         <f:param name="i" value="0" />
                                     </p:menuitem>
-                                    <p:menuitem value="Servicio Tecnico" url="#{root}servicios.xhtml">
+                                    <p:menuitem value="Nosotros" url="#{root}nosotros.xhtml">
                                         <f:param name="i" value="1" />
                                     </p:menuitem>
-                                    <p:menuitem value="Productos" url="#{root}productos.xhtml">
+                                    <p:menuitem value="Servicios" url="#{root}servicios.xhtml">
                                         <f:param name="i" value="2" />
                                     </p:menuitem>
-                                    <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
+                                    <p:menuitem value="Productos" url="#{root}productos.xhtml">
                                         <f:param name="i" value="3" />
+                                    </p:menuitem>
+                                    <p:menuitem value="Acerca de" url="#{root}acerca.xhtml">
+                                        <f:param name="i" value="4" />
                                     </p:menuitem>
                                 </p:tabMenu>
                             </h:form>
@@ -70,34 +80,28 @@
         </h:panelGrid>          
 
         <h:panelGrid style="background-color: #9370DB;width: 100%" styleClass="centrar">
-            <h:panelGrid columns="3" style="width: 1000px" styleClass="centrar" columnClasses="alinear_top,alinear_top" >
+            <h:panelGrid columns="3" style="width: 1000px" styleClass="centrar" columnClasses="alinear_top,alinear_top,alinear_top" >
                 <p:outputLabel>Nosotros</p:outputLabel>
                 <p:outputLabel>Productos</p:outputLabel>
                 <p:outputLabel>Servicios</p:outputLabel>
-                
+
                 <h:panelGrid columns="1" style="background-color: transparent;width: 325px">                    
                     <p:link outcome="index" value="Inicio" style="display:inline-block"/>
-                    <p:link outcome="acerca" value="Nosotros" style="display:inline-block"/>
+                    <p:link outcome="nosotros" value="Nosotros" style="display:inline-block"/>
+                    <p:link outcome="acerca" value="Mision" style="display:inline-block"/>
+                    <p:link outcome="acerca" value="Vision" style="display:inline-block"/>
                 </h:panelGrid>
 
-                <h:panelGrid columns="2" style="background-color: transparent;width: 325px">                    
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                <h:panelGrid columns="1" style="background-color: transparent;width: 325px">                    
                     <p:link outcome="productos" value="Sonido y música" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="PC y laptop" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="Smatphones" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="productos" value="Wifi y bluetooth" style="display:inline-block"/>
-
                 </h:panelGrid>
 
-                <h:panelGrid columns="2" style="background-color: transparent;width: 325px">                    
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
+                <h:panelGrid columns="1" style="background-color: transparent;width: 325px">                    
                     <p:link outcome="servicios" value="Reparacion domiciliaria" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="servicios" value="Diagnostico preventivo" style="display:inline-block"/>
-                    <p:commandLink styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px" />
                     <p:link outcome="servicios" value="Reparacion" style="display:inline-block"/>
                 </h:panelGrid>
             </h:panelGrid>

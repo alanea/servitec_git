@@ -73,4 +73,6 @@ public interface ISeguridadService {
     public boolean modificarUsuarioCliente(UsuarioCliente usuarioCliente);
 
     public boolean modificarPermisoUsuarioPersonal(UsuarioPersonal usuarioPersonal, List<Permiso> nuevo_permisos);
+    
+    public boolean cambiarClaveUsuarioCliente(UsuarioCliente usuarioCliente,String clave_actual,String clave_nueva);
 }

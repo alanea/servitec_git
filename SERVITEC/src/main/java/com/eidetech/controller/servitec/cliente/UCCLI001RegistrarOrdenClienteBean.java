@@ -7,7 +7,6 @@ package com.eidetech.controller.servitec.cliente;
 
 import com.eidetech.controller.seguridad.UCSYS001LoginClienteBean;
 import com.eidetech.model.domain.entity.Reservacion;
-import com.eidetech.model.util.UtilServicio;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,7 +22,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "registrarOrdenCliente")
 @ViewScoped
-public class UCSVC001RegistrarOrdenClienteBean implements Serializable {
+public class UCCLI001RegistrarOrdenClienteBean implements Serializable {
 
     private Reservacion reservacion;
     private String ubigeo_departamento;
@@ -34,8 +33,10 @@ public class UCSVC001RegistrarOrdenClienteBean implements Serializable {
     /**
      * Creates a new instance of UCSVC001RegistrarOrdenClienteBean
      */
-    public UCSVC001RegistrarOrdenClienteBean() {
+    public UCCLI001RegistrarOrdenClienteBean() {
         reservacion = new Reservacion();
+        reservacion.setDmarca("");
+        reservacion.setDmodelo("");
         reservacion.setDubigeo("140101");
         ubigeo_departamento = "14";
         ubigeo_provincia = "1401";
