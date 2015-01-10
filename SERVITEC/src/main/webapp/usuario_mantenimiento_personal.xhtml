@@ -7,87 +7,90 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        Mantenimiento de personal
+        Mantenimiento de PERSONAL ADMINISTRATIVO
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Mantenimiento de personal">
+        <p:panel header="Mantenimiento de PERSONAL ADMINISTRATIVO">
             <h:form>                
                 <p:hotkey bind="ctrl+shift+1" handler="PF('dlg_agregar').show();" />                
                 <p:commandButton value="Agregar personal [Ctrl+Shift+1]" style="width: 200px" 
                                  onclick="PF('dlg_agregar').show();" icon="icono_agregar_01" />
             </h:form>
+        </p:panel>
 
-            <h:form id="form_mantener">
-                <p:growl id="growl_mantener" for="growl_mantener" showDetail="true"/> 
-                <p:dataTable var="per" value="#{mantenerPersonal.personas}" filteredValue="#{mantenerPersonal.personasFiltradas}" 
-                             emptyMessage="No se hallo personal" editable="true"  widgetVar="table"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rows="10"  paginator="true" rowsPerPageTemplate="5,10,15">
+        <h:form id="form_mantener">
+            <p:growl id="growl_mantener" for="growl_mantener" showDetail="true"/> 
+            <p:dataTable var="per" value="#{mantenerPersonal.personas}" filteredValue="#{mantenerPersonal.personasFiltradas}" 
+                         emptyMessage="No se hallo personal" editable="true"  widgetVar="table"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="10"  paginator="true" rowsPerPageTemplate="5,10,15">
 
-                    <p:column headerText="ID" filterBy="#{per.id_personal}"  filterMatchMode="contains">           
-                        <p:outputLabel value="#{per.id_personal}" />
-                    </p:column>     
+                <p:column headerText="ID" filterBy="#{per.id_personal}" filterMatchMode="contains" style="width: 100px">
+                    <p:outputLabel value="#{per.id_personal}" />
+                </p:column>     
 
-                    <p:column headerText="DNI" filterBy="#{per.ddni}"  filterMatchMode="contains">           
-                        <p:outputLabel value="#{per.ddni}" />
-                    </p:column>
+                <p:column headerText="DNI" filterBy="#{per.ddni}"  filterMatchMode="contains" style="width: 100px">           
+                    <p:outputLabel value="#{per.ddni}" />
+                </p:column>
 
-                    <p:column headerText="Apellido paterno" filterBy="#{per.dapellidoPaterno}"  filterMatchMode="contains">           
-                        <p:outputLabel value="#{per.dapellidoPaterno}" />
-                    </p:column>
+                <p:column headerText="Apellido paterno" filterBy="#{per.dapellidoPaterno}"  filterMatchMode="contains">           
+                    <p:outputLabel value="#{per.dapellidoPaterno}" />
+                </p:column>
 
-                    <p:column headerText="Apellido materno" filterBy="#{per.dapellidoMaterno}"  filterMatchMode="contains">           
-                        <p:outputLabel value="#{per.dapellidoMaterno}" />
-                    </p:column>
+                <p:column headerText="Apellido materno" filterBy="#{per.dapellidoMaterno}"  filterMatchMode="contains">           
+                    <p:outputLabel value="#{per.dapellidoMaterno}" />
+                </p:column>
 
-                    <p:column headerText="Nombres" filterBy="#{per.dnombres}"  filterMatchMode="contains">           
-                        <p:outputLabel value="#{per.dnombres}" />
-                    </p:column>
+                <p:column headerText="Nombres" filterBy="#{per.dnombres}"  filterMatchMode="contains">           
+                    <p:outputLabel value="#{per.dnombres}" />
+                </p:column>
 
-                    <p:column headerText="RUC" filterBy="#{per.druc}"  filterMatchMode="contains">           
-                        <p:outputLabel value="#{per.druc}" />
-                    </p:column>
-                    
-                    <p:column headerText="Cargo" filterBy="#{per.dcargo}" filterMatchMode="exact">
-                        <f:facet name="filter">
-                            <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
-                                <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                <p:column headerText="RUC" filterBy="#{per.druc}"  filterMatchMode="contains" style="width: 100px">           
+                    <p:outputLabel value="#{per.druc}" />
+                </p:column>
+
+                <p:column headerText="Cargo" filterBy="#{per.dcargo}" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{tablaTipoBean.siCargo}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{tablaTipoBean.descripcionCargo(per.dcargo)}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu value="#{t.dtipo}" required="true">
                                 <f:selectItems value="#{tablaTipoBean.siCargo}" />
                             </p:selectOneMenu>
                         </f:facet>
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <p:outputLabel value="#{tablaTipoBean.descripcionCargo(per.dcargo)}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:selectOneMenu value="#{t.dtipo}" required="true">
-                                    <f:selectItems value="#{tablaTipoBean.siCargo}" />
-                                </p:selectOneMenu>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                    </p:cellEditor>
+                </p:column>
 
-                    <p:column headerText="Area" filterBy="#{per.darea}"  filterMatchMode="exact">           
-                        <f:facet name="filter">
-                            <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
-                                <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
-                                <f:selectItems value="#{tablaTipoBean.siAreaTrabajo}" />
-                            </p:selectOneMenu>
-                        </f:facet>  
-                        <p:outputLabel value="#{tablaTipoBean.descripcionAreaTrabajo(per.darea)}" />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-        </p:panel>
+                <p:column headerText="Area" filterBy="#{per.darea}"  filterMatchMode="exact">           
+                    <f:facet name="filter">
+                        <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{tablaTipoBean.siAreaTrabajo}" />
+                        </p:selectOneMenu>
+                    </f:facet>  
+                    <p:outputLabel value="#{tablaTipoBean.descripcionAreaTrabajo(per.darea)}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
 
         <p:dialog modal="true" appendTo="@(body)" widgetVar="dlg_agregar" position="top" resizable="true"
-                  header="Registro de nuevo usuario" closeOnEscape="true" width="1000" height="500">
+                  header="Registro de nuevo personal" closeOnEscape="true" width="1000" height="500">
             <h:form id="form_registrar" >
                 <p:growl id="growl_registro" for="growl_registro" showDetail="true" life="2000"/>
                 <p:panel id="panel_registro" styleClass="centrar">
                     <p:focus/>
-                    <h:panelGrid columns="4" styleClass="centrar" columnClasses="columna_formato_tres">                        
+                    <p:watermark for="fecha_nacimiento" value="dd-MM-yyyy" />
+                    <p:watermark for="fecha_ingreso" value="dd-MM-yyyy" />
+                    <p:watermark for="fecha_cese" value="dd-MM-yyyy" />
+                    <h:panelGrid columns="4" styleClass="centrar">
                         <p:outputLabel for="dni" value="DNI:" styleClass="texto_formateado_01"/>
                         <p:outputLabel for="nombres" value="Nombres:" styleClass="texto_formateado_01" />
                         <p:outputLabel for="apellido_paterno" value="Apellido Paterno:" styleClass="texto_formateado_01"/>
@@ -109,14 +112,12 @@
                         <p:inputText id="apellido_paterno" value="#{registrarPersonal.personal.dapellidoPaterno}" onblur="this.value = this.value.toUpperCase();" 
                                      required="true" requiredMessage="Por favor ingrese su apellido"
                                      validatorMessage="Apellido invalido">
-                            <f:validateLength minimum="2" maximum="50" />                         
-                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                            <f:validateLength minimum="2" maximum="50" />
                         </p:inputText>
                         <p:inputText id="apellido_materno" value="#{registrarPersonal.personal.dapellidoMaterno}" onblur="this.value = this.value.toUpperCase();" 
                                      required="true" requiredMessage="Por favor ingrese su apellido"
                                      validatorMessage="Apellido invalido">
-                            <f:validateLength minimum="2" maximum="50" />                         
-                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                            <f:validateLength minimum="2" maximum="50" />
                         </p:inputText>        
 
                         <p:outputLabel for="ruc" value="RUC:" />
@@ -133,13 +134,13 @@
                                      mask="99999999999" required="false" requiredMessage="Por favor ingrese su RUC"
                                      validatorMessage="No es un codigo valido"/>
                         <p:calendar id="fecha_nacimiento" value="#{registrarPersonal.personal.fnacimiento}" 
-                                    locale="es" yearRange="1900:c" pattern="dd-MM-yyyy" mask="true" mode="popup" navigator="true" required="false"/>
-                        <p:selectOneMenu id="sexo" value="#{registrarPersonal.personal.dsexo}">                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                                    locale="es" yearRange="1900:c" pattern="dd-MM-yyyy" mask="true" mode="popup" navigator="true" required="true"/>
+                        <p:selectOneMenu id="sexo" value="#{registrarPersonal.personal.dsexo}" styleClass="selectonemenu_02">                                        
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siGenero}" />
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="ec" value="#{registrarPersonal.personal.destadoCivil}">                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="ec" value="#{registrarPersonal.personal.destadoCivil}" styleClass="selectonemenu_02">                                        
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siEstadoCivil}" />
                         </p:selectOneMenu>                 
 
@@ -153,18 +154,18 @@
                         <p:message for="distrito" display="both" />
                         <p:message for="direccion" display="text" /> 
 
-                        <p:selectOneMenu id="departamento" value="#{registrarPersonal.ubigeo_departamento}" required="true" >                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="departamento" value="#{registrarPersonal.ubigeo_departamento}" required="true"  styleClass="selectonemenu_02">
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{ubigeo.siDepartamentos}" />
                             <p:ajax event="change" update="provincia,distrito" listener="#{registrarPersonal.actualizarProvincias}"/>
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="provincia" value="#{registrarPersonal.ubigeo_provincia}" required="true" >                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="provincia" value="#{registrarPersonal.ubigeo_provincia}" required="true" styleClass="selectonemenu_02" >                                        
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{ubigeo.siProvincias(registrarPersonal.ubigeo_departamento)}" />
                             <p:ajax event="change" update="distrito" listener="#{registrarPersonal.actualizarDistritos}"/>
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="distrito" value="#{registrarPersonal.personal.dubigeo}" required="true" >
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="distrito" value="#{registrarPersonal.personal.dubigeo}" required="true" styleClass="selectonemenu_02" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{ubigeo.siDistritos(registrarPersonal.ubigeo_departamento,registrarPersonal.ubigeo_provincia)}" />
                         </p:selectOneMenu>
                         <p:inputText id="direccion" value="#{registrarPersonal.personal.ddireccion}" onblur="this.value = this.value.toUpperCase();" 
@@ -181,20 +182,20 @@
                         <p:message for="actividad" display="text" />
                         <p:message for="modalidad_contratacion" display="text" /> 
 
-                        <p:selectOneMenu id="cargo" value="#{registrarPersonal.personal.dcargo}">                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="cargo" value="#{registrarPersonal.personal.dcargo}" styleClass="selectonemenu_02" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siCargo}" />
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="area_trabajo" value="#{registrarPersonal.personal.darea}">                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="area_trabajo" value="#{registrarPersonal.personal.darea}" styleClass="selectonemenu_02">                                        
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siAreaTrabajo}" />
                         </p:selectOneMenu> 
-                        <p:selectOneMenu id="actividad" value="#{registrarPersonal.personal.destado}">                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="actividad" value="#{registrarPersonal.personal.destado}" styleClass="selectonemenu_02">                                        
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siEstadoRegistro}" />
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="modalidad_contratacion" value="#{registrarPersonal.personal.dmodalidadContratacion}">                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="modalidad_contratacion" value="#{registrarPersonal.personal.dmodalidadContratacion}" styleClass="selectonemenu_02">                                        
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siModalidadContratacion}" />
                         </p:selectOneMenu>
 
@@ -208,16 +209,16 @@
                         <p:message for="tipo_colegio" display="text" />                        
                         <p:message for="numero_colegio" display="text" />   
 
-                        <p:selectOneMenu id="grado_instruccion" value="#{registrarPersonal.personal.dgradoInstruccion}">
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="grado_instruccion" value="#{registrarPersonal.personal.dgradoInstruccion}" styleClass="selectonemenu_02">
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siGradoInstruccion}" />
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="profesion" value="#{registrarPersonal.personal.dprofesion}">                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="profesion" value="#{registrarPersonal.personal.dprofesion}" styleClass="selectonemenu_02">                                        
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siProfesion}" />
                         </p:selectOneMenu>
-                        <p:selectOneMenu id="tipo_colegio" value="#{registrarPersonal.personal.dtipoColegio}">                                        
-                            <f:selectItem itemLabel="--Seleccionar uno--" itemValue="" />
+                        <p:selectOneMenu id="tipo_colegio" value="#{registrarPersonal.personal.dtipoColegio}" styleClass="selectonemenu_02">                                        
+                            <f:selectItem itemLabel="Elija uno" itemValue="" />
                             <f:selectItems value="#{tablaTipoBean.siColegio}" />
                         </p:selectOneMenu>                        
                         <p:inputMask id="numero_colegio" value="#{registrarPersonal.personal.dnumColegio}" 
@@ -238,9 +239,9 @@
                                      mask="999999" required="false" requiredMessage="Por favor ingrese su RNE"
                                      validatorMessage="No es un codigo valido"/>                        
                         <p:calendar id="fecha_ingreso" value="#{registrarPersonal.personal.fnacimiento}" 
-                                    locale="es" yearRange="1900:c" pattern="dd-MM-yyyy" mask="true"  mode="popup" navigator="true" required="false"/>
+                                    locale="es" pattern="dd-MM-yyyy" mask="true"  mode="popup" navigator="true" required="false"/>
                         <p:calendar id="fecha_cese" value="#{registrarPersonal.personal.fnacimiento}" 
-                                    locale="es" yearRange="1900:c" pattern="dd-MM-yyyy" mask="true" mode="popup" navigator="true" required="false"/>
+                                    locale="es" pattern="dd-MM-yyyy" mask="true" mode="popup" navigator="true" required="false"/>
                         <p:inputText id="observacion" value="#{registrarPersonal.personal.dobservacion}" />
 
                         <p:outputLabel for="email" value="Correo Electronico:" styleClass="texto_formateado_01"/>

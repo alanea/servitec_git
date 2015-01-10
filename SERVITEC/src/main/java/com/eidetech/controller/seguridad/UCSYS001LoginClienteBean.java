@@ -51,7 +51,9 @@ public class UCSYS001LoginClienteBean implements Serializable{
         u.setDpassword(password);
         usuario = seguridadService.loginUsuarioCliente(u);
         if (usuario != null) {
-            logeado = true;
+            logeado = true;            
+            username = "";
+            password = "";
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", usuario.getDname());
         } else {
             logeado = false;

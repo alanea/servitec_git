@@ -10,6 +10,7 @@ import com.eidetech.model.dao.IUsuarioClienteDao;
 import com.eidetech.model.domain.entity.PermisoCliente;
 import com.eidetech.model.domain.entity.UsuarioCliente;
 import com.eidetech.model.util.UtilHibernate;
+import com.eidetech.model.util.UtilUsuario;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Formatter;
@@ -107,9 +108,10 @@ public class UsuarioClienteDao implements IUsuarioClienteDao, Serializable {
 
         try {
             session.getTransaction().begin();
-            Query q = session.createQuery("FROM UsuarioCliente u WHERE u.dname= :nombre AND u.dpassword= :clave");
+            Query q = session.createQuery("FROM UsuarioCliente u WHERE u.dname= :nombre AND u.dpassword= :clave AND u.destado= :estado");
             q.setParameter("nombre", usuarioCliente.getDname());
             q.setParameter("clave", usuarioCliente.getDpassword());
+            q.setParameter("estado",UtilUsuario.ESTADO_USUARIO_ACTIVADO);            
             e = (UsuarioCliente) q.uniqueResult();
         } catch (ConstraintViolationException he) {
             System.out.println("excepcion01: " + he);
@@ -130,7 +132,29 @@ public class UsuarioClienteDao implements IUsuarioClienteDao, Serializable {
 
     @Override
     public List<UsuarioCliente> obtenerListaUsuarioCliente() {
-        return UtilHibernate.obtenerListaEntidades(sessionFactory, UsuarioCliente.class);
+        List<UsuarioCliente> l = null;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.beginTransaction();
+            Query q = session.createQuery("FROM UsuarioCliente u ORDER BY u.id_usuario ASC");
+            
+            l = (List<UsuarioCliente>) q.list();
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return l;
     }
 
     @Override

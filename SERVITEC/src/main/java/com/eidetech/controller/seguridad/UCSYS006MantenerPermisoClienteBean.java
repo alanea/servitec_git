@@ -45,9 +45,9 @@ public class UCSYS006MantenerPermisoClienteBean implements Serializable {
         FacesMessage msg;
 
         if (beanUsuario.getSeguridadService().modificarConfiguracionPermisoCliente(e)) {
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizado", e.getDnombre());
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizado","Permiso "+ e.getDnombre());
         } else {
-            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No actualizado", e.getDnombre());
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No actualizado","Permiso "+ e.getDnombre());
         }
 
         FacesContext.getCurrentInstance().addMessage("growl_modificar", msg);
@@ -55,7 +55,7 @@ public class UCSYS006MantenerPermisoClienteBean implements Serializable {
 
     public void onRowCancel(RowEditEvent event) {
         ConfiguracionPermisoCliente e = (ConfiguracionPermisoCliente) event.getObject();
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Edicion Cancelada", e.getDnombre());
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Edicion Cancelada","Permiso "+ e.getDnombre());
         FacesContext.getCurrentInstance().addMessage("growl_modificar", msg);
     }
 

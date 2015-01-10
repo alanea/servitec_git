@@ -364,6 +364,7 @@ public class SeguridadService implements ISeguridadService, Serializable {
                 || !usuarioCliente.getDpassword().equals(clave_actual)) {
             return false;
         }
+        usuarioCliente.setFuserModificacion(new Date());
         usuarioCliente.setDpassword(clave_nueva);
         if (usuarioClienteDao.actualizarUsuarioCliente(usuarioCliente)) {
             return true;

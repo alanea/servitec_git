@@ -33,7 +33,7 @@ public class UbigeoDepartamento implements Serializable {
     private String dcodigo;
     @Column(name = "dnm_dep")
     private String dnombre;
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "departamento")
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "departamento")
     private Set<UbigeoProvincia> provincias;
     @Transient
     private List<UbigeoProvincia> listaProvincias;
@@ -79,6 +79,7 @@ public class UbigeoDepartamento implements Serializable {
         if(listaProvincias==null ||listaProvincias.isEmpty()){
             listaProvincias=new ArrayList();
             listaProvincias.addAll(provincias);
+            System.out.println("era nulo la lista de provincias");
         }
         return listaProvincias;
     }

@@ -20,6 +20,12 @@ body{
     border: none !important;
 }
 
+.ui-selectonemenu{
+    width: 95% !important;
+}
+.ui-selectonemenu-label{
+    width: 95% !important;
+}
 
 
 */
@@ -36,18 +42,17 @@ body{
     width: 100% !important;
 }
 
-.ui-selectonemenu{
-    width: 95% !important;
-}
-.ui-selectonemenu-label{
-    width: 95% !important;
+.selectonemenu_01{
+    width: 182px !important;
 }
 
+.selectonemenu_02{
+    width: 204px !important;
+}
 
 .ui-layout-north .ui-layout-unit-content {
     overflow:visible !important;
 }
-
 
 .centrar{
     margin-left:auto;
@@ -104,6 +109,9 @@ body{
     font-size: 14px;
 }
 
+.columna_formato_cuatro{
+    width:25% !important;
+}
 .columna_formato_tres{
     width:33%;    
 }

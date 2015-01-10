@@ -10,7 +10,12 @@ import com.eidetech.model.domain.entity.Cliente;
 import com.eidetech.model.util.UtilHibernate;
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.TransactionException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 /**
@@ -40,6 +45,28 @@ public class ClienteDao implements IClienteDao, Serializable {
 
     @Override
     public List<Cliente> obtenerListaCliente() {
-    return UtilHibernate.obtenerListaEntidades(sessionFactory, Cliente.class);
+        List<Cliente> l = null;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.beginTransaction();
+            Query q = session.createQuery("FROM Cliente u ORDER BY u.id_cliente ASC");
+            
+            l = (List<Cliente>) q.list();
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return l;
     }
 }

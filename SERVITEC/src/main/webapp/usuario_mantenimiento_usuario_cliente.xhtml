@@ -12,69 +12,69 @@
 
     <ui:define name="content">
         <p:panel header="Mantenimiento de los usuarios de los clientes">
-            
-            <h:form id="form_modificar">                
-                <p:growl id="growl_modificar" for="growl_modificar" showDetail="true" life="1000"  />
-                <p:dataTable var="t" value="#{mantenerUsuarioCliente.listaUsuarioCliente}"  filteredValue="#{mantenerUsuarioCliente.listaUsuarioClienteFiltrado}"
-                             emptyMessage="No se hallo elementos" editable="true"  widgetVar="table"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
 
-                    <p:ajax event="rowEdit" listener="#{mantenerUsuarioCliente.onRowEdit}" update=":form_modificar:growl_modificar" />
-                    <p:ajax event="rowEditCancel" listener="#{mantenerUsuarioCliente.onRowCancel}" update=":form_modificar:growl_modificar" />
+        </p:panel>
+        <h:form id="form_modificar">                
+            <p:growl id="growl_modificar" for="growl_modificar" showDetail="true" life="1000"  />
+            <p:dataTable var="t" value="#{mantenerUsuarioCliente.listaUsuarioCliente}"  filteredValue="#{mantenerUsuarioCliente.listaUsuarioClienteFiltrado}"
+                         emptyMessage="No se hallo elementos" editable="true"  widgetVar="table"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
 
-                    <p:column headerText="ID" filterBy="#{t.id_usuario}" filterMatchMode="contains" >
-                        <p:outputLabel value="#{t.id_usuario}" />
-                    </p:column>
+                <f:facet name="header">
+                    Hay #{mantenerUsuarioCliente.listaUsuarioCliente.size()} clientes registrados en el sistema
+                </f:facet>
 
-                    <p:column headerText="Username" filterBy="#{t.dname}" filterMatchMode="contains">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <p:outputLabel value="#{tablaTipoBean.datoRegistrado(t.dname)}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:inputText value="#{t.dname}" />
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                <p:ajax event="rowEdit" listener="#{mantenerUsuarioCliente.onRowEdit}" update=":form_modificar:growl_modificar" />
+                <p:ajax event="rowEditCancel" listener="#{mantenerUsuarioCliente.onRowCancel}" update=":form_modificar:growl_modificar" />
 
-                    <p:column headerText="Estado" filterBy="#{t.destado}" filterMatchMode="exact">
-                        <f:facet name="filter">
-                            <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
-                                <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                <p:column headerText="ID" filterBy="#{t.id_usuario}" filterMatchMode="contains" style="width: 100px" >
+                    <p:outputLabel value="#{t.id_usuario}" />
+                </p:column>
+
+                <p:column headerText="Username" filterBy="#{t.dname}" filterMatchMode="contains" style="width: 200px">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{tablaTipoBean.datoRegistrado(t.dname)}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{t.dname}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Estado" filterBy="#{t.destado}" filterMatchMode="exact" style="width: 100px">
+                    <f:facet name="filter">
+                        <p:selectOneMenu style="width: 200px" onchange="PF('table').filter()" >
+                            <f:selectItem itemLabel="Elija uno" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{tablaTipoBean.siEstadoUsuario}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:outputLabel value="#{tablaTipoBean.descripcionEstadoUsuario(t.destado)}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu value="#{t.destado}" required="true">
                                 <f:selectItems value="#{tablaTipoBean.siEstadoUsuario}" />
                             </p:selectOneMenu>
                         </f:facet>
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <p:outputLabel value="#{tablaTipoBean.descripcionEstadoUsuario(t.destado)}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:selectOneMenu value="#{t.destado}" required="true">
-                                    <f:selectItems value="#{tablaTipoBean.siEstadoUsuario}" />
-                                </p:selectOneMenu>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                    </p:cellEditor>
+                </p:column>
 
-                    <p:column headerText="Fecha registro">
-                        <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(t.fuserCreacion)}" />
-                    </p:column>
+                <p:column headerText="Fecha registro" style="width: 125px">
+                    <p:outputLabel value="#{tablaTipoBean.formatoFechaHora2(t.fuserCreacion)}" />
+                </p:column>
 
-                    <p:column headerText="Fecha modificacion">
-                        <p:outputLabel value="#{tablaTipoBean.formatoFechaHora(t.fuserModificacion)}" />
-                    </p:column>
+                <p:column headerText="Fecha modificacion" style="width: 125px">
+                    <p:outputLabel value="#{tablaTipoBean.formatoFechaHora2(t.fuserModificacion)}" />
+                </p:column>
 
-                    <p:column headerText="Usuario modificacion">
-                        <p:outputLabel value="#{t.duserModificacion}" />
-                    </p:column>
-
-                    <p:column headerText="Editar" style="width:50px">
-                        <p:rowEditor />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-        </p:panel>
+                <p:column headerText="Editar" style="width:50px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 
 </ui:composition>

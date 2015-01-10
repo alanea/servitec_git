@@ -120,39 +120,39 @@ public class CategoriaDao implements ICategoriaDao, Serializable {
 
     @Override
     public List<Categoria> obtenerTodoCategoria() {
-//        List<Categoria> l = null;
-//        Session session = sessionFactory.openSession();
-//
-//        try {
-//            session.getTransaction().begin();
-//            Query q = session.createQuery("FROM Categoria");
-//            l = (List<Categoria>) q.list();
-//            if (l != null && l.size() > 0) {
-//                for (Categoria e : l) {
-//                    Query q1 = session.createQuery("FROM Producto u WHERE u.categoria.id_categoria= :categoria_id");
-//                    q1.setParameter("categoria_id", e.getId_categoria());
-//                    List<Producto> l1 = (List<Producto>) q1.list();
-//
-//                    e.setProductos(new HashSet());
-//                    e.getProductos().addAll(l1);
-//                }
-//            }
-//        } catch (ConstraintViolationException he) {
-//            System.out.println("excepcion01: " + he);
-//            session.getTransaction().rollback();
-//        } catch (TransactionException he) {
-//            System.out.println("excepcion02: " + he);
-//            session.getTransaction().rollback();
-//        } catch (HibernateException he) {
-//            System.out.println("excepcion03: " + he);
-//            session.getTransaction().rollback();
-//        } finally {
-//            session.getTransaction().commit();
-//            session.close();
-//        }
-//
-//        return l;
-        return UtilHibernate.obtenerListaEntidades(sessionFactory, Categoria.class);
+        List<Categoria> l = null;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.getTransaction().begin();
+            Query q = session.createQuery("FROM Categoria c ORDER BY c.dnombre ASC");
+            l = (List<Categoria>) q.list();
+            if (l != null && l.size() > 0) {
+                for (Categoria e : l) {
+                    Query q1 = session.createQuery("FROM Producto u WHERE u.categoria.id_categoria= :categoria_id ORDER BY u.ddescripcion ASC");
+                    q1.setParameter("categoria_id", e.getId_categoria());
+                    List<Producto> l1 = (List<Producto>) q1.list();
+
+                    e.setProductos(new HashSet());
+                    e.getProductos().addAll(l1);
+                }
+            }
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return l;
+//        return UtilHibernate.obtenerListaEntidades(sessionFactory, Categoria.class);
     }
 
     private String idEspecialidad() {

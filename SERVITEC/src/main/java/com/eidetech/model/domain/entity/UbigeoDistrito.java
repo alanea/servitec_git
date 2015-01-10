@@ -30,7 +30,7 @@ public class UbigeoDistrito implements Serializable {
     @Column(name = "dnm_dist")
     private String dnombre;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_prov", referencedColumnName = "id_prov", nullable = false)
+    @JoinColumn(name = "id_prov", referencedColumnName = "id_prov")
     private UbigeoProvincia provincia;
 
     public String toString() {

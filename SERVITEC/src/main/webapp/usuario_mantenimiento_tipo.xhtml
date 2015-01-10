@@ -42,7 +42,7 @@
             <p:dataTable var="t" value="#{mantenerTablaTipo.tablasTipo}"  filteredValue="#{mantenerTablaTipo.tablasTipoFiltradas}"
                          emptyMessage="No se hallo tabla con ese criterio" editable="true"  widgetVar="tablasTipoTable"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
+                         rows="50"  paginator="true" rowsPerPageTemplate="5,10,15,50">
                 <f:facet name="header">
                     <p:outputPanel>
                         <h:outputText value="Buscar en todas los tablas: " />

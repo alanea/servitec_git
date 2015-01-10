@@ -14,7 +14,7 @@
         
         <h:form>
             <p:growl id="growl_registro" for="growl_registro" showDetail="true" life="1000"  />
-            <p:panel id="panel_registro" header="Registrar permiso cliente" styleClass="centrar" >
+            <p:panel id="panel_registro" header="Registrar permiso CLIENTE" styleClass="centrar" >
                 <p:focus />
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:outputLabel for="permiso_nombre" value="Nombre:" />
@@ -25,7 +25,7 @@
                     <p:inputText id="permiso_url" value="#{registrarPermisoCliente.permisoCliente.durl}" size="50" required="true"/>
                     <p:message for="permiso_url" display="both" />
                 </h:panelGrid>
-                <p:commandButton value="Registrar" action="#{registrarPermisoCliente.registrarNuevoPermiso}" icon="ui-icon-check"
+                <p:commandButton value="Registrar permiso" action="#{registrarPermisoCliente.registrarNuevoPermiso}" icon="ui-icon-check"
                                  update="growl_registro,panel_registro" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
             </p:panel>
         </h:form>
@@ -37,22 +37,15 @@
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rows="15"  paginator="true" rowsPerPageTemplate="5,10,15">
 
+                <f:facet name="header">
+                    En total los clientes tienen #{mantenerPermisoCliente.listaPermiso.size()} permiso(s)
+                </f:facet>
+                
                 <p:ajax event="rowEdit" listener="#{mantenerPermisoCliente.onRowEdit}" update=":form_modificar:growl_modificar" />
                 <p:ajax event="rowEditCancel" listener="#{mantenerPermisoCliente.onRowCancel}" update=":form_modificar:growl_modificar" />
 
-                <p:column headerText="ID" filterBy="#{t.id_permiso}" filterMatchMode="contains" >
+                <p:column headerText="ID" filterBy="#{t.id_permiso}" filterMatchMode="contains" style="width: 100px" >
                     <p:outputLabel value="#{t.id_permiso}" />
-                </p:column>
-
-                <p:column headerText="Orden" filterBy="#{t.norden}" filterMatchMode="contains" >
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <p:outputLabel value="#{t.norden}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{t.norden}" />
-                        </f:facet>
-                    </p:cellEditor>
                 </p:column>
 
                 <p:column headerText="Nombre" filterBy="#{t.dnombre}" filterMatchMode="contains">

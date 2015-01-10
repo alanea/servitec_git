@@ -36,9 +36,9 @@ public class UbigeoProvincia implements Serializable {
     @Column(name = "dnm_prov")
     private String dnombre;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_dep", referencedColumnName = "id_dep", nullable = false)
+    @JoinColumn(name = "id_dep", referencedColumnName = "id_dep")
     private UbigeoDepartamento departamento;
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "provincia")
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "provincia")
     private Set<UbigeoDistrito> distritos;
     @Transient
     private List<UbigeoDistrito> listaDistritos;

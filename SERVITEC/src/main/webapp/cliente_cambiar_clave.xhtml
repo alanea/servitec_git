@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/template/public.xhtml"
+                template="./WEB-INF/template/cliente.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
 
@@ -11,29 +11,28 @@
 
     <ui:define name="content">
         <h:form>
-            <p:panel header="Cambiar contraseña">
-                <p:growl id="growl" for="growl_clave" sticky="true" showDetail="true" life="1000"/>
-                <p:panelGrid id="grid_cambiar" columns="3">
+            <p:panel header="Cambiar contraseña" style="width: 700px" styleClass="centrar">
+                <p:growl id="growl" for="growl_clave" showDetail="true" life="2000"/>
+                <h:panelGrid id="grid_cambiar" columns="3" cellpadding="5">
                     <p:outputLabel for="password_actual" value="Contraseña actual:" />
                     <p:password id="password_actual" value="#{cambiarClave.clave_actual}" feedback="true" 
-                                label="Password 1" required="true"/>
+                                label="Password 1" required="true" size="35"/>
                     <p:message for="password_actual" display="both" />
 
                     <p:outputLabel for="password_nuevo_1" value="Nueva contraseña:" />
                     <p:password id="password_nuevo_1" value="#{cambiarClave.clave_nueva}" feedback="true" 
-                                match="password_nuevo_2" label="Password 1" required="true"
+                                match="password_nuevo_2" label="Password 1" required="true" size="35"
                                 weakLabel="Inseguro" strongLabel="Seguro" goodLabel="Bueno" promptLabel="Ingrese una contraseña"/>
                     <p:message for="password_nuevo_1" display="both" />
 
                     <p:outputLabel for="password_nuevo_2" value="Repita su nueva contraseña:" />
-                    <p:password id="password_nuevo_2" value="#{cambiarClave.clave_nueva}" feedback="false" 
+                    <p:password id="password_nuevo_2" value="#{cambiarClave.clave_nueva}" feedback="false"  size="35"
                                 label="Password 2" required="true" promptLabel="Ingrese una contraseña"/>
                     <p:message for="password_nuevo_2" display="both" />
-                </p:panelGrid>
+                </h:panelGrid>
                 <h:panelGrid columns="2" style="width: 300px" styleClass="centrar">
                     <p:commandButton value="Guardar" action="#{cambiarClave.cambiarClave}" icon="ui-icon-check" 
                                      update="grid_cambiar,growl" oncomplete="javascript: manejarRegistro(xhr, status, args)"/>
-                    <p:button value="Cancelar" outcome="user.xhtml" icon="ui-icon-cancel" />
                 </h:panelGrid>
             </p:panel>
         </h:form>

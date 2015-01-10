@@ -193,7 +193,7 @@ public class UsuarioPersonalDao implements IUsuarioPersonalDao, Serializable {
 
         try {
             session.beginTransaction();
-            Query q = session.createQuery("FROM UsuarioPersonal u WHERE u.sede.id_sede= :sede_id");
+            Query q = session.createQuery("FROM UsuarioPersonal u WHERE u.sede.id_sede= :sede_id ORDER BY u.id_usuario ASC");
             q.setParameter("sede_id", sede.getId_sede());
 
             l = (List<UsuarioPersonal>) q.list();

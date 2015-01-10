@@ -19,18 +19,18 @@ import java.util.Set;
  *
  * @author laptop-w8
  */
-public class UtilLista{
+public class UtilLista {
 
-    public static boolean esValidaLista(List l) {
+    public static <T> boolean esValidaLista(List<T> l) {
         if (l != null) {
             return !l.isEmpty();
         }
         return false;
     }
-    
-    public static boolean esValidoConjunto(Set l) {
-        if (l != null) {
-            return !l.isEmpty();
+
+    public static <T> boolean esValidoConjunto(Set<T> s) {
+        if (s != null) {
+            return !s.isEmpty();
         }
         return false;
     }

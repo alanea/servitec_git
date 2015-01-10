@@ -41,6 +41,7 @@ public class IndexBean implements Serializable {
      * Creates a new instance of ImagenesBean
      */
     public IndexBean() {
+        
         mapa.addOverlay(new Marker(new LatLng(36.879466, 30.667648), "M1"));
     }
 

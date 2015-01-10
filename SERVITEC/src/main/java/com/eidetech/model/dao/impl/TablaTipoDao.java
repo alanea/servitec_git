@@ -100,7 +100,7 @@ public class TablaTipoDao implements ITablaTipoDao, Serializable {
                 }
 
                 n = n + 1;
-                tipo.setDtipo(""+n);
+                tipo.setDtipo("" + n);
             }
 
             tipo.setId_tabla(n1);
@@ -136,7 +136,28 @@ public class TablaTipoDao implements ITablaTipoDao, Serializable {
 
     @Override
     public List<TablaTipo> obtenerTodoTablaTipo() {
-        return UtilHibernate.obtenerListaEntidades(sessionFactory, TablaTipo.class);
+        List<TablaTipo> l = null;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.beginTransaction();
+            Query q = session.createQuery("FROM TablaTipo u ORDER BY u.ddescripcion ASC");
+            l = (List<TablaTipo>) q.list();
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return l;
     }
 
 }

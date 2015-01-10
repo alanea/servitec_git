@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Formatter;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.TransactionException;
@@ -47,7 +48,29 @@ public class PersonalDao implements IPersonalDao, Serializable {
 
     @Override
     public List<Personal> obtenerTodoPersonal() {
-        return UtilHibernate.obtenerListaEntidades(sessionFactory, Personal.class);
+        List<Personal> l = null;
+        Session session = sessionFactory.openSession();
+
+        try {
+            session.beginTransaction();
+            Query q = session.createQuery("FROM Personal u ORDER BY u.id_personal ASC");
+            
+            l = (List<Personal>) q.list();
+        } catch (ConstraintViolationException he) {
+            System.out.println("excepcion01: " + he);
+            session.getTransaction().rollback();
+        } catch (TransactionException he) {
+            System.out.println("excepcion02: " + he);
+            session.getTransaction().rollback();
+        } catch (HibernateException he) {
+            System.out.println("excepcion03: " + he);
+            session.getTransaction().rollback();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+
+        return l;
     }
 
     private String idPersonal() {
